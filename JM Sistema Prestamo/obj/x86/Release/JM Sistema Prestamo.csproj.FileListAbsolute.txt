@@ -1,0 +1,17 @@
+C:\Users\Jelina\Documents\Visual Studio 2010\Projects\JM Sistema Prestamo\JM Sistema Prestamo\bin\Release\JM Sistema Prestamo.exe
+C:\Users\Jelina\Documents\Visual Studio 2010\Projects\JM Sistema Prestamo\JM Sistema Prestamo\bin\Release\JM Sistema Prestamo.pdb
+C:\Users\Jelina\Documents\Visual Studio 2010\Projects\JM Sistema Prestamo\JM Sistema Prestamo\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Users\Jelina\Documents\Visual Studio 2010\Projects\JM Sistema Prestamo\JM Sistema Prestamo\obj\x86\Release\JM_Sistema_Prestamo.ClienteBuscar.resources
+C:\Users\Jelina\Documents\Visual Studio 2010\Projects\JM Sistema Prestamo\JM Sistema Prestamo\obj\x86\Release\JM_Sistema_Prestamo.ClienteInfo.resources
+C:\Users\Jelina\Documents\Visual Studio 2010\Projects\JM Sistema Prestamo\JM Sistema Prestamo\obj\x86\Release\JM_Sistema_Prestamo.clientenuevoForm.resources
+C:\Users\Jelina\Documents\Visual Studio 2010\Projects\JM Sistema Prestamo\JM Sistema Prestamo\obj\x86\Release\JM_Sistema_Prestamo.Form1.resources
+C:\Users\Jelina\Documents\Visual Studio 2010\Projects\JM Sistema Prestamo\JM Sistema Prestamo\obj\x86\Release\JM_Sistema_Prestamo.ClienteLista.resources
+C:\Users\Jelina\Documents\Visual Studio 2010\Projects\JM Sistema Prestamo\JM Sistema Prestamo\obj\x86\Release\PrintableListView.PrintableListView.resources
+C:\Users\Jelina\Documents\Visual Studio 2010\Projects\JM Sistema Prestamo\JM Sistema Prestamo\obj\x86\Release\JM_Sistema_Prestamo.Properties.Resources.resources
+C:\Users\Jelina\Documents\Visual Studio 2010\Projects\JM Sistema Prestamo\JM Sistema Prestamo\obj\x86\Release\GenerateResource.read.1.tlog
+C:\Users\Jelina\Documents\Visual Studio 2010\Projects\JM Sistema Prestamo\JM Sistema Prestamo\obj\x86\Release\GenerateResource.write.1.tlog
+C:\Users\Jelina\Documents\Visual Studio 2010\Projects\JM Sistema Prestamo\JM Sistema Prestamo\obj\x86\Release\JM Sistema Prestamo.exe
+C:\Users\Jelina\Documents\Visual Studio 2010\Projects\JM Sistema Prestamo\JM Sistema Prestamo\obj\x86\Release\JM Sistema Prestamo.pdb
+C:\Users\Jelina\Documents\Visual Studio 2010\Projects\JM Sistema Prestamo\JM Sistema Prestamo\obj\x86\Release\JM_Sistema_Prestamo.IngresoMensual.resources
+C:\Users\Jelina\documents\visual studio 2010\Projects\JM Sistema Prestamo\JM Sistema Prestamo\obj\x86\Release\JM_Sistema_Prestamo.BuscarClienteMini.resources
+C:\Users\Jelina\documents\visual studio 2010\Projects\JM Sistema Prestamo\JM Sistema Prestamo\obj\x86\Release\JM_Sistema_Prestamo.PrestamoNuevo.resources

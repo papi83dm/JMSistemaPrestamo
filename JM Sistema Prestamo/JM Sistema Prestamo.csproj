@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4A6E3664-BC70-4675-8655-D08835D49D15}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>JM_Sistema_Prestamo</RootNamespace>
+    <AssemblyName>JM Sistema Prestamo</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Accounting.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddValue.cs" />
+    <Compile Include="BuscarClienteMini.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BuscarClienteMini.Designer.cs">
+      <DependentUpon>BuscarClienteMini.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Cliente.cs" />
+    <Compile Include="ClienteBuscar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClienteBuscar.Designer.cs">
+      <DependentUpon>ClienteBuscar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ClienteInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClienteInfo.Designer.cs">
+      <DependentUpon>ClienteInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clientenuevoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clientenuevoForm.Designer.cs">
+      <DependentUpon>clientenuevoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DBConnection.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ClienteLista.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClienteLista.Designer.cs">
+      <DependentUpon>ClienteLista.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IngresoMensual.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IngresoMensual.Designer.cs">
+      <DependentUpon>IngresoMensual.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PrestamoNuevo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PrestamoNuevo.Designer.cs">
+      <DependentUpon>PrestamoNuevo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PrintableListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="BuscarClienteMini.resx">
+      <DependentUpon>BuscarClienteMini.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClienteBuscar.resx">
+      <DependentUpon>ClienteBuscar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClienteInfo.resx">
+      <DependentUpon>ClienteInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clientenuevoForm.resx">
+      <DependentUpon>clientenuevoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ClienteLista.resx">
+      <DependentUpon>ClienteLista.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IngresoMensual.resx">
+      <DependentUpon>IngresoMensual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrestamoNuevo.resx">
+      <DependentUpon>PrestamoNuevo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrintableListView.resx">
+      <DependentUpon>PrintableListView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Accounting.ico" />
+    <Content Include="lbp.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

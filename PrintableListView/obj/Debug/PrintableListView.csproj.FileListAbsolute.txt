@@ -1,0 +1,8 @@
+C:\Users\Jelina\Downloads\PrintableListView_src\TestSolution\PrintableListView\bin\Debug\PrintableListView.dll
+C:\Users\Jelina\Downloads\PrintableListView_src\TestSolution\PrintableListView\bin\Debug\PrintableListView.pdb
+C:\Users\Jelina\Downloads\PrintableListView_src\TestSolution\PrintableListView\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\Jelina\Downloads\PrintableListView_src\TestSolution\PrintableListView\obj\Debug\PrintableListView.PrintableListView.resources
+C:\Users\Jelina\Downloads\PrintableListView_src\TestSolution\PrintableListView\obj\Debug\GenerateResource.read.1.tlog
+C:\Users\Jelina\Downloads\PrintableListView_src\TestSolution\PrintableListView\obj\Debug\GenerateResource.write.1.tlog
+C:\Users\Jelina\Downloads\PrintableListView_src\TestSolution\PrintableListView\obj\Debug\PrintableListView.dll
+C:\Users\Jelina\Downloads\PrintableListView_src\TestSolution\PrintableListView\obj\Debug\PrintableListView.pdb
