@@ -29,15 +29,17 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClienteInfo));
-            this.label1 = new System.Windows.Forms.Label();
-            this.codigotxt = new System.Windows.Forms.TextBox();
-            this.nombretxt = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.telefonotxt = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.direcciontxt = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.ciinfotp = new System.Windows.Forms.TabPage();
+            this.trabajodirtxt = new System.Windows.Forms.TextBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.telefono2txt = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.zonacb = new System.Windows.Forms.ComboBox();
+            this.trabajotxt = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.totallb = new System.Windows.Forms.Label();
             this.moralb = new System.Windows.Forms.Label();
@@ -49,9 +51,16 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.telefonotxt = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.direcciontxt = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.nombretxt = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.codigotxt = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.ciprestamotp = new System.Windows.Forms.TabPage();
+            this.cplistEx = new ListViewEx.ListViewEx();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.pformailb = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
@@ -79,65 +88,25 @@
             this.conceptodepagotxt = new System.Windows.Forms.TextBox();
             this.conceptodepagolb = new System.Windows.Forms.Label();
             this.cpgrabarbtn = new System.Windows.Forms.Button();
-            this.cpmoratxt = new System.Windows.Forms.TextBox();
-            this.cpmoralb = new System.Windows.Forms.Label();
-            this.cpinterestxt = new System.Windows.Forms.TextBox();
-            this.cpintereslb = new System.Windows.Forms.Label();
             this.cpcapitaltxt = new System.Windows.Forms.TextBox();
             this.cpcapitallb = new System.Windows.Forms.Label();
             this.prestamocb = new System.Windows.Forms.ComboBox();
-            this.clienteprestamo_list = new PrintableListView.PrintableListView();
             this.cihistoriatp = new System.Windows.Forms.TabPage();
             this.clientehistoriaprestamolist = new PrintableListView.PrintableListView();
+            this.cidescuento = new System.Windows.Forms.TabPage();
             this.pageSetupDialog1 = new System.Windows.Forms.PageSetupDialog();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
-            this.groupBox1.SuspendLayout();
+            this.button1 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
+            this.ciinfotp.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.ciprestamotp.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.cihistoriatp.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Navy;
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Cliente";
-            // 
-            // codigotxt
-            // 
-            this.codigotxt.Enabled = false;
-            this.codigotxt.Location = new System.Drawing.Point(15, 25);
-            this.codigotxt.Name = "codigotxt";
-            this.codigotxt.Size = new System.Drawing.Size(150, 20);
-            this.codigotxt.TabIndex = 1;
-            // 
-            // nombretxt
-            // 
-            this.nombretxt.Enabled = false;
-            this.nombretxt.Location = new System.Drawing.Point(15, 64);
-            this.nombretxt.Name = "nombretxt";
-            this.nombretxt.Size = new System.Drawing.Size(250, 20);
-            this.nombretxt.TabIndex = 3;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.Navy;
-            this.label2.Location = new System.Drawing.Point(12, 48);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(50, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Nombre";
             // 
             // label3
             // 
@@ -150,41 +119,119 @@
             this.label3.TabIndex = 4;
             this.label3.Text = "Prestamo";
             // 
-            // telefonotxt
+            // tabControl1
             // 
-            this.telefonotxt.Location = new System.Drawing.Point(15, 142);
-            this.telefonotxt.Name = "telefonotxt";
-            this.telefonotxt.Size = new System.Drawing.Size(100, 20);
-            this.telefonotxt.TabIndex = 9;
+            this.tabControl1.Controls.Add(this.ciinfotp);
+            this.tabControl1.Controls.Add(this.ciprestamotp);
+            this.tabControl1.Controls.Add(this.cihistoriatp);
+            this.tabControl1.Controls.Add(this.cidescuento);
+            this.tabControl1.Location = new System.Drawing.Point(12, 22);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(770, 537);
+            this.tabControl1.TabIndex = 17;
             // 
-            // label5
+            // ciinfotp
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.Navy;
-            this.label5.Location = new System.Drawing.Point(12, 126);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(57, 13);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "Telefono";
+            this.ciinfotp.Controls.Add(this.button1);
+            this.ciinfotp.Controls.Add(this.trabajodirtxt);
+            this.ciinfotp.Controls.Add(this.label25);
+            this.ciinfotp.Controls.Add(this.telefono2txt);
+            this.ciinfotp.Controls.Add(this.label23);
+            this.ciinfotp.Controls.Add(this.label21);
+            this.ciinfotp.Controls.Add(this.zonacb);
+            this.ciinfotp.Controls.Add(this.trabajotxt);
+            this.ciinfotp.Controls.Add(this.label4);
+            this.ciinfotp.Controls.Add(this.groupBox1);
+            this.ciinfotp.Controls.Add(this.telefonotxt);
+            this.ciinfotp.Controls.Add(this.label5);
+            this.ciinfotp.Controls.Add(this.direcciontxt);
+            this.ciinfotp.Controls.Add(this.label6);
+            this.ciinfotp.Controls.Add(this.nombretxt);
+            this.ciinfotp.Controls.Add(this.label2);
+            this.ciinfotp.Controls.Add(this.codigotxt);
+            this.ciinfotp.Controls.Add(this.label1);
+            this.ciinfotp.Location = new System.Drawing.Point(4, 22);
+            this.ciinfotp.Name = "ciinfotp";
+            this.ciinfotp.Padding = new System.Windows.Forms.Padding(3);
+            this.ciinfotp.Size = new System.Drawing.Size(762, 511);
+            this.ciinfotp.TabIndex = 2;
+            this.ciinfotp.Text = "Informacion";
+            this.ciinfotp.UseVisualStyleBackColor = true;
             // 
-            // direcciontxt
+            // trabajodirtxt
             // 
-            this.direcciontxt.Location = new System.Drawing.Point(15, 103);
-            this.direcciontxt.Name = "direcciontxt";
-            this.direcciontxt.Size = new System.Drawing.Size(250, 20);
-            this.direcciontxt.TabIndex = 7;
+            this.trabajodirtxt.Location = new System.Drawing.Point(158, 98);
+            this.trabajodirtxt.Name = "trabajodirtxt";
+            this.trabajodirtxt.Size = new System.Drawing.Size(360, 20);
+            this.trabajodirtxt.TabIndex = 32;
             // 
-            // label6
+            // label25
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.Navy;
-            this.label6.Location = new System.Drawing.Point(12, 87);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(61, 13);
-            this.label6.TabIndex = 6;
-            this.label6.Text = "Direccion";
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.ForeColor = System.Drawing.Color.Navy;
+            this.label25.Location = new System.Drawing.Point(155, 83);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(123, 13);
+            this.label25.TabIndex = 31;
+            this.label25.Text = "Dirrecion de Trabajo";
+            // 
+            // telefono2txt
+            // 
+            this.telefono2txt.Location = new System.Drawing.Point(9, 98);
+            this.telefono2txt.Name = "telefono2txt";
+            this.telefono2txt.Size = new System.Drawing.Size(134, 20);
+            this.telefono2txt.TabIndex = 30;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.ForeColor = System.Drawing.Color.Navy;
+            this.label23.Location = new System.Drawing.Point(6, 83);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(104, 13);
+            this.label23.TabIndex = 29;
+            this.label23.Text = "Telefono Trabajo";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.ForeColor = System.Drawing.Color.Navy;
+            this.label21.Location = new System.Drawing.Point(570, 5);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(36, 13);
+            this.label21.TabIndex = 28;
+            this.label21.Text = "Zona";
+            // 
+            // zonacb
+            // 
+            this.zonacb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.zonacb.FormattingEnabled = true;
+            this.zonacb.Location = new System.Drawing.Point(566, 19);
+            this.zonacb.Name = "zonacb";
+            this.zonacb.Size = new System.Drawing.Size(121, 21);
+            this.zonacb.TabIndex = 27;
+            // 
+            // trabajotxt
+            // 
+            this.trabajotxt.Location = new System.Drawing.Point(268, 60);
+            this.trabajotxt.Name = "trabajotxt";
+            this.trabajotxt.Size = new System.Drawing.Size(250, 20);
+            this.trabajotxt.TabIndex = 24;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Navy;
+            this.label4.Location = new System.Drawing.Point(265, 45);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(104, 13);
+            this.label4.TabIndex = 23;
+            this.label4.Text = "Lugar de Trabajo";
             // 
             // groupBox1
             // 
@@ -198,10 +245,10 @@
             this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Location = new System.Drawing.Point(302, 9);
+            this.groupBox1.Location = new System.Drawing.Point(547, 60);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(219, 153);
-            this.groupBox1.TabIndex = 12;
+            this.groupBox1.Size = new System.Drawing.Size(209, 153);
+            this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Todo los Prestamos";
             // 
@@ -315,48 +362,111 @@
             this.label8.TabIndex = 18;
             this.label8.Text = "Bal. Capital..:";
             // 
-            // groupBox2
+            // telefonotxt
             // 
-            this.groupBox2.Location = new System.Drawing.Point(536, 9);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(200, 100);
-            this.groupBox2.TabIndex = 13;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Ultimo Pagareces";
+            this.telefonotxt.Location = new System.Drawing.Point(423, 20);
+            this.telefonotxt.Name = "telefonotxt";
+            this.telefonotxt.Size = new System.Drawing.Size(134, 20);
+            this.telefonotxt.TabIndex = 21;
             // 
-            // tabControl1
+            // label5
             // 
-            this.tabControl1.Controls.Add(this.ciprestamotp);
-            this.tabControl1.Controls.Add(this.cihistoriatp);
-            this.tabControl1.Location = new System.Drawing.Point(15, 180);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(711, 381);
-            this.tabControl1.TabIndex = 17;
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.Navy;
+            this.label5.Location = new System.Drawing.Point(420, 5);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(57, 13);
+            this.label5.TabIndex = 20;
+            this.label5.Text = "Telefono";
+            // 
+            // direcciontxt
+            // 
+            this.direcciontxt.Location = new System.Drawing.Point(9, 60);
+            this.direcciontxt.Name = "direcciontxt";
+            this.direcciontxt.Size = new System.Drawing.Size(250, 20);
+            this.direcciontxt.TabIndex = 19;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.Navy;
+            this.label6.Location = new System.Drawing.Point(6, 45);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(61, 13);
+            this.label6.TabIndex = 18;
+            this.label6.Text = "Direccion";
+            // 
+            // nombretxt
+            // 
+            this.nombretxt.Location = new System.Drawing.Point(168, 20);
+            this.nombretxt.Name = "nombretxt";
+            this.nombretxt.Size = new System.Drawing.Size(250, 20);
+            this.nombretxt.TabIndex = 17;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Navy;
+            this.label2.Location = new System.Drawing.Point(165, 5);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(50, 13);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "Nombre";
+            // 
+            // codigotxt
+            // 
+            this.codigotxt.Enabled = false;
+            this.codigotxt.Location = new System.Drawing.Point(9, 20);
+            this.codigotxt.Name = "codigotxt";
+            this.codigotxt.Size = new System.Drawing.Size(150, 20);
+            this.codigotxt.TabIndex = 15;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Navy;
+            this.label1.Location = new System.Drawing.Point(10, 5);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(46, 13);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "Cliente";
             // 
             // ciprestamotp
             // 
+            this.ciprestamotp.Controls.Add(this.cplistEx);
             this.ciprestamotp.Controls.Add(this.groupBox4);
             this.ciprestamotp.Controls.Add(this.groupBox3);
             this.ciprestamotp.Controls.Add(this.conceptodepagotxt);
             this.ciprestamotp.Controls.Add(this.conceptodepagolb);
             this.ciprestamotp.Controls.Add(this.cpgrabarbtn);
-            this.ciprestamotp.Controls.Add(this.cpmoratxt);
-            this.ciprestamotp.Controls.Add(this.cpmoralb);
-            this.ciprestamotp.Controls.Add(this.cpinterestxt);
-            this.ciprestamotp.Controls.Add(this.cpintereslb);
             this.ciprestamotp.Controls.Add(this.cpcapitaltxt);
             this.ciprestamotp.Controls.Add(this.cpcapitallb);
             this.ciprestamotp.Controls.Add(this.prestamocb);
-            this.ciprestamotp.Controls.Add(this.clienteprestamo_list);
             this.ciprestamotp.Controls.Add(this.label3);
             this.ciprestamotp.Location = new System.Drawing.Point(4, 22);
             this.ciprestamotp.Name = "ciprestamotp";
             this.ciprestamotp.Padding = new System.Windows.Forms.Padding(3);
-            this.ciprestamotp.Size = new System.Drawing.Size(703, 355);
+            this.ciprestamotp.Size = new System.Drawing.Size(762, 511);
             this.ciprestamotp.TabIndex = 0;
-            this.ciprestamotp.Text = "Prestamos";
+            this.ciprestamotp.Text = "Prestamos Actual";
             this.ciprestamotp.UseVisualStyleBackColor = true;
+            // 
+            // cplistEx
+            // 
+            this.cplistEx.AllowColumnReorder = true;
+            this.cplistEx.DoubleClickActivation = false;
+            this.cplistEx.FullRowSelect = true;
+            this.cplistEx.Location = new System.Drawing.Point(9, 47);
+            this.cplistEx.Name = "cplistEx";
+            this.cplistEx.Size = new System.Drawing.Size(576, 332);
+            this.cplistEx.TabIndex = 30;
+            this.cplistEx.UseCompatibleStateImageBehavior = false;
+            this.cplistEx.View = System.Windows.Forms.View.Details;
+            this.cplistEx.SubItemClicked += new ListViewEx.SubItemEventHandler(this.cplistEx_SubItemClicked);
             // 
             // groupBox4
             // 
@@ -370,9 +480,9 @@
             this.groupBox4.Controls.Add(this.label15);
             this.groupBox4.Controls.Add(this.pcapitalilb);
             this.groupBox4.Controls.Add(this.label13);
-            this.groupBox4.Location = new System.Drawing.Point(478, 165);
+            this.groupBox4.Location = new System.Drawing.Point(591, 6);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(200, 121);
+            this.groupBox4.Size = new System.Drawing.Size(165, 121);
             this.groupBox4.TabIndex = 29;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Cantidad Iniciar";
@@ -501,9 +611,9 @@
             this.groupBox3.Controls.Add(this.label18);
             this.groupBox3.Controls.Add(this.label19);
             this.groupBox3.Controls.Add(this.label20);
-            this.groupBox3.Location = new System.Drawing.Point(478, 6);
+            this.groupBox3.Location = new System.Drawing.Point(591, 145);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(219, 153);
+            this.groupBox3.Size = new System.Drawing.Size(165, 153);
             this.groupBox3.TabIndex = 28;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Prestamo";
@@ -642,89 +752,47 @@
             // 
             // conceptodepagotxt
             // 
-            this.conceptodepagotxt.Location = new System.Drawing.Point(123, 58);
+            this.conceptodepagotxt.Location = new System.Drawing.Point(591, 326);
             this.conceptodepagotxt.Name = "conceptodepagotxt";
-            this.conceptodepagotxt.Size = new System.Drawing.Size(199, 20);
+            this.conceptodepagotxt.Size = new System.Drawing.Size(160, 20);
             this.conceptodepagotxt.TabIndex = 26;
-            this.conceptodepagotxt.Visible = false;
             // 
             // conceptodepagolb
             // 
             this.conceptodepagolb.AutoSize = true;
             this.conceptodepagolb.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.conceptodepagolb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.conceptodepagolb.Location = new System.Drawing.Point(120, 42);
+            this.conceptodepagolb.Location = new System.Drawing.Point(588, 310);
             this.conceptodepagolb.Name = "conceptodepagolb";
             this.conceptodepagolb.Size = new System.Drawing.Size(112, 13);
             this.conceptodepagolb.TabIndex = 25;
             this.conceptodepagolb.Text = "Concepto de Pago";
-            this.conceptodepagolb.Visible = false;
             // 
             // cpgrabarbtn
             // 
-            this.cpgrabarbtn.Location = new System.Drawing.Point(328, 16);
+            this.cpgrabarbtn.Location = new System.Drawing.Point(600, 356);
             this.cpgrabarbtn.Name = "cpgrabarbtn";
-            this.cpgrabarbtn.Size = new System.Drawing.Size(45, 23);
+            this.cpgrabarbtn.Size = new System.Drawing.Size(104, 23);
             this.cpgrabarbtn.TabIndex = 24;
-            this.cpgrabarbtn.Text = "Pagar";
+            this.cpgrabarbtn.Text = "Grabar Pago";
             this.cpgrabarbtn.UseVisualStyleBackColor = true;
-            this.cpgrabarbtn.Visible = false;
             this.cpgrabarbtn.Click += new System.EventHandler(this.cpgrabarbtn_Click);
-            // 
-            // cpmoratxt
-            // 
-            this.cpmoratxt.Location = new System.Drawing.Point(265, 19);
-            this.cpmoratxt.Name = "cpmoratxt";
-            this.cpmoratxt.Size = new System.Drawing.Size(57, 20);
-            this.cpmoratxt.TabIndex = 23;
-            this.cpmoratxt.Visible = false;
-            // 
-            // cpmoralb
-            // 
-            this.cpmoralb.AutoSize = true;
-            this.cpmoralb.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cpmoralb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.cpmoralb.Location = new System.Drawing.Point(262, 3);
-            this.cpmoralb.Name = "cpmoralb";
-            this.cpmoralb.Size = new System.Drawing.Size(35, 13);
-            this.cpmoralb.TabIndex = 22;
-            this.cpmoralb.Text = "Mora";
-            this.cpmoralb.Visible = false;
-            // 
-            // cpinterestxt
-            // 
-            this.cpinterestxt.Location = new System.Drawing.Point(200, 19);
-            this.cpinterestxt.Name = "cpinterestxt";
-            this.cpinterestxt.Size = new System.Drawing.Size(59, 20);
-            this.cpinterestxt.TabIndex = 21;
-            this.cpinterestxt.Visible = false;
-            // 
-            // cpintereslb
-            // 
-            this.cpintereslb.AutoSize = true;
-            this.cpintereslb.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cpintereslb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.cpintereslb.Location = new System.Drawing.Point(197, 3);
-            this.cpintereslb.Name = "cpintereslb";
-            this.cpintereslb.Size = new System.Drawing.Size(46, 13);
-            this.cpintereslb.TabIndex = 20;
-            this.cpintereslb.Text = "Interes";
-            this.cpintereslb.Visible = false;
             // 
             // cpcapitaltxt
             // 
-            this.cpcapitaltxt.Location = new System.Drawing.Point(123, 19);
+            this.cpcapitaltxt.Location = new System.Drawing.Point(631, 409);
             this.cpcapitaltxt.Name = "cpcapitaltxt";
             this.cpcapitaltxt.Size = new System.Drawing.Size(71, 20);
             this.cpcapitaltxt.TabIndex = 19;
             this.cpcapitaltxt.Visible = false;
+            this.cpcapitaltxt.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cpcapitaltxt_KeyPress);
             // 
             // cpcapitallb
             // 
             this.cpcapitallb.AutoSize = true;
             this.cpcapitallb.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cpcapitallb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.cpcapitallb.Location = new System.Drawing.Point(120, 3);
+            this.cpcapitallb.Location = new System.Drawing.Point(628, 393);
             this.cpcapitallb.Name = "cpcapitallb";
             this.cpcapitallb.Size = new System.Drawing.Size(46, 13);
             this.cpcapitallb.TabIndex = 18;
@@ -741,47 +809,41 @@
             this.prestamocb.TabIndex = 17;
             this.prestamocb.SelectedIndexChanged += new System.EventHandler(this.prestamocb_SelectedIndexChanged);
             // 
-            // clienteprestamo_list
-            // 
-            this.clienteprestamo_list.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.clienteprestamo_list.FitToPage = false;
-            this.clienteprestamo_list.FullRowSelect = true;
-            this.clienteprestamo_list.Location = new System.Drawing.Point(9, 87);
-            this.clienteprestamo_list.Name = "clienteprestamo_list";
-            this.clienteprestamo_list.Size = new System.Drawing.Size(364, 261);
-            this.clienteprestamo_list.TabIndex = 16;
-            this.clienteprestamo_list.Title = "";
-            this.clienteprestamo_list.UseCompatibleStateImageBehavior = false;
-            this.clienteprestamo_list.View = System.Windows.Forms.View.Details;
-            this.clienteprestamo_list.MouseClick += new System.Windows.Forms.MouseEventHandler(this.clienteprestamo_list_MouseClick);
-            // 
             // cihistoriatp
             // 
             this.cihistoriatp.Controls.Add(this.clientehistoriaprestamolist);
             this.cihistoriatp.Location = new System.Drawing.Point(4, 22);
             this.cihistoriatp.Name = "cihistoriatp";
             this.cihistoriatp.Padding = new System.Windows.Forms.Padding(3);
-            this.cihistoriatp.Size = new System.Drawing.Size(703, 355);
+            this.cihistoriatp.Size = new System.Drawing.Size(762, 511);
             this.cihistoriatp.TabIndex = 1;
-            this.cihistoriatp.Text = "Historia";
+            this.cihistoriatp.Text = "Prestamos Pagados";
             this.cihistoriatp.UseVisualStyleBackColor = true;
             // 
             // clientehistoriaprestamolist
             // 
-            this.clientehistoriaprestamolist.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.clientehistoriaprestamolist.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.clientehistoriaprestamolist.FitToPage = false;
             this.clientehistoriaprestamolist.FullRowSelect = true;
             this.clientehistoriaprestamolist.Location = new System.Drawing.Point(6, 17);
             this.clientehistoriaprestamolist.Name = "clientehistoriaprestamolist";
-            this.clientehistoriaprestamolist.Size = new System.Drawing.Size(423, 331);
+            this.clientehistoriaprestamolist.Size = new System.Drawing.Size(482, 487);
             this.clientehistoriaprestamolist.TabIndex = 17;
             this.clientehistoriaprestamolist.Title = "";
             this.clientehistoriaprestamolist.UseCompatibleStateImageBehavior = false;
             this.clientehistoriaprestamolist.View = System.Windows.Forms.View.Details;
+            // 
+            // cidescuento
+            // 
+            this.cidescuento.Location = new System.Drawing.Point(4, 22);
+            this.cidescuento.Name = "cidescuento";
+            this.cidescuento.Padding = new System.Windows.Forms.Padding(3);
+            this.cidescuento.Size = new System.Drawing.Size(762, 511);
+            this.cidescuento.TabIndex = 3;
+            this.cidescuento.Text = "Descuentos";
+            this.cidescuento.UseVisualStyleBackColor = true;
             // 
             // pageSetupDialog1
             // 
@@ -808,27 +870,28 @@
             this.printPreviewDialog1.Name = "printPreviewDialog1";
             this.printPreviewDialog1.Visible = false;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(557, 233);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(152, 28);
+            this.button1.TabIndex = 33;
+            this.button1.Text = "Grabar Informacion";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // ClienteInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 562);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.telefonotxt);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.direcciontxt);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.nombretxt);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.codigotxt);
-            this.Controls.Add(this.label1);
             this.Name = "ClienteInfo";
             this.Text = "Cliente ";
+            this.tabControl1.ResumeLayout(false);
+            this.ciinfotp.ResumeLayout(false);
+            this.ciinfotp.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.tabControl1.ResumeLayout(false);
             this.ciprestamotp.ResumeLayout(false);
             this.ciprestamotp.PerformLayout();
             this.groupBox4.ResumeLayout(false);
@@ -837,49 +900,23 @@
             this.groupBox3.PerformLayout();
             this.cihistoriatp.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox codigotxt;
-        private System.Windows.Forms.TextBox nombretxt;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox telefonotxt;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox direcciontxt;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private PrintableListView.PrintableListView clienteprestamo_list;
         private Cliente cliente1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage ciprestamotp;
         private System.Windows.Forms.TabPage cihistoriatp;
         private System.Windows.Forms.ComboBox prestamocb;
         private System.Windows.Forms.Button cpgrabarbtn;
-        private System.Windows.Forms.TextBox cpmoratxt;
-        private System.Windows.Forms.Label cpmoralb;
-        private System.Windows.Forms.TextBox cpinterestxt;
-        private System.Windows.Forms.Label cpintereslb;
         private System.Windows.Forms.TextBox cpcapitaltxt;
         private System.Windows.Forms.Label cpcapitallb;
         private System.Windows.Forms.TextBox conceptodepagotxt;
         private System.Windows.Forms.Label conceptodepagolb;
         private PrintableListView.PrintableListView clientehistoriaprestamolist;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label capitallb;
-        private System.Windows.Forms.Label actuallb;
-        private System.Windows.Forms.Label totallb;
-        private System.Windows.Forms.Label moralb;
-        private System.Windows.Forms.Label interestlb;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label ptotallb;
         private System.Windows.Forms.Label pmoralb;
@@ -908,6 +945,37 @@
         private System.Windows.Forms.PrintDialog printDialog1;
         private System.Drawing.Printing.PrintDocument printDocument1;
         private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
+        private System.Windows.Forms.TabPage ciinfotp;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label totallb;
+        private System.Windows.Forms.Label moralb;
+        private System.Windows.Forms.Label interestlb;
+        private System.Windows.Forms.Label actuallb;
+        private System.Windows.Forms.Label capitallb;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox telefonotxt;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox direcciontxt;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox nombretxt;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox codigotxt;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox trabajotxt;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox trabajodirtxt;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.TextBox telefono2txt;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.ComboBox zonacb;
+        private System.Windows.Forms.TabPage cidescuento;
+        private ListViewEx.ListViewEx cplistEx;
+        private System.Windows.Forms.Button button1;
          
     }
 }

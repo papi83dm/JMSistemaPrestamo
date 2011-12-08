@@ -24,3 +24,4 @@ C:\Users\Jelina\documents\visual studio 2010\Projects\JM Sistema Prestamo\JM Sis
 C:\Users\Jelina\Documents\Visual Studio 2010\Projects\JM Sistema Prestamo\JM Sistema Prestamo\obj\x86\Debug\JM_Sistema_Prestamo.IngresoMensual.resources
 C:\Users\Jelina\Documents\Visual Studio 2010\Projects\JM Sistema Prestamo\JM Sistema Prestamo\obj\x86\Debug\JM_Sistema_Prestamo.PrestamoNuevo.resources
 C:\Users\Jelina\Documents\Visual Studio 2010\Projects\JM Sistema Prestamo\JM Sistema Prestamo\obj\x86\Debug\JM_Sistema_Prestamo.BuscarClienteMini.resources
+C:\Users\Jelina\Documents\Visual Studio 2010\Projects\JM Sistema Prestamo\JM Sistema Prestamo\obj\x86\Debug\ListViewEx.SubItemEventArgs.resources

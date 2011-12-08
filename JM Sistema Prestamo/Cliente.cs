@@ -431,10 +431,20 @@ namespace JM_Sistema_Prestamo
                TELEF1 = q["CL_TELEF1"].ToString();
                TELEF2 = q["CL_TELEF2"].ToString();
                TELEF3 = q["CL_TELEF3"].ToString();
-               ACTUAL =  Double.Parse( q["CL_ACTUAL"].ToString());
-               CAPITAL =  Double.Parse(q["CL_CAPITAL"].ToString());
-              // PASA = Double.Parse(q["CL_CAPITAL"].ToString());
-               INTERES = Double.Parse(q["CL_INTERES"].ToString());
+               RAZON = q["CL_RAZON"].ToString();
+
+               try
+               {
+
+                   ACTUAL = Double.Parse(q["CL_ACTUAL"].ToString());
+                   CAPITAL = Double.Parse(q["CL_CAPITAL"].ToString());
+                   // PASA = Double.Parse(q["CL_CAPITAL"].ToString());
+                   INTERES = Double.Parse(q["CL_INTERES"].ToString());
+               }
+               catch (Exception err)
+               {
+                   //MessageBox.Show(err.Message, "Clientes, loadClienteFromDB");
+               }
 
            }
            q.Close();
@@ -450,9 +460,9 @@ namespace JM_Sistema_Prestamo
            prest.Close();
         }
 
-        public DataTable prestamoHistoria(string prestamo)
+        public SqlDataReader prestamoHistoria(string prestamo)
         {
-            DataTable dtp = dbc.query("SELECT  HI_DOCUM as CUOTA, CONVERT(VARCHAR(15), HI_FECHA, 105)  AS FECHA, HI_BALCAP AS CAPITAL, HI_BALINT AS INTERES,(HI_BALCAP + HI_BALINT) as TOTAL FROM historia where PRESTAMOID='" + prestamo + "' and HI_BALCAP >0");
+            SqlDataReader dtp = dbc.query_single("SELECT  HI_DOCUM as CUOTA, CONVERT(VARCHAR(15), HI_FECHA, 105)  AS FECHA, HI_BALCAP AS CAPITAL, HI_BALINT AS INTERES,(HI_BALCAP + HI_BALINT) as TOTAL FROM historia where PRESTAMOID='" + prestamo + "' and HI_BALCAP >0");
 
             return dtp;
         }
@@ -484,12 +494,13 @@ namespace JM_Sistema_Prestamo
             if (capital == 0.00 && interes != 0.00)
             {
                 //interes only
-                string sqlIns = "INSERT INTO recibos (HE_FECHA, CL_CODIGO, HE_MONTO, HE_MORA, PRESTAMOID, HE_CONCEP) VALUES (@HE_FECHA, @CL_CODIGO, @HE_MONTO, @HE_MORA, @PRESTAMOID, @HE_CONCEP)";
+                string sqlIns = "INSERT INTO recibos (HE_FECHA, CL_CODIGO, HE_MONTO,HE_DESC, HE_MORA, PRESTAMOID, HE_CONCEP) VALUES (@HE_FECHA, @CL_CODIGO, @HE_MONTO,@HE_DESC, @HE_MORA, @PRESTAMOID, @HE_CONCEP)";
 
                 SqlCommand cmdIns = new SqlCommand(sqlIns);
                 cmdIns.Parameters.AddWithValue("@HE_FECHA", fecha);
                 cmdIns.Parameters.AddWithValue("@CL_CODIGO", CODIGO);
-                cmdIns.Parameters.AddWithValue("@HE_MONTO", interes); 
+                cmdIns.Parameters.AddWithValue("@HE_MONTO", interes);
+                cmdIns.Parameters.AddWithValue("@HE_DESC", 0.00);
                 cmdIns.Parameters.AddWithValue("@HE_MORA", mora);
                 cmdIns.Parameters.AddWithValue("@PRESTAMOID", prestamo);
                 cmdIns.Parameters.AddWithValue("@HE_CONCEP", concepto);
@@ -556,6 +567,50 @@ namespace JM_Sistema_Prestamo
             }
 
             return resultID; 
+        }
+
+        public void updateHacerPago(int ReciboID, string prestamo, string pagare, double capital, double interes, double mora)
+        {
+            // int resultID = 0;
+            if (ReciboID > 0)
+            {
+                //update for Multiple Payments.
+                dbc.query_insert("UPDATE recibos SET  HE_MONTO= HE_MONTO + " + capital + ", HE_DESC=HE_DESC + " + interes + ", HE_MORA=HE_MORA + " + mora + " where RECIBOID=" + ReciboID);
+
+                dbc.query_insert("UPDATE prestamos set CO_CAPI=CO_CAPI -" + capital + ", CO_ACTUAL=CO_ACTUAL - " + capital + ", CO_FECPAG='" + fecha + "' where PRESTAMOID=" + prestamo);
+
+
+                //insert capital payment
+                string sqlInspay = "INSERT INTO historia ( CL_CODIGO, PRESTAMOID, HI_FECHA,HI_FECFIN, HI_TIPO, HI_DOCUM, HI_FACAFEC, HI_MONTO, HI_TIPPAG) VALUES ( @CL_CODIGO, @PRESTAMOID, @HI_FECHA, @HI_FECFIN, @HI_TIPO, @HI_DOCUM, @HI_FACAFEC, @HI_MONTO, @HI_TIPPAG)";
+                SqlCommand cmdInspayc = new SqlCommand(sqlInspay);
+                cmdInspayc.Parameters.AddWithValue("@CL_CODIGO", CODIGO);
+                cmdInspayc.Parameters.AddWithValue("@PRESTAMOID", prestamo);
+                cmdInspayc.Parameters.AddWithValue("@HI_FECHA", fecha);
+                cmdInspayc.Parameters.AddWithValue("@HI_FECFIN", fecha);
+                cmdInspayc.Parameters.AddWithValue("@HI_TIPO", "R");
+                cmdInspayc.Parameters.AddWithValue("@HI_DOCUM", ReciboID);
+                cmdInspayc.Parameters.AddWithValue("@HI_FACAFEC", pagare);
+                cmdInspayc.Parameters.AddWithValue("@HI_MONTO", capital);
+                cmdInspayc.Parameters.AddWithValue("@HI_TIPPAG", "C");
+                int cID = dbc.query_insert(cmdInspayc);
+                //update intres
+                SqlCommand cmdInspayi = new SqlCommand(sqlInspay);
+                cmdInspayi.Parameters.AddWithValue("@HI_MONTO", interes);
+                cmdInspayi.Parameters.AddWithValue("@HI_TIPPAG", "I");
+                cmdInspayi.Parameters.AddWithValue("@CL_CODIGO", CODIGO);
+                cmdInspayi.Parameters.AddWithValue("@PRESTAMOID", prestamo);
+                cmdInspayi.Parameters.AddWithValue("@HI_FECHA", fecha);
+                cmdInspayi.Parameters.AddWithValue("@HI_FECFIN", fecha);
+                cmdInspayi.Parameters.AddWithValue("@HI_TIPO", "R");
+                cmdInspayi.Parameters.AddWithValue("@HI_DOCUM", ReciboID);
+                cmdInspayi.Parameters.AddWithValue("@HI_FACAFEC", pagare);
+                int iID = dbc.query_insert(cmdInspayi);
+
+                dbc.query_insert("UPDATE historia set HI_BALCAP=HI_BALCAP -" + capital + ", HI_BALINT=HI_BALINT - " + interes + ", HI_FECFIN='" + fecha + "' , HI_FECPAG='" + fecha + "' where PRESTAMOID=" + prestamo + " and HI_DOCUM='" + pagare + "' ");
+                dbc.query_insert("UPDATE clientes set CL_ACTUAL=CL_ACTUAL -" + capital + ", CL_CAPITAL=CL_CAPITAL - " + capital + ",CL_INTERES=CL_INTERES - " + interes + "  where CL_CODIGO='" + CODIGO + "'");
+
+
+            } 
         }
 
         public int HacerPrestamo(DateTime pfecha, double capital, double taza, int cuota, string formadepago, string distribution)
@@ -642,7 +697,7 @@ namespace JM_Sistema_Prestamo
             string[] lines = new string[13];
             string today = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year;
 
-            SqlDataReader q = dbc.query_single("SELECT  c.CL_NOMBRE, r.RECIBOID ,r.PRESTAMOID ,CONVERT(VARCHAR(15), r.HE_FECHA, 105)  AS FECHA ,r.CL_CODIGO ,r.HE_MONTO ,r.HE_DESC ,r.HE_MORA ,r.HE_CONCEP FROM  recibos  r inner join clientes c on (c.CL_CODIGO=r.CL_CODIGO ) where RECIBOID=" + reciboID);
+            SqlDataReader q = dbc.query_single("SELECT  c.CL_NOMBRE, r.RECIBOID ,r.PRESTAMOID ,CONVERT(VARCHAR(15), r.HE_FECHA, 105)  AS FECHA ,r.CL_CODIGO ,(r.HE_MONTO + r.HE_DESC + r.HE_MORA) As CUOTA ,r.HE_CONCEP FROM  recibos  r inner join clientes c on (c.CL_CODIGO=r.CL_CODIGO ) where RECIBOID=" + reciboID);
             if (q.Read())
             {
                 lines[0] = "Prestamos Personales Luis Bomba";
@@ -653,7 +708,7 @@ namespace JM_Sistema_Prestamo
                 lines[5] = "Recibo No.: " + q["RECIBOID"].ToString() + " Fecha.: " + q["FECHA"].ToString() + " Prestamo.: " + q["PRESTAMOID"].ToString() + " Cliente.: " + q["CL_CODIGO"].ToString();
                 lines[6] = "Nombre.......: " + q["CL_NOMBRE"].ToString();
                 lines[7] = "Monto Ingreso: LINEA EXTRA, Quitarla";
-                lines[8] = "RD$..........: " + q["HE_MONTO"].ToString();
+                lines[8] = "RD$..........: " + q["CUOTA"].ToString();
                 lines[9] = "Concepto.....: " + q["HE_CONCEP"].ToString();
                 lines[10] = "Valido Si Esta Debidamente Firmado y Cellado\t\t\t____________________";
                 lines[11] = "1. Original Cliente / 2. Caja Ingreso / 3. Expediente Cliente";

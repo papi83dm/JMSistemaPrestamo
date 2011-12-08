@@ -17,7 +17,8 @@ namespace JM_Sistema_Prestamo
     {
 
         
-        private string[] lines;
+        private string[] lines; 
+        private Control[] Editors;
 
         public ClienteInfo()
         {
@@ -29,7 +30,7 @@ namespace JM_Sistema_Prestamo
 
 
         }
-         
+
         public void loadClienteInfo(string codigo)
         {
             cliente1 = new Cliente(codigo);
@@ -43,12 +44,17 @@ namespace JM_Sistema_Prestamo
             nombretxt.Text = cliente1.NOMBRE;
             direcciontxt.Text = cliente1.DIREC1;
             telefonotxt.Text = cliente1.TELEF1;
-            capitallb.Text = String.Format("{0:C}",cliente1.CAPITAL);
-            actuallb.Text = String.Format("{0:C}",cliente1.ACTUAL);
+            telefono2txt.Text = cliente1.TELEF2;
+            trabajotxt.Text = cliente1.RAZON;
+            trabajodirtxt.Text = cliente1.DIREC2;
+
+            capitallb.Text = String.Format("{0:C}", cliente1.CAPITAL);
+            actuallb.Text = String.Format("{0:C}", cliente1.ACTUAL);
             interestlb.Text = String.Format("{0:C}", cliente1.INTERES);
-            totallb.Text = String.Format("{0:C}",cliente1.CAPITAL + cliente1.INTERES);
+            totallb.Text = String.Format("{0:C}", cliente1.CAPITAL + cliente1.INTERES);
             moralb.Text = "$0.00";
-           // String.Format("Order Total: {0:C}", moneyvalue);
+
+            // String.Format("Order Total: {0:C}", moneyvalue);
             foreach (string prestamo in cliente1.PRESTAMO)
             {
                 prestamocb.Items.Add(prestamo);
@@ -62,9 +68,9 @@ namespace JM_Sistema_Prestamo
 
             // load historia de prestamo de cliente
             DataTable dt = cliente1.prestamoListaHistoria();
-             
+
             FillList(this.clientehistoriaprestamolist, dt);
-            
+
         }
 
         private void prestamocb_SelectedIndexChanged(object sender, EventArgs e)
@@ -77,20 +83,46 @@ namespace JM_Sistema_Prestamo
         private void loadPrestamopagares(string pstr)
         {
 
-            DataTable dt = cliente1.prestamoHistoria(pstr);
+            SqlDataReader psql = cliente1.prestamoHistoria(pstr);
             // clienteListalv. = dt; 
-            FillList(this.clienteprestamo_list, dt);
+            // FillList(this.clienteprestamo_list, dt);
+            Editors = new Control[] { cpcapitaltxt };
+            cplistEx.SuspendLayout();
 
-            //hide pago fields
-            cpcapitallb.Visible = false;
-            cpcapitaltxt.Visible = false;
-            cpintereslb.Visible = false;
-            cpinterestxt.Visible = false;
-            cpmoralb.Visible = false;
-            cpmoratxt.Visible = false;
-            cpgrabarbtn.Visible = false;
-            conceptodepagolb.Visible = false;
-            conceptodepagotxt.Visible = false;
+            // Clear list
+            cplistEx.Items.Clear();
+            cplistEx.Columns.Clear();
+
+            // load list column
+            // Prestamos Columns
+            cplistEx.Columns.Add("Cuotas", 50);
+            cplistEx.Columns.Add("Fecha", 70);
+            cplistEx.Columns.Add("Capital", 70);
+            cplistEx.Columns.Add("Interes", 70);
+            cplistEx.Columns.Add("Cuota", 70);
+            cplistEx.Columns.Add("Capital", 70);
+            cplistEx.Columns.Add("Interes", 70);
+            cplistEx.Columns.Add("Mora", 70);
+
+            while (psql.Read())
+            {
+                // load list data
+                ListViewItem item = new ListViewItem();
+
+                item.Text = psql["CUOTA"].ToString();
+                item.SubItems.Add(psql["FECHA"].ToString());
+                item.SubItems.Add(psql["CAPITAL"].ToString());
+                item.SubItems.Add(psql["INTERES"].ToString());
+                item.SubItems.Add(psql["TOTAL"].ToString());
+                item.SubItems.Add(""); // place holder for capital textfield
+                item.SubItems.Add(""); // place holder for interes textfield
+                item.SubItems.Add(""); // place holder mora textfield
+                cplistEx.Items.Add(item);
+            }
+            psql.Close();
+
+            cplistEx.ResumeLayout();
+ 
 
             //Prestamo Balance INFO.
 
@@ -111,7 +143,7 @@ namespace JM_Sistema_Prestamo
                 pfechailb.Text = pinfo["FECHA"].ToString();
             }
 
-            pinfo.Close(); 
+            pinfo.Close();
 
         }
 
@@ -187,68 +219,72 @@ namespace JM_Sistema_Prestamo
             }
         }
 
-        
+
         private void cpgrabarbtn_Click(object sender, EventArgs e)
-        { 
-            string cuotastr = clienteprestamo_list.SelectedItems[0].SubItems[0].Text;
+        {
+            string cuotastr = "";// cplistEx.SelectedItems[0].SubItems[5].Text;
             string prestamostr = prestamocb.SelectedItem.ToString();
             string conceptostr = conceptodepagotxt.Text;
-            double capitalstr = 0.00;
-            double interesstr = 0.00;
-            double morastr = 0.00;
+            int reciboID = 0; 
 
-            try
+            for (int i = 0; i < cplistEx.Items.Count; i++)
             {
-                //check if capitaltxt is not empy
-                if (cpcapitaltxt.Text != "")
-                {
-                    capitalstr = double.Parse(cpcapitaltxt.Text);
-                }
 
-                //check if field is not empy
-                if (cpinterestxt.Text != "")
-                {
-                    interesstr = double.Parse(cpinterestxt.Text);
-                }
+                cuotastr = cplistEx.Items[i].SubItems[0].Text;
+                string capitaltmp = cplistEx.Items[i].SubItems[5].Text;
+                string interestmp = cplistEx.Items[i].SubItems[6].Text;
+                string moratmp = cplistEx.Items[i].SubItems[7].Text;
+                double capitalstr = 0.00;
+                double interesstr = 0.00;
+                double morastr = 0.00;
 
-                //check if field is not empty;
-                if (cpmoratxt.Text != "")
+                if (capitaltmp != "" || interestmp != "" && conceptodepagotxt.Text != "")
                 {
-                    morastr = double.Parse(cpmoratxt.Text);
-                }
-
-                // check if none of the text field are empty.
-                if (capitalstr == 0.00 && interesstr ==0.00 && morastr ==0.00)
-                {
-                    MessageBox.Show("Por Favor no lo deje vacio.", "Capital, Interes oh Mora. \r\n", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-
-                   int reciboID= cliente1.hacerPago(prestamostr, cuotastr, capitalstr, interesstr, morastr, conceptostr); 
-                    
-                    if (MessageBox.Show("Quieres imprimir el Recibo?", "Imprimir Recibo", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    if (capitaltmp != "")
                     {
-                        lines = cliente1.loadReciboPago(reciboID);
-                        
-                        //print document
-                        printDocument1.Print();
+                        capitalstr = Double.Parse(capitaltmp);
                     }
 
-                    //refresh datatable
+                    if (interestmp != "")
+                    {
+                        interesstr = Double.Parse(interestmp);
+                    }
+                    if (moratmp != "")
+                    {
+                        morastr = Double.Parse(moratmp);
+                    }
 
-                    loadPrestamopagares(prestamostr);
-                    
-                    
+                    if (i == 0)
+                    {
+                        reciboID = cliente1.hacerPago(prestamostr, cuotastr, capitalstr, interesstr, morastr, conceptostr);
+                    }
+                    else if (reciboID > 0)
+                    {
+                        cliente1.updateHacerPago(reciboID, prestamostr, cuotastr, capitalstr, interesstr, morastr);
+                    }
+                }
+                //else
+                //{
+                //    MessageBox.Show("No Deje el  Concepto Vacio", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //}
+
+            }
+
+            // ask to print if valid reciboID
+            if (reciboID > 0)
+            {
+                if (MessageBox.Show("Quieres imprimir el Recibo?", "Imprimir Recibo", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    lines = cliente1.loadReciboPago(reciboID);
+
+                    //print document
+                    printDocument1.Print();
                 }
             }
-            catch (Exception err)
-            {
-                MessageBox.Show(err.Message,"Numero Solamente. \r\n",MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-             
-            
-        } 
+            //refresh datatable
+            loadPrestamopagares(prestamostr);
+        }
+
         // OnPrintPage
         private void OnPrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
@@ -290,29 +326,27 @@ namespace JM_Sistema_Prestamo
             e.HasMorePages = false;
         }
 
-        private void clienteprestamo_list_MouseClick(object sender, MouseEventArgs e)
+  
+        private void cplistEx_SubItemClicked(object sender, ListViewEx.SubItemEventArgs e)
+        { 
+            if (e.SubItem >= 5 && e.SubItem < 8)
+            {
+                cplistEx.StartEditing(Editors[0], e.Item, e.SubItem);
+            } 
+        }
+
+        private void isNumber(KeyPressEventArgs e)
         {
-            cpcapitallb.Visible = true;
-            cpcapitaltxt.Visible = true;
-            cpintereslb.Visible = true;
-            cpinterestxt.Visible = true;
-            cpmoralb.Visible = true;
-            cpmoratxt.Visible = true;
-            cpgrabarbtn.Visible = true;
-            conceptodepagolb.Visible = true;
-            conceptodepagotxt.Visible = true;
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && !char.IsPunctuation(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+            base.OnKeyPress(e);
+        }
 
-            //Pre-set payment
-            string cuota = clienteprestamo_list.SelectedItems[0].SubItems[0].Text;
-            string pago = clienteprestamo_list.SelectedItems[0].SubItems[2].Text;
-            string intereses = clienteprestamo_list.SelectedItems[0].SubItems[3].Text;
-            string mora = clienteprestamo_list.SelectedItems[0].SubItems[4].Text;
-            conceptodepagotxt.Text = "Pago Cuota " + cuota;
-            cpcapitaltxt.Text = pago;
-            cpinterestxt.Text = intereses;
-           // cpmoratxt.Text = mora;
- 
-
+        private void cpcapitaltxt_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            isNumber(e);
         }
           
        

@@ -94,6 +94,9 @@
     <Compile Include="IngresoMensual.Designer.cs">
       <DependentUpon>IngresoMensual.cs</DependentUpon>
     </Compile>
+    <Compile Include="ListViewEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PrestamoNuevo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,6 +128,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="IngresoMensual.resx">
       <DependentUpon>IngresoMensual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListViewEx.resx">
+      <DependentUpon>ListViewEx.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PrestamoNuevo.resx">
       <DependentUpon>PrestamoNuevo.cs</DependentUpon>

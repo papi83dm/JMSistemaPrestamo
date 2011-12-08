@@ -185,7 +185,7 @@ namespace JM_Sistema_Prestamo
                      t = Double.Parse(ingreso["Capital"].ToString()) + Double.Parse(ingreso["Interes"].ToString()) + Double.Parse(ingreso["Mora"].ToString());
                 }catch(Exception err)
                 {
-
+                    MessageBox.Show(err.Message, "Error Calculando Total");
                 }
                 totallb.Text = String.Format("{0:C}",t);
             }
