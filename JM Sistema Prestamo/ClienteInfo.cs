@@ -71,6 +71,9 @@ namespace JM_Sistema_Prestamo
 
             FillList(this.clientehistoriaprestamolist, dt);
 
+            // load cliente recibos
+            loadRecibos();
+
         }
 
         private void prestamocb_SelectedIndexChanged(object sender, EventArgs e)
@@ -78,6 +81,42 @@ namespace JM_Sistema_Prestamo
             string prestamostr = prestamocb.SelectedItem.ToString();
             loadPrestamopagares(prestamostr);
             
+        }
+
+        private void loadRecibos()
+        {
+            SqlDataReader psql = cliente1.loadRecibos();
+            recibolst.SuspendLayout();
+            // Clear list
+            recibolst.Items.Clear();
+            recibolst.Columns.Clear();
+
+            // load list column
+            // Prestamos Columns
+            recibolst.Columns.Add("Recibo", 60);
+            recibolst.Columns.Add("Fecha", 70);
+            recibolst.Columns.Add("Prestamo", 65); 
+            recibolst.Columns.Add("Capital", 65);
+            recibolst.Columns.Add("Interes", 65);
+            recibolst.Columns.Add("Mora", 65);
+
+            while (psql.Read())
+            {
+                // load list data
+                ListViewItem item = new ListViewItem();
+
+                item.Text = psql["Recibo"].ToString();
+                item.SubItems.Add(psql["FECHA"].ToString());
+                item.SubItems.Add(psql["Prestamo"].ToString());
+                item.SubItems.Add(psql["Capital"].ToString());
+                item.SubItems.Add(psql["Interes"].ToString());
+                item.SubItems.Add(psql["Mora"].ToString());
+                recibolst.Items.Add(item);
+            }
+            psql.Close();
+
+            recibolst.ResumeLayout();
+
         }
 
         private void loadPrestamopagares(string pstr)
@@ -95,14 +134,14 @@ namespace JM_Sistema_Prestamo
 
             // load list column
             // Prestamos Columns
-            cplistEx.Columns.Add("Cuotas", 50);
+            cplistEx.Columns.Add("Cuotas", 60);
             cplistEx.Columns.Add("Fecha", 70);
-            cplistEx.Columns.Add("Capital", 70);
-            cplistEx.Columns.Add("Interes", 70);
-            cplistEx.Columns.Add("Cuota", 70);
-            cplistEx.Columns.Add("Capital", 70);
-            cplistEx.Columns.Add("Interes", 70);
-            cplistEx.Columns.Add("Mora", 70);
+            cplistEx.Columns.Add("Capital", 65);
+            cplistEx.Columns.Add("Interes", 65);
+            cplistEx.Columns.Add("Cuota", 65);
+            cplistEx.Columns.Add("Capital", 65);
+            cplistEx.Columns.Add("Interes", 65);
+            cplistEx.Columns.Add("Mora", 65);
 
             while (psql.Read())
             {
@@ -348,6 +387,71 @@ namespace JM_Sistema_Prestamo
         {
             isNumber(e);
         }
+
+        private void saldoPrestamocb_CheckedChanged(object sender, EventArgs e)
+        {
+            //filled out all payments
+            if (saldoPrestamocb.Checked)
+            {
+                for (int i = 0; i < cplistEx.Items.Count; i++)
+                {
+                    cplistEx.Items[i].Checked = true;
+                }
+                conceptodepagotxt.Text = "Saldo Prestamo";
+            }
+            else
+            {
+                //empty form.
+                for (int i = 0; i < cplistEx.Items.Count; i++)
+                {
+                    cplistEx.Items[i].Checked = false;
+                }
+            }
+        }
+
+        private void cplistEx_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            int indexnum = e.Index;
+
+            if (e.NewValue == CheckState.Checked)
+            {
+
+                cplistEx.Items[indexnum].SubItems[5].Text = cplistEx.Items[indexnum].SubItems[2].Text;
+                cplistEx.Items[indexnum].SubItems[6].Text = cplistEx.Items[indexnum].SubItems[3].Text; 
+                conceptodepagotxt.Text = "Pago Cuota " + cplistEx.Items[indexnum].SubItems[0].Text;
+                
+                // fill out concepto 
+                foreach (ListViewItem listItem in cplistEx.CheckedItems)
+                {  
+                    conceptodepagotxt.Text += " " + listItem.SubItems[0].Text; 
+                }
+
+            }
+            else
+            {
+                conceptodepagotxt.Text = "";
+                cplistEx.Items[indexnum].SubItems[5].Text = "";
+                cplistEx.Items[indexnum].SubItems[6].Text = "";
+            }
+            
+        }
+
+        private void recibolst_DoubleClick(object sender, EventArgs e)
+        {
+            string reciboID = recibolst.SelectedItems[0].SubItems[0].Text;
+            ReciboMini recmin = new ReciboMini(reciboID);
+            recmin.ShowDialog(this);
+            //string c1 = recmin.ToString();
+            //bcm = null;
+            //if (c1 != null)
+            //{
+            //    Cliente cl1 = new Cliente(c1);
+            //    codigotxt.Text = cl1.CODIGO;
+            //    nombretxt.Text = cl1.NOMBRE;
+            //}
+        }
+
+       
           
        
     }

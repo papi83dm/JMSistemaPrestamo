@@ -173,21 +173,33 @@ namespace JM_Sistema_Prestamo
             item.SubItems.Add("-");
             if (ingreso.Read())
             {
-                item.SubItems.Add(ingreso["Capital"].ToString()); //capital
-                capitallb.Text = "$" + ingreso["Capital"].ToString();
+                item.SubItems.Add(ingreso["Capital"].ToString()); //capital 
                 item.SubItems.Add(ingreso["Interes"].ToString()); //interes
-                interestlb.Text = "$" + ingreso["Interes"].ToString();
                 item.SubItems.Add(ingreso["Mora"].ToString()); //mora
-                moralb.Text =  "$"+ingreso["Mora"].ToString();
+               
+                double capitalstr = 0.00;
+                double interesstr = 0.00;
+                double morastr = 0.00;
                 double t = 0.00;
-                try
+
+                if (ingreso["Capital"].ToString() != "")
                 {
-                     t = Double.Parse(ingreso["Capital"].ToString()) + Double.Parse(ingreso["Interes"].ToString()) + Double.Parse(ingreso["Mora"].ToString());
-                }catch(Exception err)
-                {
-                    MessageBox.Show(err.Message, "Error Calculando Total");
+                    capitalstr = Double.Parse(ingreso["Capital"].ToString());
                 }
-                totallb.Text = String.Format("{0:C}",t);
+                if (ingreso["Interes"].ToString() != "")
+                {
+                    interesstr = Double.Parse(ingreso["Interes"].ToString());
+                }
+                if (ingreso["Mora"].ToString() != "")
+                {
+                    morastr = Double.Parse(ingreso["Mora"].ToString());
+                }
+
+                capitallb.Text = String.Format("{0:C}", capitalstr);
+                interestlb.Text = String.Format("{0:C}", interesstr);
+                moralb.Text = String.Format("{0:C}", morastr);
+                t = capitalstr + interesstr + morastr; 
+                totallb.Text = String.Format("{0:C}", t);
             }
             this.m_list.Items.Add(item); 
             this.m_list.ResumeLayout();

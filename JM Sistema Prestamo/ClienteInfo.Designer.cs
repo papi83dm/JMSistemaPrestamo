@@ -32,6 +32,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.ciinfotp = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.trabajodirtxt = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
             this.telefono2txt = new System.Windows.Forms.TextBox();
@@ -60,6 +61,7 @@
             this.codigotxt = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.ciprestamotp = new System.Windows.Forms.TabPage();
+            this.saldoPrestamocb = new System.Windows.Forms.CheckBox();
             this.cplistEx = new ListViewEx.ListViewEx();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.pformailb = new System.Windows.Forms.Label();
@@ -93,12 +95,12 @@
             this.prestamocb = new System.Windows.Forms.ComboBox();
             this.cihistoriatp = new System.Windows.Forms.TabPage();
             this.clientehistoriaprestamolist = new PrintableListView.PrintableListView();
-            this.cidescuento = new System.Windows.Forms.TabPage();
+            this.cirecibos = new System.Windows.Forms.TabPage();
+            this.recibolst = new PrintableListView.PrintableListView();
             this.pageSetupDialog1 = new System.Windows.Forms.PageSetupDialog();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
-            this.button1 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.ciinfotp.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -106,6 +108,7 @@
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.cihistoriatp.SuspendLayout();
+            this.cirecibos.SuspendLayout();
             this.SuspendLayout();
             // 
             // label3
@@ -124,11 +127,11 @@
             this.tabControl1.Controls.Add(this.ciinfotp);
             this.tabControl1.Controls.Add(this.ciprestamotp);
             this.tabControl1.Controls.Add(this.cihistoriatp);
-            this.tabControl1.Controls.Add(this.cidescuento);
-            this.tabControl1.Location = new System.Drawing.Point(12, 22);
+            this.tabControl1.Controls.Add(this.cirecibos);
+            this.tabControl1.Location = new System.Drawing.Point(2, 22);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(770, 537);
+            this.tabControl1.Size = new System.Drawing.Size(783, 537);
             this.tabControl1.TabIndex = 17;
             // 
             // ciinfotp
@@ -154,10 +157,19 @@
             this.ciinfotp.Location = new System.Drawing.Point(4, 22);
             this.ciinfotp.Name = "ciinfotp";
             this.ciinfotp.Padding = new System.Windows.Forms.Padding(3);
-            this.ciinfotp.Size = new System.Drawing.Size(762, 511);
+            this.ciinfotp.Size = new System.Drawing.Size(775, 511);
             this.ciinfotp.TabIndex = 2;
             this.ciinfotp.Text = "Informacion";
             this.ciinfotp.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(557, 233);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(152, 28);
+            this.button1.TabIndex = 33;
+            this.button1.Text = "Grabar Informacion";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // trabajodirtxt
             // 
@@ -437,6 +449,7 @@
             // 
             // ciprestamotp
             // 
+            this.ciprestamotp.Controls.Add(this.saldoPrestamocb);
             this.ciprestamotp.Controls.Add(this.cplistEx);
             this.ciprestamotp.Controls.Add(this.groupBox4);
             this.ciprestamotp.Controls.Add(this.groupBox3);
@@ -450,14 +463,26 @@
             this.ciprestamotp.Location = new System.Drawing.Point(4, 22);
             this.ciprestamotp.Name = "ciprestamotp";
             this.ciprestamotp.Padding = new System.Windows.Forms.Padding(3);
-            this.ciprestamotp.Size = new System.Drawing.Size(762, 511);
+            this.ciprestamotp.Size = new System.Drawing.Size(775, 511);
             this.ciprestamotp.TabIndex = 0;
             this.ciprestamotp.Text = "Prestamos Actual";
             this.ciprestamotp.UseVisualStyleBackColor = true;
             // 
+            // saldoPrestamocb
+            // 
+            this.saldoPrestamocb.AutoSize = true;
+            this.saldoPrestamocb.Location = new System.Drawing.Point(118, 393);
+            this.saldoPrestamocb.Name = "saldoPrestamocb";
+            this.saldoPrestamocb.Size = new System.Drawing.Size(100, 17);
+            this.saldoPrestamocb.TabIndex = 31;
+            this.saldoPrestamocb.Text = "Saldo Prestamo";
+            this.saldoPrestamocb.UseVisualStyleBackColor = true;
+            this.saldoPrestamocb.CheckedChanged += new System.EventHandler(this.saldoPrestamocb_CheckedChanged);
+            // 
             // cplistEx
             // 
             this.cplistEx.AllowColumnReorder = true;
+            this.cplistEx.CheckBoxes = true;
             this.cplistEx.DoubleClickActivation = false;
             this.cplistEx.FullRowSelect = true;
             this.cplistEx.Location = new System.Drawing.Point(9, 47);
@@ -467,6 +492,7 @@
             this.cplistEx.UseCompatibleStateImageBehavior = false;
             this.cplistEx.View = System.Windows.Forms.View.Details;
             this.cplistEx.SubItemClicked += new ListViewEx.SubItemEventHandler(this.cplistEx_SubItemClicked);
+            this.cplistEx.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.cplistEx_ItemCheck);
             // 
             // groupBox4
             // 
@@ -482,7 +508,7 @@
             this.groupBox4.Controls.Add(this.label13);
             this.groupBox4.Location = new System.Drawing.Point(591, 6);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(165, 121);
+            this.groupBox4.Size = new System.Drawing.Size(181, 121);
             this.groupBox4.TabIndex = 29;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Cantidad Iniciar";
@@ -613,7 +639,7 @@
             this.groupBox3.Controls.Add(this.label20);
             this.groupBox3.Location = new System.Drawing.Point(591, 145);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(165, 153);
+            this.groupBox3.Size = new System.Drawing.Size(178, 153);
             this.groupBox3.TabIndex = 28;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Prestamo";
@@ -815,7 +841,7 @@
             this.cihistoriatp.Location = new System.Drawing.Point(4, 22);
             this.cihistoriatp.Name = "cihistoriatp";
             this.cihistoriatp.Padding = new System.Windows.Forms.Padding(3);
-            this.cihistoriatp.Size = new System.Drawing.Size(762, 511);
+            this.cihistoriatp.Size = new System.Drawing.Size(775, 511);
             this.cihistoriatp.TabIndex = 1;
             this.cihistoriatp.Text = "Prestamos Pagados";
             this.cihistoriatp.UseVisualStyleBackColor = true;
@@ -835,15 +861,32 @@
             this.clientehistoriaprestamolist.UseCompatibleStateImageBehavior = false;
             this.clientehistoriaprestamolist.View = System.Windows.Forms.View.Details;
             // 
-            // cidescuento
+            // cirecibos
             // 
-            this.cidescuento.Location = new System.Drawing.Point(4, 22);
-            this.cidescuento.Name = "cidescuento";
-            this.cidescuento.Padding = new System.Windows.Forms.Padding(3);
-            this.cidescuento.Size = new System.Drawing.Size(762, 511);
-            this.cidescuento.TabIndex = 3;
-            this.cidescuento.Text = "Descuentos";
-            this.cidescuento.UseVisualStyleBackColor = true;
+            this.cirecibos.Controls.Add(this.recibolst);
+            this.cirecibos.Location = new System.Drawing.Point(4, 22);
+            this.cirecibos.Name = "cirecibos";
+            this.cirecibos.Padding = new System.Windows.Forms.Padding(3);
+            this.cirecibos.Size = new System.Drawing.Size(775, 511);
+            this.cirecibos.TabIndex = 3;
+            this.cirecibos.Text = "Recibos";
+            this.cirecibos.UseVisualStyleBackColor = true;
+            // 
+            // recibolst
+            // 
+            this.recibolst.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.recibolst.FitToPage = false;
+            this.recibolst.FullRowSelect = true;
+            this.recibolst.Location = new System.Drawing.Point(6, 6);
+            this.recibolst.Name = "recibolst";
+            this.recibolst.Size = new System.Drawing.Size(419, 499);
+            this.recibolst.TabIndex = 18;
+            this.recibolst.Title = "";
+            this.recibolst.UseCompatibleStateImageBehavior = false;
+            this.recibolst.View = System.Windows.Forms.View.Details;
+            this.recibolst.DoubleClick += new System.EventHandler(this.recibolst_DoubleClick);
             // 
             // pageSetupDialog1
             // 
@@ -870,15 +913,6 @@
             this.printPreviewDialog1.Name = "printPreviewDialog1";
             this.printPreviewDialog1.Visible = false;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(557, 233);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(152, 28);
-            this.button1.TabIndex = 33;
-            this.button1.Text = "Grabar Informacion";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // ClienteInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -899,6 +933,7 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.cihistoriatp.ResumeLayout(false);
+            this.cirecibos.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -973,9 +1008,11 @@
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.ComboBox zonacb;
-        private System.Windows.Forms.TabPage cidescuento;
+        private System.Windows.Forms.TabPage cirecibos;
         private ListViewEx.ListViewEx cplistEx;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox saldoPrestamocb;
+        private PrintableListView.PrintableListView recibolst;
          
     }
 }

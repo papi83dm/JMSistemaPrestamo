@@ -467,6 +467,19 @@ namespace JM_Sistema_Prestamo
             return dtp;
         }
 
+        public SqlDataReader loadRecibos()
+        {
+            SqlDataReader dtp = dbc.query_single("SELECT RECIBOID as Recibo, CONVERT(VARCHAR(15), HE_FECHA, 105) AS Fecha, PRESTAMOID AS Prestamo ,CONVERT(varchar, CAST(HE_MONTO  as Money), 1)  as Capital,CONVERT(varchar, CAST(HE_DESC as Money), 1)  as Interes,CONVERT(varchar, CAST(HE_MORA as Money), 1) as Mora  FROM  recibos WHERE CL_CODIGO='" + CODIGO + "' order by RECIBOID desc");
+
+            return dtp;
+        }
+        public SqlDataReader loadReciboHistoria(string recibo)
+        {
+            SqlDataReader dtp = dbc.query_single(" SELECT  h1.HI_FACAFEC as Cuota ,h1.PRESTAMOID as Prestamo ,CONVERT(VARCHAR(15), h1.HI_FECHA, 105) as Fecha ,h1.HI_MONTO as Capital ,h2.HI_MONTO as Interes FROM historia h1 left join historia h2 on(h1.HI_DOCUM = h2.HI_DOCUM and h2.HI_TIPPAG='I' and h1.HI_FACAFEC = h2.HI_FACAFEC) where h1.HI_DOCUM='"+recibo+"' and h1.HI_TIPPAG='C'");
+
+            return dtp;
+        }
+       
         public SqlDataReader prestamoBalanceInfo(string prestamo)
         {
             SqlDataReader dtp = dbc.query_single("SELECT  CONVERT(VARCHAR(15), CO_FECHA, 105)  AS FECHA ,[CO_CAPITAL] ,[CO_INTERES],[CO_TIPPAG] ,[CO_CANPAG] ,[CO_INTDIA] ,[CO_ACTUAL] ,[CO_REAL]  ,[CO_BALINT]  ,[CO_MORA]  ,[CO_BALI]  ,[CO_CAVEN]  ,CONVERT(VARCHAR(15), CO_FECPAG, 105) as CO_FECPAG  FROM prestamos where PRESTAMOID='" + prestamo + "'");
@@ -477,7 +490,7 @@ namespace JM_Sistema_Prestamo
         public DataTable prestamoListaHistoria()
         {
              
-            DataTable dtp = dbc.query("SELECT PRESTAMOID AS PRESTAMO ,CONVERT(VARCHAR(15), CO_FECHA, 105)  AS FECHA ,CO_CAPITAL AS CAPITAL,CO_INTERES AS INTERES,CO_CANPAG  ,CO_TIPPAG  FROM  prestamos  where  CL_CODIGO='" + CODIGO + "'");
+            DataTable dtp = dbc.query("SELECT PRESTAMOID AS PRESTAMO ,CONVERT(VARCHAR(15), CO_FECHA, 105)  AS FECHA ,CO_CAPITAL AS CAPITAL,CO_INTERES AS INTERES,CO_CANPAG as CUOTAS  ,CO_TIPPAG as FORMA  FROM  prestamos  where  CL_CODIGO='" + CODIGO + "'");
 
             return dtp;
         }
