@@ -22,3 +22,27 @@ C:\Users\Jelina\Documents\Visual Studio 2010\Projects\JM Sistema Prestamo\JM Sis
 C:\Users\Jelina\Documents\Visual Studio 2010\Projects\JM Sistema Prestamo\JM Sistema Prestamo\obj\x86\Debug\JM Sistema Prestamo.application
 C:\Users\Jelina\Documents\Visual Studio 2010\Projects\JM Sistema Prestamo\JM Sistema Prestamo\obj\x86\Debug\JM Sistema Prestamo.exe
 C:\Users\Jelina\Documents\Visual Studio 2010\Projects\JM Sistema Prestamo\JM Sistema Prestamo\obj\x86\Debug\JM Sistema Prestamo.pdb
+d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Debug\ResolveAssemblyReference.cache
+d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Debug\JM_Sistema_Prestamo.BuscarClienteMini.resources
+d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Debug\JM_Sistema_Prestamo.ClienteBuscar.resources
+d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Debug\JM_Sistema_Prestamo.ClienteInfo.resources
+d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Debug\JM_Sistema_Prestamo.clientenuevoForm.resources
+d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Debug\JM_Sistema_Prestamo.Form1.resources
+d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Debug\JM_Sistema_Prestamo.ClienteLista.resources
+d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Debug\JM_Sistema_Prestamo.IngresoMensual.resources
+d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Debug\ListViewEx.SubItemEventArgs.resources
+d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Debug\JM_Sistema_Prestamo.PrestamoNuevo.resources
+d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Debug\PrintableListView.PrintableListView.resources
+d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Debug\JM_Sistema_Prestamo.Properties.Resources.resources
+d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Debug\JM_Sistema_Prestamo.ReciboMini.resources
+d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Debug\GenerateResource.read.1.tlog
+d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Debug\GenerateResource.write.1.tlog
+d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Debug\JM Sistema Prestamo.exe
+d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Debug\JM Sistema Prestamo.pdb
+d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\bin\Debug\JM Sistema Prestamo.exe.manifest
+d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\bin\Debug\JM Sistema Prestamo.application
+d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\bin\Debug\JM Sistema Prestamo.exe
+d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\bin\Debug\JM Sistema Prestamo.pdb
+d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Debug\JM Sistema Prestamo.TrustInfo.xml
+d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Debug\JM Sistema Prestamo.exe.manifest
+d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Debug\JM Sistema Prestamo.application

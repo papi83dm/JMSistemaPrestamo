@@ -96,11 +96,13 @@
             this.cihistoriatp = new System.Windows.Forms.TabPage();
             this.clientehistoriaprestamolist = new PrintableListView.PrintableListView();
             this.cirecibos = new System.Windows.Forms.TabPage();
+            this.printRecibobtn = new System.Windows.Forms.Button();
             this.recibolst = new PrintableListView.PrintableListView();
             this.pageSetupDialog1 = new System.Windows.Forms.PageSetupDialog();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
+            this.debitocb = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.ciinfotp.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -449,6 +451,7 @@
             // 
             // ciprestamotp
             // 
+            this.ciprestamotp.Controls.Add(this.debitocb);
             this.ciprestamotp.Controls.Add(this.saldoPrestamocb);
             this.ciprestamotp.Controls.Add(this.cplistEx);
             this.ciprestamotp.Controls.Add(this.groupBox4);
@@ -471,7 +474,7 @@
             // saldoPrestamocb
             // 
             this.saldoPrestamocb.AutoSize = true;
-            this.saldoPrestamocb.Location = new System.Drawing.Point(118, 393);
+            this.saldoPrestamocb.Location = new System.Drawing.Point(9, 389);
             this.saldoPrestamocb.Name = "saldoPrestamocb";
             this.saldoPrestamocb.Size = new System.Drawing.Size(100, 17);
             this.saldoPrestamocb.TabIndex = 31;
@@ -848,9 +851,9 @@
             // 
             // clientehistoriaprestamolist
             // 
-            this.clientehistoriaprestamolist.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.clientehistoriaprestamolist.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.clientehistoriaprestamolist.FitToPage = false;
             this.clientehistoriaprestamolist.FullRowSelect = true;
             this.clientehistoriaprestamolist.Location = new System.Drawing.Point(6, 17);
@@ -863,6 +866,7 @@
             // 
             // cirecibos
             // 
+            this.cirecibos.Controls.Add(this.printRecibobtn);
             this.cirecibos.Controls.Add(this.recibolst);
             this.cirecibos.Location = new System.Drawing.Point(4, 22);
             this.cirecibos.Name = "cirecibos";
@@ -872,11 +876,21 @@
             this.cirecibos.Text = "Recibos";
             this.cirecibos.UseVisualStyleBackColor = true;
             // 
+            // printRecibobtn
+            // 
+            this.printRecibobtn.Location = new System.Drawing.Point(441, 6);
+            this.printRecibobtn.Name = "printRecibobtn";
+            this.printRecibobtn.Size = new System.Drawing.Size(108, 23);
+            this.printRecibobtn.TabIndex = 19;
+            this.printRecibobtn.Text = "Imprimir Recibo";
+            this.printRecibobtn.UseVisualStyleBackColor = true;
+            this.printRecibobtn.Click += new System.EventHandler(this.printRecibobtn_Click);
+            // 
             // recibolst
             // 
-            this.recibolst.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.recibolst.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.recibolst.FitToPage = false;
             this.recibolst.FullRowSelect = true;
             this.recibolst.Location = new System.Drawing.Point(6, 6);
@@ -893,10 +907,6 @@
             this.pageSetupDialog1.AllowMargins = false;
             this.pageSetupDialog1.Document = this.printDocument1;
             // 
-            // printDocument1
-            // 
-            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.OnPrintPage);
-            // 
             // printDialog1
             // 
             this.printDialog1.Document = this.printDocument1;
@@ -912,6 +922,16 @@
             this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
             this.printPreviewDialog1.Name = "printPreviewDialog1";
             this.printPreviewDialog1.Visible = false;
+            // 
+            // debitocb
+            // 
+            this.debitocb.AutoSize = true;
+            this.debitocb.Location = new System.Drawing.Point(485, 392);
+            this.debitocb.Name = "debitocb";
+            this.debitocb.Size = new System.Drawing.Size(57, 17);
+            this.debitocb.TabIndex = 32;
+            this.debitocb.Text = "Debito";
+            this.debitocb.UseVisualStyleBackColor = true;
             // 
             // ClienteInfo
             // 
@@ -1013,6 +1033,8 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.CheckBox saldoPrestamocb;
         private PrintableListView.PrintableListView recibolst;
+        private System.Windows.Forms.Button printRecibobtn;
+        private System.Windows.Forms.CheckBox debitocb;
          
     }
 }

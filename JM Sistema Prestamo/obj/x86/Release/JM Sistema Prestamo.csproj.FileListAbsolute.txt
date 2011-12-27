@@ -22,3 +22,5 @@ C:\Users\Jelina\Documents\Visual Studio 2010\Projects\JM Sistema Prestamo\JM Sis
 C:\Users\Jelina\Documents\Visual Studio 2010\Projects\JM Sistema Prestamo\JM Sistema Prestamo\obj\x86\Release\JM Sistema Prestamo.application
 C:\Users\Jelina\Documents\Visual Studio 2010\Projects\JM Sistema Prestamo\JM Sistema Prestamo\obj\x86\Release\JM Sistema Prestamo.exe
 C:\Users\Jelina\Documents\Visual Studio 2010\Projects\JM Sistema Prestamo\JM Sistema Prestamo\obj\x86\Release\JM Sistema Prestamo.pdb
+d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Release\JM Sistema Prestamo.exe
+d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Release\JM Sistema Prestamo.pdb

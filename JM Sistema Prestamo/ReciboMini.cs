@@ -41,11 +41,12 @@ namespace JM_Sistema_Prestamo
 
             // load list column
             // Prestamos Columns
-            m_recibo_list.Columns.Add("Cuota", 60); 
+            m_recibo_list.Columns.Add("Cuota", 50); 
             m_recibo_list.Columns.Add("Prestamo", 65);
             m_recibo_list.Columns.Add("Fecha", 70);
             m_recibo_list.Columns.Add("Capital", 65);
-            m_recibo_list.Columns.Add("Interes", 65); 
+            m_recibo_list.Columns.Add("Interes", 65);
+            m_recibo_list.Columns.Add("Mora", 65); 
 
             while (psql.Read())
             {
@@ -56,7 +57,8 @@ namespace JM_Sistema_Prestamo
                 item.SubItems.Add(psql["Prestamo"].ToString());
                 item.SubItems.Add(psql["Fecha"].ToString());
                 item.SubItems.Add(psql["Capital"].ToString());
-                item.SubItems.Add(psql["Interes"].ToString()); 
+                item.SubItems.Add(psql["Interes"].ToString());
+                item.SubItems.Add(psql["Mora"].ToString()); 
                 m_recibo_list.Items.Add(item);
             }
             psql.Close();

@@ -22,13 +22,7 @@ namespace JM_Sistema_Prestamo
 
         public ClienteInfo()
         {
-            InitializeComponent();
-            // set printing document margins
-            printDocument1.DefaultPageSettings.Margins.Top = 25;
-            printDocument1.DefaultPageSettings.Margins.Left = 25;
-            printDocument1.DefaultPageSettings.Margins.Right = 25;
-
-
+            InitializeComponent(); 
         }
 
         public void loadClienteInfo(string codigo)
@@ -54,8 +48,9 @@ namespace JM_Sistema_Prestamo
             totallb.Text = String.Format("{0:C}", cliente1.CAPITAL + cliente1.INTERES);
             moralb.Text = "$0.00";
 
+
             // String.Format("Order Total: {0:C}", moneyvalue);
-            foreach (string prestamo in cliente1.PRESTAMO)
+            foreach (string prestamo in cliente1.Prestamo.Actuales)
             {
                 prestamocb.Items.Add(prestamo);
             }
@@ -264,7 +259,8 @@ namespace JM_Sistema_Prestamo
             string cuotastr = "";// cplistEx.SelectedItems[0].SubItems[5].Text;
             string prestamostr = prestamocb.SelectedItem.ToString();
             string conceptostr = conceptodepagotxt.Text;
-            int reciboID = 0; 
+            int reciboID = 0;
+            int debitoID = 0; 
 
             for (int i = 0; i < cplistEx.Items.Count; i++)
             {
@@ -279,6 +275,7 @@ namespace JM_Sistema_Prestamo
 
                 if (capitaltmp != "" || interestmp != "" && conceptodepagotxt.Text != "")
                 {
+                    
                     if (capitaltmp != "")
                     {
                         capitalstr = Double.Parse(capitaltmp);
@@ -293,13 +290,32 @@ namespace JM_Sistema_Prestamo
                         morastr = Double.Parse(moratmp);
                     }
 
-                    if (i == 0)
+                    //do Debito
+
+                    if (debitocb.Checked)
                     {
-                        reciboID = cliente1.hacerPago(prestamostr, cuotastr, capitalstr, interesstr, morastr, conceptostr);
+                        if (i == 0)
+                        {
+
+                            debitoID = cliente1.Prestamo.Debito(prestamostr, cuotastr, capitalstr, interesstr, morastr, conceptostr);
+                        }
+                        else if (debitoID > 0)
+                        {
+                            cliente1.Prestamo.updateDebito(debitoID, prestamostr, cuotastr, capitalstr, interesstr, morastr);
+                        }
                     }
-                    else if (reciboID > 0)
+                    else
                     {
-                        cliente1.updateHacerPago(reciboID, prestamostr, cuotastr, capitalstr, interesstr, morastr);
+
+                        if (i == 0)
+                        {
+
+                            reciboID = cliente1.Prestamo.Pagares(prestamostr, cuotastr, capitalstr, interesstr, morastr, conceptostr);
+                        }
+                        else if (reciboID > 0)
+                        {
+                            cliente1.Prestamo.updatePagares(reciboID, prestamostr, cuotastr, capitalstr, interesstr, morastr);
+                        }
                     }
                 }
                 //else
@@ -312,59 +328,35 @@ namespace JM_Sistema_Prestamo
             // ask to print if valid reciboID
             if (reciboID > 0)
             {
+                //clear concepto.
+                conceptodepagotxt.Text = "";
+                //refresh datatable
+                loadPrestamopagares(prestamostr);
                 if (MessageBox.Show("Quieres imprimir el Recibo?", "Imprimir Recibo", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    lines = cliente1.loadReciboPago(reciboID);
-
-                    //print document
-                    printDocument1.Print();
+                    //lines = cliente1.loadReciboPago(reciboID);
+                    PrintDoc pd = new PrintDoc();
+                    pd.Recibo(reciboID.ToString());
+                    pd = null;
+                }
+            }else if (debitoID > 0)
+            {
+                //clear concepto.
+                conceptodepagotxt.Text = "";
+                //refresh datatable
+                loadPrestamopagares(prestamostr);
+                if (MessageBox.Show("Quieres imprimir el Recibo?", "Imprimir Recibo", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    //lines = cliente1.loadReciboPago(reciboID);
+                    PrintDoc pd = new PrintDoc();
+                    pd.Debito(debitoID.ToString());
+                    pd = null;
                 }
             }
-            //refresh datatable
-            loadPrestamopagares(prestamostr);
-        }
-
-        // OnPrintPage
-        private void OnPrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
-        {
-         
-            int x = e.MarginBounds.Left;
-            int y = e.MarginBounds.Top;
-            Brush brush = new SolidBrush(System.Drawing.Color.Black);
-            Font f = new System.Drawing.Font("Courier New", 22, FontStyle.Bold); 
-            e.Graphics.DrawString(lines[0], f, brush, x, y);
-            y += 30;
-            f = new System.Drawing.Font("Courier New", 12);
-            e.Graphics.DrawString(lines[1], f, brush, x, y);
-            y += 20;  
-            e.Graphics.DrawString(lines[2], f, brush, x, y); 
-            // line to end header.
-            f = new System.Drawing.Font("Courier New", 20, FontStyle.Bold);
-            e.Graphics.DrawString(lines[3], f, brush, x, y);
-            y += 40;
-            f = new System.Drawing.Font("Courier New", 16,FontStyle.Bold);
-            e.Graphics.DrawString(lines[4], f, brush, x, y);
-            y += 40;
-            f = new System.Drawing.Font("Courier New", 11);
-            e.Graphics.DrawString(lines[5], f, brush, x, y);
-            y += 60; 
-            e.Graphics.DrawString(lines[6], f, brush, x, y);
-            y += 20;
-            e.Graphics.DrawString(lines[7], f, brush, x, y);
-            y += 20;
-            e.Graphics.DrawString(lines[8], f, brush, x, y);
-            y += 20;
-            e.Graphics.DrawString(lines[9], f, brush, x, y);
-            y += 80;
-            e.Graphics.DrawString(lines[10], f, brush, x, y);
-            y += 20;
-            e.Graphics.DrawString(lines[11], f, brush, x, y);
-            y += 20;
 
 
-            e.HasMorePages = false;
-        }
-
+           
+        } 
   
         private void cplistEx_SubItemClicked(object sender, ListViewEx.SubItemEventArgs e)
         { 
@@ -449,6 +441,18 @@ namespace JM_Sistema_Prestamo
             //    codigotxt.Text = cl1.CODIGO;
             //    nombretxt.Text = cl1.NOMBRE;
             //}
+        }
+
+        private void printRecibobtn_Click(object sender, EventArgs e)
+        {
+            string reciboID = recibolst.SelectedItems[0].SubItems[0].Text;
+            if (reciboID != "")
+            {
+                PrintDoc pd = new PrintDoc();
+                pd.Recibo(reciboID);
+                pd = null;
+            }
+           // MessageBox.Show(reciboID);
         }
 
        

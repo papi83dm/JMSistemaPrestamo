@@ -48,7 +48,7 @@
             this.m_recibo_list.FullRowSelect = true;
             this.m_recibo_list.Location = new System.Drawing.Point(5, 12);
             this.m_recibo_list.Name = "m_recibo_list";
-            this.m_recibo_list.Size = new System.Drawing.Size(367, 297);
+            this.m_recibo_list.Size = new System.Drawing.Size(385, 297);
             this.m_recibo_list.TabIndex = 18;
             this.m_recibo_list.UseCompatibleStateImageBehavior = false;
             this.m_recibo_list.View = System.Windows.Forms.View.Details;
@@ -68,7 +68,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(384, 362);
+            this.ClientSize = new System.Drawing.Size(392, 362);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.m_recibo_list);
             this.Controls.Add(this.textfieldtxt);

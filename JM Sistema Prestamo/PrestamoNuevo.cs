@@ -11,6 +11,7 @@ namespace JM_Sistema_Prestamo
 {
     public partial class PrestamoNuevo : Form
     {
+        
         private readonly double WEEKLY = 4.3;
         private readonly double SEMIMONTHLY = 2.0;
         private readonly double MONTHLY = 1.0;
@@ -204,7 +205,7 @@ namespace JM_Sistema_Prestamo
                 double interesstr = Double.Parse(interestxt.Text);
                 string formadepagostr = FormadePagocb.SelectedValue.ToString();
                 string distribucionstr = distribucioncb.SelectedValue.ToString();
-                int prestamoID = cli.HacerPrestamo(sDate, capitalstr, interesstr, cuotastr, formadepagostr, distribucionstr);
+                int prestamoID = cli.Prestamo.Nuevo(sDate, capitalstr, interesstr, cuotastr, formadepagostr, distribucionstr);
 
                 MessageBox.Show("Presamo has sido Grabado.");
                 // vaciar todo la field del formulario
