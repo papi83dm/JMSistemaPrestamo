@@ -30,7 +30,7 @@
         {
             this.textfieldtxt = new System.Windows.Forms.TextBox();
             this.m_recibo_list = new ListViewEx.ListViewEx();
-            this.button1 = new System.Windows.Forms.Button();
+            this.grabarBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textfieldtxt
@@ -54,22 +54,23 @@
             this.m_recibo_list.View = System.Windows.Forms.View.Details;
             this.m_recibo_list.SubItemClicked += new ListViewEx.SubItemEventHandler(this.m_recibo_list_SubItemClicked);
             // 
-            // button1
+            // grabarBtn
             // 
-            this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(285, 334);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 19;
-            this.button1.Text = "Grabar";
-            this.button1.UseVisualStyleBackColor = true;
+            this.grabarBtn.Enabled = false;
+            this.grabarBtn.Location = new System.Drawing.Point(285, 334);
+            this.grabarBtn.Name = "grabarBtn";
+            this.grabarBtn.Size = new System.Drawing.Size(75, 23);
+            this.grabarBtn.TabIndex = 19;
+            this.grabarBtn.Text = "Grabar";
+            this.grabarBtn.UseVisualStyleBackColor = true;
+            this.grabarBtn.Click += new System.EventHandler(this.grabarBtn_Click);
             // 
             // ReciboMini
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(392, 362);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.grabarBtn);
             this.Controls.Add(this.m_recibo_list);
             this.Controls.Add(this.textfieldtxt);
             this.MaximizeBox = false;
@@ -86,6 +87,6 @@
 
         private System.Windows.Forms.TextBox textfieldtxt;
         private ListViewEx.ListViewEx m_recibo_list;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button grabarBtn;
     }
 }

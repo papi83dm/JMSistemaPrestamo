@@ -206,8 +206,7 @@ namespace JM_Sistema_Prestamo
                 string formadepagostr = FormadePagocb.SelectedValue.ToString();
                 string distribucionstr = distribucioncb.SelectedValue.ToString();
                 int prestamoID = cli.Prestamo.Nuevo(sDate, capitalstr, interesstr, cuotastr, formadepagostr, distribucionstr);
-
-                MessageBox.Show("Presamo has sido Grabado.");
+                 
                 // vaciar todo la field del formulario
                 cuotatxt.Text = "";
                 capitaltxt.Text = "";
@@ -221,6 +220,13 @@ namespace JM_Sistema_Prestamo
                 //clear list cuota
                 m_list.Items.Clear();
                 m_list.Columns.Clear();
+
+                if (MessageBox.Show("Quieres imprimir el Prestamo?", "Prestamo Grabado", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    PrintDoc pd = new PrintDoc();
+                    pd.Prestamo(prestamoID.ToString());
+                    pd = null;
+                }
 
 
             }

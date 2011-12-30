@@ -13,15 +13,15 @@ namespace JM_Sistema_Prestamo
     {
         public string CODIGO  { get; set; }
         public string NOMBRE { get; set; }
-        private string CL_RAZON;
-        private string ZO_CODIGO;
-        private string CA_CODIGO;
-        private string CL_DIREC1;
-        private string CL_DIREC2;
-        private string CL_TELEF1;
-        private string CL_TELEF2;
-        private string CL_TELEF3;
-        private string CL_FAX;
+        public string RAZON { get; set; }
+        public string Z_CODIGO { get; set; }
+        public string CA_CODIGO;
+        public string DIREC1 { get; set; }
+        public string DIREC2 { get; set; }
+        public string TELEF1 { get; set; }
+        public string TELEF2 { get; set; }
+        public string TELEF3 { get; set; }
+        public string FAX { get; set; }
         private string CL_ENCCOM;
         private double CL_ACTUAL = 0.00;
         private string CL_PASA;
@@ -54,33 +54,7 @@ namespace JM_Sistema_Prestamo
             dbc = new DBConnection();
             loadClienteFromDB(codigo);
             Prestamo = new Prestamo(CODIGO,dbc);
-        }
-         
-
-        public string RAZON
-        {
-            get
-            {
-                return CL_RAZON;
-            }
-            set
-            {
-                CL_RAZON = value;
-            }
-        }
-
-        public string Z_CODIGO
-        {
-            get
-            {
-                return ZO_CODIGO;
-            }
-            set
-            {
-                ZO_CODIGO = value;
-            }
-        }
-
+        } 
         public string C_CODIGO
         {
             get
@@ -91,79 +65,8 @@ namespace JM_Sistema_Prestamo
             {
                 CA_CODIGO = value;
             }
-        }
-
-        public string DIREC1
-        {
-            get
-            {
-                return CL_DIREC1;
-            }
-            set
-            {
-                CL_DIREC1 = value;
-            }
-        }
-
-        public string DIREC2
-        {
-            get
-            {
-                return CL_DIREC2;
-            }
-            set
-            {
-                CL_DIREC2 = value;
-            }
-        }
-
-        public string TELEF1
-        {
-            get
-            {
-                return CL_TELEF1;
-            }
-            set
-            {
-                CL_TELEF1 = value;
-            }
-        }
-
-        public string  TELEF2
-        {
-            get
-            {
-                return CL_TELEF2;
-            }
-            set
-            {
-                CL_TELEF2 = value;
-            }
-        }
-
-        public string TELEF3
-        {
-            get
-            {
-                return CL_TELEF3;
-            }
-            set
-            {
-                CL_TELEF3 = value;
-            }
-        }
-
-        public string FAX
-        {
-            get
-            {
-                return CL_FAX;
-            }
-            set
-            {
-                CL_FAX = value;
-            }
-        }
+        } 
+         
 
         public string ENCCOM
         {
@@ -326,15 +229,15 @@ namespace JM_Sistema_Prestamo
                       "  VALUES" +
                       " ('" + CODIGO + "'" +
                       " ,'" + NOMBRE + "'" +
-                      " ,'" + CL_RAZON + "'" +
-                      " ,'" + ZO_CODIGO + "'" +
+                      " ,'" + RAZON + "'" +
+                      " ,'" + Z_CODIGO + "'" +
                       " ,'" + CA_CODIGO + "'" +
-                      " ,'" + CL_DIREC1 + "'" +
-                      " ,'" + CL_DIREC2 + "'" +
-                      " ,'" + CL_TELEF1 + "'" +
-                      " ,'" + CL_TELEF2 + "'" +
-                      " ,'" + CL_TELEF3 + "'" +
-                      " ,'" + CL_FAX + "'" +
+                      " ,'" + DIREC1 + "'" +
+                      " ,'" + DIREC2 + "'" +
+                      " ,'" + TELEF1 + "'" +
+                      " ,'" + TELEF2 + "'" +
+                      " ,'" + TELEF3 + "'" +
+                      " ,'" + FAX + "'" +
                       " ,'" + CL_ENCCOM + "'" +
                       " ," + CL_ACTUAL + "" +
                       " ,'" + CL_PASA + "'" +
@@ -432,7 +335,7 @@ namespace JM_Sistema_Prestamo
 
         public SqlDataReader prestamoHistoria(string prestamo)
         {
-            SqlDataReader dtp = dbc.query_single("SELECT  HI_DOCUM as CUOTA, CONVERT(VARCHAR(15), HI_FECHA, 105)  AS FECHA, HI_BALCAP AS CAPITAL, HI_BALINT AS INTERES,(HI_BALCAP + HI_BALINT) as TOTAL FROM historia where PRESTAMOID='" + prestamo + "' and HI_BALCAP >0");
+            SqlDataReader dtp = dbc.query_single("SELECT  HI_DOCUM as CUOTA, CONVERT(VARCHAR(15), HI_FECHA, 105)  AS FECHA, HI_BALCAP AS CAPITAL, HI_BALINT AS INTERES,(HI_BALCAP + HI_BALINT) as TOTAL FROM historia where PRESTAMOID='" + prestamo + "' and (HI_BALCAP >0 or HI_BALINT>0)");
 
             return dtp;
         }
@@ -443,9 +346,22 @@ namespace JM_Sistema_Prestamo
 
             return dtp;
         }
+        
+        public bool isReciboToday(string recibo)
+        {
+            bool result = false;
+
+            SqlDataReader getRecibo = dbc.query_single("SELECT HE_FECHA, RECIBOID from recibos where  RECIBOID='"+recibo+"' and HE_FECHA='" + hoyfecha +"'");
+            if (getRecibo.Read())
+            {
+                result = true; 
+            }
+            getRecibo.Close();
+            return result;
+        }
         public SqlDataReader loadReciboHistoria(string recibo)
         {
-            SqlDataReader dtp = dbc.query_single(" SELECT  h1.HI_FACAFEC as Cuota ,h1.PRESTAMOID as Prestamo ,CONVERT(VARCHAR(15), h1.HI_FECHA, 105) as Fecha ,h1.HI_MONTO as Capital ,h2.HI_MONTO as Interes FROM historia h1 left join historia h2 on(h1.HI_DOCUM = h2.HI_DOCUM and h2.HI_TIPPAG='I' and h1.HI_FACAFEC = h2.HI_FACAFEC) where h1.HI_DOCUM='"+recibo+"' and h1.HI_TIPPAG='C'");
+            SqlDataReader dtp = dbc.query_single(" SELECT  h1.HI_FACAFEC as Cuota ,h1.PRESTAMOID as Prestamo ,CONVERT(VARCHAR(15), h1.HI_FECHA, 105) as Fecha ,h1.HI_MONTO as Capital ,h2.HI_MONTO as Interes,h1.CL_CODIGO FROM historia h1 left join historia h2 on(h1.HI_DOCUM = h2.HI_DOCUM and h2.HI_TIPPAG='I' and h1.HI_FACAFEC = h2.HI_FACAFEC) where h1.HI_DOCUM='"+recibo+"' and h1.HI_TIPPAG='C'");
 
             return dtp;
         }

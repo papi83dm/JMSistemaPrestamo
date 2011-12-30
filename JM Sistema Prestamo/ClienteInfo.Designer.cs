@@ -32,7 +32,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.ciinfotp = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
+            this.grabarClienteBtn = new System.Windows.Forms.Button();
             this.trabajodirtxt = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
             this.telefono2txt = new System.Windows.Forms.TextBox();
@@ -61,6 +61,7 @@
             this.codigotxt = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.ciprestamotp = new System.Windows.Forms.TabPage();
+            this.debitocb = new System.Windows.Forms.CheckBox();
             this.saldoPrestamocb = new System.Windows.Forms.CheckBox();
             this.cplistEx = new ListViewEx.ListViewEx();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -94,15 +95,16 @@
             this.cpcapitallb = new System.Windows.Forms.Label();
             this.prestamocb = new System.Windows.Forms.ComboBox();
             this.cihistoriatp = new System.Windows.Forms.TabPage();
+            this.imprimirPrestamobtn = new System.Windows.Forms.Button();
             this.clientehistoriaprestamolist = new PrintableListView.PrintableListView();
             this.cirecibos = new System.Windows.Forms.TabPage();
+            this.ActualizarBtn = new System.Windows.Forms.Button();
             this.printRecibobtn = new System.Windows.Forms.Button();
             this.recibolst = new PrintableListView.PrintableListView();
             this.pageSetupDialog1 = new System.Windows.Forms.PageSetupDialog();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
-            this.debitocb = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.ciinfotp.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -138,7 +140,7 @@
             // 
             // ciinfotp
             // 
-            this.ciinfotp.Controls.Add(this.button1);
+            this.ciinfotp.Controls.Add(this.grabarClienteBtn);
             this.ciinfotp.Controls.Add(this.trabajodirtxt);
             this.ciinfotp.Controls.Add(this.label25);
             this.ciinfotp.Controls.Add(this.telefono2txt);
@@ -164,14 +166,14 @@
             this.ciinfotp.Text = "Informacion";
             this.ciinfotp.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // grabarClienteBtn
             // 
-            this.button1.Location = new System.Drawing.Point(557, 233);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(152, 28);
-            this.button1.TabIndex = 33;
-            this.button1.Text = "Grabar Informacion";
-            this.button1.UseVisualStyleBackColor = true;
+            this.grabarClienteBtn.Location = new System.Drawing.Point(557, 233);
+            this.grabarClienteBtn.Name = "grabarClienteBtn";
+            this.grabarClienteBtn.Size = new System.Drawing.Size(152, 28);
+            this.grabarClienteBtn.TabIndex = 33;
+            this.grabarClienteBtn.Text = "Grabar Informacion";
+            this.grabarClienteBtn.UseVisualStyleBackColor = true;
             // 
             // trabajodirtxt
             // 
@@ -470,6 +472,16 @@
             this.ciprestamotp.TabIndex = 0;
             this.ciprestamotp.Text = "Prestamos Actual";
             this.ciprestamotp.UseVisualStyleBackColor = true;
+            // 
+            // debitocb
+            // 
+            this.debitocb.AutoSize = true;
+            this.debitocb.Location = new System.Drawing.Point(485, 392);
+            this.debitocb.Name = "debitocb";
+            this.debitocb.Size = new System.Drawing.Size(57, 17);
+            this.debitocb.TabIndex = 32;
+            this.debitocb.Text = "Debito";
+            this.debitocb.UseVisualStyleBackColor = true;
             // 
             // saldoPrestamocb
             // 
@@ -840,14 +852,25 @@
             // 
             // cihistoriatp
             // 
+            this.cihistoriatp.Controls.Add(this.imprimirPrestamobtn);
             this.cihistoriatp.Controls.Add(this.clientehistoriaprestamolist);
             this.cihistoriatp.Location = new System.Drawing.Point(4, 22);
             this.cihistoriatp.Name = "cihistoriatp";
             this.cihistoriatp.Padding = new System.Windows.Forms.Padding(3);
             this.cihistoriatp.Size = new System.Drawing.Size(775, 511);
             this.cihistoriatp.TabIndex = 1;
-            this.cihistoriatp.Text = "Prestamos Pagados";
+            this.cihistoriatp.Text = "Todo los Prestamos";
             this.cihistoriatp.UseVisualStyleBackColor = true;
+            // 
+            // imprimirPrestamobtn
+            // 
+            this.imprimirPrestamobtn.Location = new System.Drawing.Point(514, 17);
+            this.imprimirPrestamobtn.Name = "imprimirPrestamobtn";
+            this.imprimirPrestamobtn.Size = new System.Drawing.Size(118, 23);
+            this.imprimirPrestamobtn.TabIndex = 18;
+            this.imprimirPrestamobtn.Text = "Imprimir Prestamo";
+            this.imprimirPrestamobtn.UseVisualStyleBackColor = true;
+            this.imprimirPrestamobtn.Click += new System.EventHandler(this.imprimirPrestamobtn_Click);
             // 
             // clientehistoriaprestamolist
             // 
@@ -866,6 +889,7 @@
             // 
             // cirecibos
             // 
+            this.cirecibos.Controls.Add(this.ActualizarBtn);
             this.cirecibos.Controls.Add(this.printRecibobtn);
             this.cirecibos.Controls.Add(this.recibolst);
             this.cirecibos.Location = new System.Drawing.Point(4, 22);
@@ -876,9 +900,19 @@
             this.cirecibos.Text = "Recibos";
             this.cirecibos.UseVisualStyleBackColor = true;
             // 
+            // ActualizarBtn
+            // 
+            this.ActualizarBtn.Location = new System.Drawing.Point(431, 6);
+            this.ActualizarBtn.Name = "ActualizarBtn";
+            this.ActualizarBtn.Size = new System.Drawing.Size(108, 23);
+            this.ActualizarBtn.TabIndex = 20;
+            this.ActualizarBtn.Text = "Actualizar";
+            this.ActualizarBtn.UseVisualStyleBackColor = true;
+            this.ActualizarBtn.Click += new System.EventHandler(this.ActualizarBtn_Click);
+            // 
             // printRecibobtn
             // 
-            this.printRecibobtn.Location = new System.Drawing.Point(441, 6);
+            this.printRecibobtn.Location = new System.Drawing.Point(556, 6);
             this.printRecibobtn.Name = "printRecibobtn";
             this.printRecibobtn.Size = new System.Drawing.Size(108, 23);
             this.printRecibobtn.TabIndex = 19;
@@ -922,16 +956,6 @@
             this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
             this.printPreviewDialog1.Name = "printPreviewDialog1";
             this.printPreviewDialog1.Visible = false;
-            // 
-            // debitocb
-            // 
-            this.debitocb.AutoSize = true;
-            this.debitocb.Location = new System.Drawing.Point(485, 392);
-            this.debitocb.Name = "debitocb";
-            this.debitocb.Size = new System.Drawing.Size(57, 17);
-            this.debitocb.TabIndex = 32;
-            this.debitocb.Text = "Debito";
-            this.debitocb.UseVisualStyleBackColor = true;
             // 
             // ClienteInfo
             // 
@@ -1030,11 +1054,13 @@
         private System.Windows.Forms.ComboBox zonacb;
         private System.Windows.Forms.TabPage cirecibos;
         private ListViewEx.ListViewEx cplistEx;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button grabarClienteBtn;
         private System.Windows.Forms.CheckBox saldoPrestamocb;
         private PrintableListView.PrintableListView recibolst;
         private System.Windows.Forms.Button printRecibobtn;
         private System.Windows.Forms.CheckBox debitocb;
+        private System.Windows.Forms.Button ActualizarBtn;
+        private System.Windows.Forms.Button imprimirPrestamobtn;
          
     }
 }

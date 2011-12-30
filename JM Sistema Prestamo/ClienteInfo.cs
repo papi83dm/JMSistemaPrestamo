@@ -273,7 +273,7 @@ namespace JM_Sistema_Prestamo
                 double interesstr = 0.00;
                 double morastr = 0.00;
 
-                if (capitaltmp != "" || interestmp != "" && conceptodepagotxt.Text != "")
+                if ((capitaltmp != "" || interestmp != "") && conceptodepagotxt.Text != "")
                 {
                     
                     if (capitaltmp != "")
@@ -451,9 +451,28 @@ namespace JM_Sistema_Prestamo
                 PrintDoc pd = new PrintDoc();
                 pd.Recibo(reciboID);
                 pd = null;
+                loadRecibos();
             }
            // MessageBox.Show(reciboID);
         }
+
+        private void ActualizarBtn_Click(object sender, EventArgs e)
+        {
+            loadRecibos();
+        }
+
+        private void imprimirPrestamobtn_Click(object sender, EventArgs e)
+        {
+            string prestamoID = clientehistoriaprestamolist.SelectedItems[0].SubItems[0].Text;
+            if (prestamoID != "")
+            {
+                PrintDoc pd = new PrintDoc();
+                pd.Prestamo(prestamoID);
+                pd = null;
+            }
+        }
+
+         
 
        
           

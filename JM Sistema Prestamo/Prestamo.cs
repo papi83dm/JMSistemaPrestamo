@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data.SqlClient;
+using System.Windows.Forms;
 
 namespace JM_Sistema_Prestamo
 {
@@ -115,6 +116,8 @@ namespace JM_Sistema_Prestamo
             prest.Close();
         }
 
+
+       
         public int Pagares(string prestamo, string pagare, double capital, double interes, double mora, string concepto)
         {
             int resultID = 0;
@@ -141,7 +144,7 @@ namespace JM_Sistema_Prestamo
             else
             {
                 string sqlIns = "INSERT INTO recibos (HE_FECHA, CL_CODIGO, HE_MONTO, HE_DESC, HE_MORA, PRESTAMOID, HE_CONCEP) VALUES (@HE_FECHA, @CL_CODIGO, @HE_MONTO, @HE_DESC, @HE_MORA, @PRESTAMOID, @HE_CONCEP)";
-
+                 
                 SqlCommand cmdIns = new SqlCommand(sqlIns);
                 cmdIns.Parameters.AddWithValue("@HE_FECHA", hoyfecha);
                 cmdIns.Parameters.AddWithValue("@CL_CODIGO", CODIGO);
@@ -235,6 +238,34 @@ namespace JM_Sistema_Prestamo
 
             }
         }
+
+        public void modificarPagares(string ReciboID,string prestamo, string cuota, double capital, double interes, double mora)
+        {
+            //undo recidoID to Prestamo.
+            dbc.query_insert("UPDATE t1 SET t1.CO_CAPI = t1.CO_CAPI + t2.HE_MONTO, t1.CO_ACTUAL = t1.CO_ACTUAL + t2.HE_MONTO FROM prestamos t1  INNER JOIN recibos t2 ON  t1.PRESTAMOID = t2.PRESTAMOID where t2.RECIBOID="+ ReciboID);
+            dbc.query_insert("UPDATE t1 set t1.CL_ACTUAL=t1.CL_ACTUAL + t2.HE_MONTO, t1.CL_CAPITAL=t1.CL_CAPITAL + t2.HE_MONTO, t1.CL_INTERES=t1.CL_INTERES + t2.HE_DESC FROM clientes t1 INNER JOIN recibos t2 on t2.RECIBOID="+ ReciboID+"  where t1.CL_CODIGO='" + CODIGO + "'");
+            dbc.query_insert("UPDATE t1 SET t1.HI_BALCAP = t1.HI_BALCAP + t2.HI_MONTO  FROM historia t1  INNER JOIN historia t2 ON  (t1.PRESTAMOID = t2.PRESTAMOID and t1.HI_DOCUM=t2.HI_FACAFEC and t2.HI_TIPPAG='C') where t2.HI_DOCUM='" + ReciboID + "'");
+            dbc.query_insert("UPDATE t1 SET t1.HI_BALINT = t1.HI_BALINT + t2.HI_MONTO  FROM historia t1  INNER JOIN historia t2 ON  (t1.PRESTAMOID = t2.PRESTAMOID and t1.HI_DOCUM=t2.HI_FACAFEC and t2.HI_TIPPAG='I') where t2.HI_DOCUM='" + ReciboID + "'");  
+            ////make payment with new info 
+            dbc.query_insert("UPDATE recibos set HE_MONTO =" + capital + ",HE_DESC=" + interes + ",HE_MORA =" + mora + " WHERE RECIBOID = " + ReciboID);
+            dbc.query_insert("UPDATE historia SET HI_MONTO = " +capital+" WHERE HI_DOCUM='"+ReciboID+"' and HI_FACAFEC='"+ cuota+"' and HI_TIPPAG='C'"); 
+            dbc.query_insert("UPDATE historia SET HI_MONTO = " +interes+" WHERE HI_DOCUM='"+ReciboID+"' and HI_FACAFEC='"+ cuota+"' and HI_TIPPAG='I'");
+            dbc.query_insert("UPDATE historia set HI_BALCAP=HI_BALCAP -" + capital + ", HI_BALINT=HI_BALINT - " + interes + "  where PRESTAMOID=" + prestamo + " and HI_DOCUM='" + cuota + "' ");
+            dbc.query_insert("UPDATE clientes set CL_ACTUAL=CL_ACTUAL -" + capital + ", CL_CAPITAL=CL_CAPITAL - " + capital + ",CL_INTERES=CL_INTERES - " + interes + "  where CL_CODIGO='" + CODIGO + "'");
+            dbc.query_insert("UPDATE prestamos set CO_CAPI=CO_CAPI -" + capital + ", CO_ACTUAL=CO_ACTUAL - " + capital + ", CO_FECPAG='" + hoyfecha + "' where PRESTAMOID=" + prestamo);         
+        }
+
+        public void modificarPagaresUpdate(string ReciboID, string prestamo, string cuota, double capital, double interes, double mora)
+        {
+            ////make payment with new info 
+            dbc.query_insert("UPDATE recibos set HE_MONTO = HE_MONTO + " + capital + ",HE_DESC= HE_DESC +" + interes + ",HE_MORA = HE_MORA + " + mora + " WHERE RECIBOID = " + ReciboID);
+            dbc.query_insert("UPDATE historia SET HI_MONTO = " + capital + " WHERE HI_DOCUM='" + ReciboID + "' and HI_FACAFEC='" + cuota + "' and HI_TIPPAG='C'");
+            dbc.query_insert("UPDATE historia SET HI_MONTO = " + interes + " WHERE HI_DOCUM='" + ReciboID + "' and HI_FACAFEC='" + cuota + "' and HI_TIPPAG='I'");
+            dbc.query_insert("UPDATE historia set HI_BALCAP=HI_BALCAP -" + capital + ", HI_BALINT=HI_BALINT - " + interes + ", HI_FECFIN='" + hoyfecha + "' , HI_FECPAG='" + hoyfecha + "' where PRESTAMOID=" + prestamo + " and HI_DOCUM='" + cuota + "' ");
+            dbc.query_insert("UPDATE clientes set CL_ACTUAL=CL_ACTUAL -" + capital + ", CL_CAPITAL=CL_CAPITAL - " + capital + ",CL_INTERES=CL_INTERES - " + interes + "  where CL_CODIGO='" + CODIGO + "'");
+            dbc.query_insert("UPDATE prestamos set CO_CAPI=CO_CAPI -" + capital + ", CO_ACTUAL=CO_ACTUAL - " + capital + ", CO_FECPAG='" + hoyfecha + "' where PRESTAMOID=" + prestamo);
+        }
+
 
         public int Debito(string prestamo, string pagare, double capital, double interes, double mora, string concepto)
         {
