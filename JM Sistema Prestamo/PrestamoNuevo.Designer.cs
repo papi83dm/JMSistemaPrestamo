@@ -293,7 +293,7 @@
             this.groupBox4.Size = new System.Drawing.Size(200, 121);
             this.groupBox4.TabIndex = 58;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Detalles";
+            this.groupBox4.Text = "Detalles"; 
             // 
             // pcuotasilb
             // 

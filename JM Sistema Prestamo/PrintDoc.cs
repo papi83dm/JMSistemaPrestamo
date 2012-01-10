@@ -367,7 +367,7 @@ namespace JM_Sistema_Prestamo
             //}
             if (lNumber < 1000)
             {
-                if ((lNumber % 100) == 0)
+                if (lNumber == 100 )
                 {
                     return "Cien " ;
                 }
@@ -378,7 +378,14 @@ namespace JM_Sistema_Prestamo
             }
             if (lNumber < 1000000)
             {
-                return Number2Word(lNumber / 1000) + "Mil " + Number2Word(lNumber % 1000);
+                if (lNumber >999 && lNumber < 2000)
+                {
+                    return  "Mil " + Number2Word(lNumber % 1000);
+                }
+                else
+                {
+                    return Number2Word(lNumber / 1000) + "Mil " + Number2Word(lNumber % 1000);
+                }
             }
             if (lNumber < 10000000)
             {

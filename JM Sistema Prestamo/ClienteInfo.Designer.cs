@@ -61,6 +61,7 @@
             this.codigotxt = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.ciprestamotp = new System.Windows.Forms.TabPage();
+            this.inactivoCB = new System.Windows.Forms.CheckBox();
             this.debitocb = new System.Windows.Forms.CheckBox();
             this.saldoPrestamocb = new System.Windows.Forms.CheckBox();
             this.cplistEx = new ListViewEx.ListViewEx();
@@ -453,6 +454,7 @@
             // 
             // ciprestamotp
             // 
+            this.ciprestamotp.Controls.Add(this.inactivoCB);
             this.ciprestamotp.Controls.Add(this.debitocb);
             this.ciprestamotp.Controls.Add(this.saldoPrestamocb);
             this.ciprestamotp.Controls.Add(this.cplistEx);
@@ -472,6 +474,17 @@
             this.ciprestamotp.TabIndex = 0;
             this.ciprestamotp.Text = "Prestamos Actual";
             this.ciprestamotp.UseVisualStyleBackColor = true;
+            // 
+            // inactivoCB
+            // 
+            this.inactivoCB.AutoSize = true;
+            this.inactivoCB.Location = new System.Drawing.Point(110, 24);
+            this.inactivoCB.Name = "inactivoCB";
+            this.inactivoCB.Size = new System.Drawing.Size(111, 17);
+            this.inactivoCB.TabIndex = 33;
+            this.inactivoCB.Text = "Prestamo Inactivo";
+            this.inactivoCB.UseVisualStyleBackColor = true; 
+            this.inactivoCB.Click += new System.EventHandler(this.inactivoCB_Click);
             // 
             // debitocb
             // 
@@ -1061,6 +1074,7 @@
         private System.Windows.Forms.CheckBox debitocb;
         private System.Windows.Forms.Button ActualizarBtn;
         private System.Windows.Forms.Button imprimirPrestamobtn;
+        private System.Windows.Forms.CheckBox inactivoCB;
          
     }
 }

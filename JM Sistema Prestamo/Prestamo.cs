@@ -97,7 +97,8 @@ namespace JM_Sistema_Prestamo
 
                 }
                 //update cliente balance same.
-
+                
+                dbc.query_insert(String.Format("UPDATE clientes set CL_ACTUAL=CL_ACTUAL + {0}, CL_CAPITAL=CL_CAPITAL + {0},CL_INTERES=CL_INTERES + {1} where CL_CODIGO='{2}'",((capital /cuota ) * cuota),interes,CODIGO));
                 //
                 //   dbc.query_insert("UPDATE prestamos SET  CO_FECPAG='" + fecha + "' where PRESTAMOID=" + prestamo);
             }
@@ -129,8 +130,8 @@ namespace JM_Sistema_Prestamo
                 SqlCommand cmdIns = new SqlCommand(sqlIns);
                 cmdIns.Parameters.AddWithValue("@HE_FECHA", hoyfecha);
                 cmdIns.Parameters.AddWithValue("@CL_CODIGO", CODIGO);
-                cmdIns.Parameters.AddWithValue("@HE_MONTO", interes);
-                cmdIns.Parameters.AddWithValue("@HE_DESC", 0.00);
+                cmdIns.Parameters.AddWithValue("@HE_DESC", interes);
+                cmdIns.Parameters.AddWithValue("@HE_MONTO", 0.00);
                 cmdIns.Parameters.AddWithValue("@HE_MORA", mora);
                 cmdIns.Parameters.AddWithValue("@PRESTAMOID", prestamo);
                 cmdIns.Parameters.AddWithValue("@HE_CONCEP", concepto);
@@ -193,6 +194,28 @@ namespace JM_Sistema_Prestamo
             }
 
             return resultID;
+        }
+
+        public void UpdateInactivo(string prestamo, int status)
+        {
+            dbc.query_insert(String.Format("UPDATE prestamos set INACTIVO={0} where PRESTAMOID={1}",status, prestamo)); 
+        }
+
+        public bool esInactivo(string prestamo)
+        {
+            bool result = false;
+            SqlDataReader prest = dbc.query_single(String.Format("SELECT  INACTIVO FROM prestamos where PRESTAMOID={0}",prestamo));
+
+            if (prest.Read())
+            {
+                if (prest["INACTIVO"].ToString() == "1")
+                {
+                    result = true;
+                } 
+            }
+            prest.Close();
+
+            return result;
         }
 
         public void updatePagares(int ReciboID, string prestamo, string pagare, double capital, double interes, double mora)

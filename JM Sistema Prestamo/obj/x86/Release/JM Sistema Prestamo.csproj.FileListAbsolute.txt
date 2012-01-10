@@ -46,3 +46,4 @@ d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\o
 d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Release\JM Sistema Prestamo.TrustInfo.xml
 d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Release\JM Sistema Prestamo.exe.manifest
 d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Release\JM Sistema Prestamo.application
+d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Release\JM_Sistema_Prestamo.HomePage.resources

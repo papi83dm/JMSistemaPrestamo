@@ -94,9 +94,10 @@ namespace JM_Sistema_Prestamo
         }
 
         private void Form1_Load(object sender, EventArgs e)
-        {
-            
-            
+        { 
+            HomePage home = new HomePage();
+            home.MdiParent = this;
+            home.Show();
         }
 
         private void buscarClienteToolStripMenuItem_Click(object sender, EventArgs e)

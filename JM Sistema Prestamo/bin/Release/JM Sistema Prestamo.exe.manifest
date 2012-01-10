@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="JM Sistema Prestamo.exe" size="179200">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="JM Sistema Prestamo.exe" size="193024">
       <assemblyIdentity name="JM Sistema Prestamo" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>W3gmrDS3DHwhIe0oOsg/cvcsgOg=</dsig:DigestValue>
+        <dsig:DigestValue>1SkwhxWwn5f9iArkqI/BjNb7bpE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

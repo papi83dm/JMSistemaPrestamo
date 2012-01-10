@@ -235,6 +235,8 @@ namespace JM_Sistema_Prestamo
                 MessageBox.Show("Por Favor no lo deje vacio.", "Capital, Interes, Taza oh Cliente. \r\n", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+         
         
 
        

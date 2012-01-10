@@ -26,8 +26,12 @@ namespace JM_Sistema_Prestamo
             DataTable dt = c.ClienteListaHoy();
            // clienteListalv. = dt; 
             FillList(this.m_list, dt);
-            dt = c.ClienteListaAtraso();
+            dt = c.ClienteListaAtraso("0");
             FillList(this.m_listaatraso, dt);
+
+            //load inactivo
+            dt = c.ClienteListaAtraso("1");
+            FillList(this.inactivolistview, dt);
              
         }
 
@@ -198,6 +202,17 @@ namespace JM_Sistema_Prestamo
             }
             return result;
 
+        }
+
+        private void inactivolistview_DoubleClick(object sender, EventArgs e)
+        {
+            string ccodigo = inactivolistview.SelectedItems[0].SubItems[0].Text;
+
+            ClienteInfo cli = new ClienteInfo();
+            cli.loadClienteInfo(ccodigo);
+
+            cli.MdiParent = form1;
+            cli.Show();
         }
 
     }

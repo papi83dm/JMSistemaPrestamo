@@ -74,7 +74,11 @@ namespace JM_Sistema_Prestamo
         private void prestamocb_SelectedIndexChanged(object sender, EventArgs e)
         {
             string prestamostr = prestamocb.SelectedItem.ToString();
+            bool esInactivo = cliente1.Prestamo.esInactivo(prestamostr);
             loadPrestamopagares(prestamostr);
+
+            inactivoCB.Checked = (esInactivo) ? true : false;
+             
             
         }
 
@@ -469,6 +473,23 @@ namespace JM_Sistema_Prestamo
                 PrintDoc pd = new PrintDoc();
                 pd.Prestamo(prestamoID);
                 pd = null;
+            }
+        }
+
+         
+
+        private void inactivoCB_Click(object sender, EventArgs e)
+        {
+            string prestamostr = prestamocb.SelectedItem.ToString();
+            if (inactivoCB.Checked)
+            {
+                //make prestamo inactive
+                cliente1.Prestamo.UpdateInactivo(prestamostr, 1);
+            }
+            else
+            {
+                //make prestamo active.
+                cliente1.Prestamo.UpdateInactivo(prestamostr, 0);
             }
         }
 

@@ -36,9 +36,12 @@
             this.m_list = new PrintableListView.PrintableListView();
             this.listaatrasotp = new System.Windows.Forms.TabPage();
             this.m_listaatraso = new PrintableListView.PrintableListView();
+            this.inactivotp = new System.Windows.Forms.TabPage();
+            this.inactivolistview = new PrintableListView.PrintableListView();
             this.tabControl1.SuspendLayout();
             this.listaHoytp.SuspendLayout();
             this.listaatrasotp.SuspendLayout();
+            this.inactivotp.SuspendLayout();
             this.SuspendLayout();
             // 
             // printPreviewbtn
@@ -75,6 +78,7 @@
             // 
             this.tabControl1.Controls.Add(this.listaHoytp);
             this.tabControl1.Controls.Add(this.listaatrasotp);
+            this.tabControl1.Controls.Add(this.inactivotp);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -139,6 +143,33 @@
             this.m_listaatraso.View = System.Windows.Forms.View.Details;
             this.m_listaatraso.DoubleClick += new System.EventHandler(this.m_listaatraso_DoubleClick);
             // 
+            // inactivotp
+            // 
+            this.inactivotp.Controls.Add(this.inactivolistview);
+            this.inactivotp.Location = new System.Drawing.Point(4, 22);
+            this.inactivotp.Name = "inactivotp";
+            this.inactivotp.Padding = new System.Windows.Forms.Padding(3);
+            this.inactivotp.Size = new System.Drawing.Size(776, 539);
+            this.inactivotp.TabIndex = 2;
+            this.inactivotp.Text = "Inactivo";
+            this.inactivotp.UseVisualStyleBackColor = true;
+            // 
+            // inactivolistview
+            // 
+            this.inactivolistview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.inactivolistview.FitToPage = false;
+            this.inactivolistview.FullRowSelect = true;
+            this.inactivolistview.Location = new System.Drawing.Point(19, 25);
+            this.inactivolistview.Name = "inactivolistview";
+            this.inactivolistview.Size = new System.Drawing.Size(739, 488);
+            this.inactivolistview.TabIndex = 6;
+            this.inactivolistview.Title = "";
+            this.inactivolistview.UseCompatibleStateImageBehavior = false;
+            this.inactivolistview.View = System.Windows.Forms.View.Details;
+            this.inactivolistview.DoubleClick += new System.EventHandler(this.inactivolistview_DoubleClick);
+            // 
             // ClienteLista
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -151,6 +182,7 @@
             this.tabControl1.ResumeLayout(false);
             this.listaHoytp.ResumeLayout(false);
             this.listaatrasotp.ResumeLayout(false);
+            this.inactivotp.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -166,6 +198,8 @@
         private System.Windows.Forms.TabPage listaHoytp;
         private System.Windows.Forms.TabPage listaatrasotp;
         private PrintableListView.PrintableListView m_listaatraso;
+        private System.Windows.Forms.TabPage inactivotp;
+        private PrintableListView.PrintableListView inactivolistview;
 
 
 

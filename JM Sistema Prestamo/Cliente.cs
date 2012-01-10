@@ -263,9 +263,10 @@ namespace JM_Sistema_Prestamo
                           ",HI_BALINT as INTEREST" +
                           ",(HI_BALCAP + HI_BALINT) as TOTAL " +
                           ",HI_DOCUM as CUOTA " +  
-                          " FROM historia h " +
+                          " FROM historia h  " +
+                          "INNER JOIN prestamos p on (h.PRESTAMOID=p.PRESTAMOID)" +
                           "INNER JOIN clientes c on (h.CL_CODIGO=c.CL_CODIGO and c.CL_ACTUAL>0)" +
-                          "WHERE h.HI_FECHA='"+fecha+"' AND h.HI_BALCAP >0  order by c.CL_NOMBRE");
+                          "WHERE h.HI_FECHA='"+fecha+"' AND h.HI_BALCAP >0 and p.INACTIVO=0   order by c.CL_NOMBRE");
           
             return dt;
 
@@ -288,10 +289,10 @@ namespace JM_Sistema_Prestamo
             return dt;
         }
 
-        public DataTable ClienteListaAtraso()
+        public DataTable ClienteListaAtraso(string inactivo)
         {
 
-            DataTable dt = dbc.query("SELECT p.CL_CODIGO as CLIENTE ,c.CL_NOMBRE as NOMBRE,CO_CONTRA as PRESTAMO,CO_CAPITAL AS CAPITAL,CO_CAVEN AS CAPVEN,CO_BALI AS INTVEN FROM  prestamos  p  INNER JOIN clientes c on (p.CL_CODIGO=c.CL_CODIGO and c.CL_ACTUAL>0) where (CO_CAVEN>0 or  CO_BALI>0) AND CO_CANPAG !='1.00' order by NOMBRE ");
+            DataTable dt = dbc.query("SELECT p.CL_CODIGO as CLIENTE ,c.CL_NOMBRE as NOMBRE,CO_CONTRA as PRESTAMO,CO_CAPITAL AS CAPITAL,CO_CAVEN AS CAPVEN,CO_BALI AS INTVEN FROM  prestamos  p  INNER JOIN clientes c on (p.CL_CODIGO=c.CL_CODIGO and c.CL_ACTUAL>0) where INACTIVO="+inactivo+" AND (CO_CAVEN>0 or  CO_BALI>0) AND CO_CANPAG !='1.00' order by NOMBRE ");
 
             return dt;
 
@@ -368,7 +369,7 @@ namespace JM_Sistema_Prestamo
        
         public SqlDataReader prestamoBalanceInfo(string prestamo)
         {
-            SqlDataReader dtp = dbc.query_single("SELECT  CONVERT(VARCHAR(15), CO_FECHA, 105)  AS FECHA ,[CO_CAPITAL] ,[CO_INTERES],[CO_TIPPAG] ,[CO_CANPAG] ,[CO_INTDIA] ,[CO_ACTUAL] ,[CO_REAL]  ,[CO_BALINT]  ,[CO_MORA]  ,[CO_BALI]  ,[CO_CAVEN]  ,CONVERT(VARCHAR(15), CO_FECPAG, 105) as CO_FECPAG  FROM prestamos where PRESTAMOID='" + prestamo + "'");
+            SqlDataReader dtp = dbc.query_single("SELECT  CONVERT(VARCHAR(15), CO_FECHA, 105)  AS FECHA ,[CO_CAPITAL] ,[CO_INTERES],[CO_TIPPAG] ,[CO_CANPAG] ,[CO_INTDIA] ,[CO_ACTUAL] ,[CO_REAL] ,[CO_MORA]  ,[CO_BALI]  ,[CO_CAVEN]  ,CONVERT(VARCHAR(15), CO_FECPAG, 105) as CO_FECPAG  FROM prestamos where PRESTAMOID='" + prestamo + "'");
 
             return dtp;
         }
@@ -386,16 +387,11 @@ namespace JM_Sistema_Prestamo
             SqlDataReader zona = dbc.query_single ("SELECT ZO_NOMBRE, ZO_CODIGO FROM zona order by ZO_NOMBRE"); 
             return zona; 
         }
-
-        
-        
-
-        
-
+         
         public DataTable IngresoMensual(string d1, string d2)
         {
 
-            DataTable dtp = dbc.query("  SELECT  CONVERT(VARCHAR(15), r.HE_FECHA, 105) AS Fecha, r.PRESTAMOID AS Prestamo ,c.CL_NOMBRE as Nombre,r.RECIBOID as Recibo,CONVERT(varchar, CAST(r.HE_MONTO  as Money), 1)  as Capital,CONVERT(varchar, CAST(r.HE_DESC as Money), 1)  as Interes,CONVERT(varchar, CAST(r.HE_MORA as Money), 1) as Mora  FROM  recibos r inner join clientes c on (c.CL_CODIGO=r.CL_CODIGO and c.CL_ACTUAL>0) where HE_FECHA >='" + d1 + "' and HE_FECHA <='" + d2 + "' order by r.RECIBOID ");
+            DataTable dtp = dbc.query("SELECT  CONVERT(VARCHAR(15), r.HE_FECHA, 105) AS Fecha, r.PRESTAMOID AS Prestamo ,c.CL_NOMBRE as Nombre,r.RECIBOID as Recibo,CONVERT(varchar, CAST(r.HE_MONTO  as Money), 1)  as Capital,CONVERT(varchar, CAST(r.HE_DESC as Money), 1)  as Interes,CONVERT(varchar, CAST(r.HE_MORA as Money), 1) as Mora  FROM  recibos r inner join clientes c on (c.CL_CODIGO=r.CL_CODIGO and c.CL_ACTUAL>0) where HE_FECHA >='" + d1 + "' and HE_FECHA <='" + d2 + "' order by r.RECIBOID ");
             return dtp;
         }
 
@@ -404,9 +400,12 @@ namespace JM_Sistema_Prestamo
 
             SqlDataReader dtp = dbc.query_single("SELECT CONVERT(varchar, CAST(sum(HE_MONTO)  as Money), 1) as Capital ,CONVERT(varchar, CAST(sum(HE_DESC)  as Money), 1) as Interes ,CONVERT(varchar, CAST(sum(HE_MORA)  as Money), 1) as Mora   FROM  recibos where HE_FECHA >='" + d1 + "' and HE_FECHA <='" + d2 + "'  ");
             return dtp;
+        } 
+
+        public SqlDataReader PrestamoMensualSuma(string d1, string d2)
+        { 
+            SqlDataReader dtp = dbc.query_single("SELECT COUNT(*) as totalcount ,SUM(CO_CAPITAL) as totalsum from prestamos  where CO_FECHA >='" + d1 + "' and CO_FECHA <='" + d2 + "'  ");
+            return dtp;
         }
-
-       
-
     }
 }
