@@ -109,6 +109,12 @@
     <Compile Include="clientenuevoForm.Designer.cs">
       <DependentUpon>clientenuevoForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="CuotaPendienteReporte.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CuotaPendienteReporte.Designer.cs">
+      <DependentUpon>CuotaPendienteReporte.cs</DependentUpon>
+    </Compile>
     <Compile Include="DBConnection.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -121,6 +127,19 @@
     </Compile>
     <Compile Include="ClienteLista.Designer.cs">
       <DependentUpon>ClienteLista.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gastos.cs" />
+    <Compile Include="GastosForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GastosForm.Designer.cs">
+      <DependentUpon>GastosForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GastosReporte.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GastosReporte.Designer.cs">
+      <DependentUpon>GastosReporte.cs</DependentUpon>
     </Compile>
     <Compile Include="HomePage.cs">
       <SubType>Form</SubType>
@@ -137,6 +156,7 @@
     <Compile Include="ListViewEx.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="LlenarLista.cs" />
     <Compile Include="Prestamo.cs" />
     <Compile Include="PrestamoNuevo.cs">
       <SubType>Form</SubType>
@@ -156,6 +176,7 @@
     <Compile Include="ReciboMini.Designer.cs">
       <DependentUpon>ReciboMini.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reportes.cs" />
     <EmbeddedResource Include="BuscarClienteMini.resx">
       <DependentUpon>BuscarClienteMini.cs</DependentUpon>
     </EmbeddedResource>
@@ -168,11 +189,20 @@
     <EmbeddedResource Include="clientenuevoForm.resx">
       <DependentUpon>clientenuevoForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CuotaPendienteReporte.resx">
+      <DependentUpon>CuotaPendienteReporte.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ClienteLista.resx">
       <DependentUpon>ClienteLista.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GastosForm.resx">
+      <DependentUpon>GastosForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GastosReporte.resx">
+      <DependentUpon>GastosReporte.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HomePage.resx">
       <DependentUpon>HomePage.cs</DependentUpon>
@@ -237,6 +267,35 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>4</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>6</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

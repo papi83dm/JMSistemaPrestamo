@@ -35,7 +35,7 @@ namespace JM_Sistema_Prestamo
         private string CL_CLASE;
         public Prestamo Prestamo;
        
-        string hoyfecha =  DateTime.Now.Year + "-" + DateTime.Now.Month + "-" + DateTime.Now.Day;
+        string hoyfecha =  DateTime.Now.ToString("yyyy-MM-dd");
          
         private DBConnection dbc;
         
@@ -44,9 +44,9 @@ namespace JM_Sistema_Prestamo
 
 
         public Cliente()
-        {
-
-            dbc = new DBConnection();  
+        { 
+            dbc = new DBConnection();
+            Prestamo = new Prestamo(dbc);
         }
 
         public Cliente(string codigo)
@@ -207,15 +207,13 @@ namespace JM_Sistema_Prestamo
                        "[CL_CODIGO]" +
                       " ,[CL_NOMBRE]" +
                       " ,[CL_RAZON]" +
-                      " ,[ZO_CODIGO]" +
-                      " ,[CA_CODIGO]" +
+                      " ,[ZO_CODIGO]" + 
                       " ,[CL_DIREC1]" +
                       " ,[CL_DIREC2]" +
                       " ,[CL_TELEF1]" +
                       " ,[CL_TELEF2]" +
                       " ,[CL_TELEF3]" +
-                      " ,[CL_FAX]" +
-                      " ,[CL_ENCCOM]" +
+                      " ,[CL_FAX]" + 
                       " ,[CL_ACTUAL]" +
                       " ,[CL_PASA]" +
                       " ,[CL_CAPITAL]" +
@@ -230,15 +228,13 @@ namespace JM_Sistema_Prestamo
                       " ('" + CODIGO + "'" +
                       " ,'" + NOMBRE + "'" +
                       " ,'" + RAZON + "'" +
-                      " ,'" + Z_CODIGO + "'" +
-                      " ,'" + CA_CODIGO + "'" +
+                      " ,'" + Z_CODIGO + "'" + 
                       " ,'" + DIREC1 + "'" +
                       " ,'" + DIREC2 + "'" +
                       " ,'" + TELEF1 + "'" +
                       " ,'" + TELEF2 + "'" +
                       " ,'" + TELEF3 + "'" +
-                      " ,'" + FAX + "'" +
-                      " ,'" + CL_ENCCOM + "'" +
+                      " ,'" + FAX + "'" + 
                       " ," + CL_ACTUAL + "" +
                       " ,'" + CL_PASA + "'" +
                       " ," + CL_CAPITAL +  
@@ -298,6 +294,12 @@ namespace JM_Sistema_Prestamo
 
         }
 
+
+        public  void ModificarCliente()
+        { 
+            dbc.query_single(String.Format("UPDATE clientes SET CL_NOMBRE='{1}', CL_DIREC1='{2}', CL_DIREC2='{3}',CL_TELEF1='{4}',CL_TELEF2='{5}',CL_TELEF3='{6}',CL_RAZON='{7}',ZO_CODIGO='{8}' WHERE CL_CODIGO='{0}'", CODIGO, NOMBRE, DIREC1, DIREC2, TELEF1, TELEF2, TELEF3, RAZON, Z_CODIGO));
+        }
+
         private void loadClienteFromDB(string codigo)
         {
 
@@ -312,6 +314,7 @@ namespace JM_Sistema_Prestamo
                TELEF2 = q["CL_TELEF2"].ToString();
                TELEF3 = q["CL_TELEF3"].ToString();
                RAZON = q["CL_RAZON"].ToString();
+               Z_CODIGO =  q["ZO_CODIGO"].ToString();
 
                try
                {
@@ -360,6 +363,19 @@ namespace JM_Sistema_Prestamo
             getRecibo.Close();
             return result;
         }
+
+        public bool isPrestamoToday(string prestamo)
+        {
+            bool result = false;
+
+            SqlDataReader getRecibo = dbc.query_single("SELECT  PRESTAMOID from prestamos where  PRESTAMOID='" + prestamo + "' and CO_FECHA='" + hoyfecha + "'");
+            if (getRecibo.Read())
+            {
+                result = true;
+            }
+            getRecibo.Close();
+            return result;
+        }
         public SqlDataReader loadReciboHistoria(string recibo)
         {
             SqlDataReader dtp = dbc.query_single(" SELECT  h1.HI_FACAFEC as Cuota ,h1.PRESTAMOID as Prestamo ,CONVERT(VARCHAR(15), h1.HI_FECHA, 105) as Fecha ,h1.HI_MONTO as Capital ,h2.HI_MONTO as Interes,h1.CL_CODIGO FROM historia h1 left join historia h2 on(h1.HI_DOCUM = h2.HI_DOCUM and h2.HI_TIPPAG='I' and h1.HI_FACAFEC = h2.HI_FACAFEC) where h1.HI_DOCUM='"+recibo+"' and h1.HI_TIPPAG='C'");
@@ -391,14 +407,14 @@ namespace JM_Sistema_Prestamo
         public DataTable IngresoMensual(string d1, string d2)
         {
 
-            DataTable dtp = dbc.query("SELECT  CONVERT(VARCHAR(15), r.HE_FECHA, 105) AS Fecha, r.PRESTAMOID AS Prestamo ,c.CL_NOMBRE as Nombre,r.RECIBOID as Recibo,CONVERT(varchar, CAST(r.HE_MONTO  as Money), 1)  as Capital,CONVERT(varchar, CAST(r.HE_DESC as Money), 1)  as Interes,CONVERT(varchar, CAST(r.HE_MORA as Money), 1) as Mora  FROM  recibos r inner join clientes c on (c.CL_CODIGO=r.CL_CODIGO and c.CL_ACTUAL>0) where HE_FECHA >='" + d1 + "' and HE_FECHA <='" + d2 + "' order by r.RECIBOID ");
+            DataTable dtp = dbc.query("SELECT  CONVERT(VARCHAR(15), r.HE_FECHA, 105) AS Fecha, r.PRESTAMOID AS Prestamo ,c.CL_NOMBRE as Nombre,r.RECIBOID as Recibo,CONVERT(varchar, CAST(r.HE_MONTO  as Money), 1)  as Capital,CONVERT(varchar, CAST(r.HE_DESC as Money), 1)  as Interes,CONVERT(varchar, CAST((r.HE_MONTO + r.HE_DESC + r.HE_MORA) as Money), 1) as Monto  FROM  recibos r inner join clientes c on (c.CL_CODIGO=r.CL_CODIGO and c.CL_ACTUAL>0) where HE_FECHA >='" + d1 + "' and HE_FECHA <='" + d2 + "' order by r.RECIBOID ");
             return dtp;
         }
 
         public SqlDataReader IngresoMensualSuma(string d1, string d2)
         {
 
-            SqlDataReader dtp = dbc.query_single("SELECT CONVERT(varchar, CAST(sum(HE_MONTO)  as Money), 1) as Capital ,CONVERT(varchar, CAST(sum(HE_DESC)  as Money), 1) as Interes ,CONVERT(varchar, CAST(sum(HE_MORA)  as Money), 1) as Mora   FROM  recibos where HE_FECHA >='" + d1 + "' and HE_FECHA <='" + d2 + "'  ");
+            SqlDataReader dtp = dbc.query_single("SELECT CONVERT(varchar, CAST(sum(HE_MONTO)  as Money), 1) as Capital ,CONVERT(varchar, CAST(sum(HE_DESC)  as Money), 1) as Interes ,CONVERT(varchar, CAST(sum(HE_MORA)  as Money), 1) as Mora,CONVERT(varchar, CAST((sum(HE_MONTO) + sum(HE_DESC) +sum(HE_MORA) ) as Money), 1) as Monto   FROM  recibos where HE_FECHA >='" + d1 + "' and HE_FECHA <='" + d2 + "'  ");
             return dtp;
         } 
 

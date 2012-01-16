@@ -45,13 +45,9 @@
             this.label8 = new System.Windows.Forms.Label();
             this.cl_cedulatxt = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.cl_balancestxt = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
             this.cl_pasaportetxt = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.cl_grabarbtn = new System.Windows.Forms.Button();
-            this.cl_tipotxt = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.zonacb = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
@@ -192,22 +188,6 @@
             this.label9.TabIndex = 20;
             this.label9.Text = "Numero Cedula";
             // 
-            // cl_balancestxt
-            // 
-            this.cl_balancestxt.Location = new System.Drawing.Point(118, 300);
-            this.cl_balancestxt.Name = "cl_balancestxt";
-            this.cl_balancestxt.Size = new System.Drawing.Size(100, 20);
-            this.cl_balancestxt.TabIndex = 12;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(13, 300);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(51, 13);
-            this.label11.TabIndex = 16;
-            this.label11.Text = "Balances";
-            // 
             // cl_pasaportetxt
             // 
             this.cl_pasaportetxt.Location = new System.Drawing.Point(118, 248);
@@ -234,22 +214,6 @@
             this.cl_grabarbtn.UseVisualStyleBackColor = true;
             this.cl_grabarbtn.Click += new System.EventHandler(this.cl_grabarbtn_Click);
             // 
-            // cl_tipotxt
-            // 
-            this.cl_tipotxt.Location = new System.Drawing.Point(118, 274);
-            this.cl_tipotxt.Name = "cl_tipotxt";
-            this.cl_tipotxt.Size = new System.Drawing.Size(200, 20);
-            this.cl_tipotxt.TabIndex = 11;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(13, 274);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(86, 13);
-            this.label10.TabIndex = 25;
-            this.label10.Text = "Tipo de Negocio";
-            // 
             // zonacb
             // 
             this.zonacb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -265,14 +229,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 562);
             this.Controls.Add(this.zonacb);
-            this.Controls.Add(this.cl_tipotxt);
-            this.Controls.Add(this.label10);
             this.Controls.Add(this.cl_grabarbtn);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.cl_cedulatxt);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.cl_balancestxt);
-            this.Controls.Add(this.label11);
             this.Controls.Add(this.cl_pasaportetxt);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.cl_nombretxt);
@@ -316,13 +276,9 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox cl_cedulatxt;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox cl_balancestxt;
-        private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox cl_pasaportetxt;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Button cl_grabarbtn;
-        private System.Windows.Forms.TextBox cl_tipotxt;
-        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox zonacb;
     }
 }

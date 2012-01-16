@@ -22,7 +22,15 @@ namespace JM_Sistema_Prestamo
         {
             loadConfig();
             myconn = new SqlConnection("Data Source=" + dbhost + ";Initial Catalog=" + dbname + ";User id=" + dbuser + ";Password=" + dbpass + ";");
-            myconn.Open();
+
+            try
+            {
+                myconn.Open();
+            }
+            catch
+            {
+                MessageBox.Show("La base de datos no estas disponible, favor de consultar al ingeniero. ", "Connection de Base de Datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public void loadConfig()
@@ -30,7 +38,7 @@ namespace JM_Sistema_Prestamo
              XmlDocument itemDoc = new XmlDocument();
              itemDoc.Load(@"C:\\JMSistemaPrestamo\\jmconfig.xml");
 
-             XmlNodeList xnList = itemDoc.SelectNodes("/configuration/appSettings");
+             XmlNodeList xnList = itemDoc.SelectNodes("/configuration/appSettings/database");
 
              foreach (XmlNode xn in xnList)
              { 
@@ -41,12 +49,6 @@ namespace JM_Sistema_Prestamo
             } 
 
             
-        }
-
-        public SqlConnection getConnections()
-        {
-            myconn.Open();
-            return myconn;
         }
 
         public SqlDataReader query_single(string query)
@@ -104,6 +106,20 @@ namespace JM_Sistema_Prestamo
             {
                 MessageBox.Show("ERROR: " + e.Message);
             } 
+        }
+
+        public void query(SqlCommand command)
+        {
+            try
+            {
+               // SqlCommand cmd = new SqlCommand(query, myconn);
+                command.Connection = myconn;
+                command.ExecuteNonQuery();
+            }
+            catch (SqlException e)
+            {
+                MessageBox.Show("ERROR: " + e.Message);
+            }
         }
 
         public int query_insert(SqlCommand cmd)

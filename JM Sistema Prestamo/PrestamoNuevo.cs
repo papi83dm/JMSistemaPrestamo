@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Collections;
+using System.Data.SqlClient;
 namespace JM_Sistema_Prestamo
 {
     public partial class PrestamoNuevo : Form
@@ -15,11 +16,86 @@ namespace JM_Sistema_Prestamo
         private readonly double WEEKLY = 4.3;
         private readonly double SEMIMONTHLY = 2.0;
         private readonly double MONTHLY = 1.0;
-        private readonly double DAILY = 30.0; 
+        private readonly double DAILY = 30.0;
+        private string PrestamoID {get;set;}
+        private double cviejo;
+        private double iviejo;
 
         public PrestamoNuevo()
         {
             InitializeComponent();
+            InitLoad();
+            PrestamoID = "0";
+        }
+
+        public void PrestamoNuevoLoad(string pid)
+        {
+            Cliente c = new Cliente();
+            bool istoday = c.isPrestamoToday(pid);
+           SqlDataReader dr= c.Prestamo.Info(pid);
+            if (dr.Read())
+            {
+                if (!istoday)
+                {
+                    brabarPrestamo.Enabled = false;
+                }
+                  // llenar todo la field del formulario
+                DateTime dateTemp = DateTime.Parse(dr["FECHA"].ToString());
+                PrestamoID = dr["PRESTAMOID"].ToString();
+                buscarClientebtn.Enabled = false;
+                fechatxt.Text = dateTemp.ToString("dd-MM-yyyy");
+                fechacal.SelectionStart = dateTemp;
+                cuotatxt.Text = dr["CO_CANPAG"].ToString();
+                capitaltxt.Text = dr["CO_CAPITAL"].ToString();
+                interestxt.Text = dr["CO_INTERES"].ToString(); 
+                SelectFormadePago(dr["CO_TIPPAG"].ToString());
+                codigotxt.Text = dr["CL_CODIGO"].ToString();
+                nombretxt.Text = dr["CL_NOMBRE"].ToString();
+                
+                cviejo = double.Parse(dr["CO_CAPITAL"].ToString());
+                double tazaTemp = double.Parse(dr["CO_INTERES"].ToString());
+                double cuotaTemp = double.Parse(dr["CO_CANPAG"].ToString());
+
+                if (dr["CO_TIPPAG"].ToString() == "S")
+                {
+                    iviejo = (cviejo * tazaTemp / 100) * (cuotaTemp / WEEKLY);
+                }
+                else if (dr["CO_TIPPAG"].ToString() == "Q")
+                {
+                    iviejo = (cviejo * tazaTemp / 100) * (cuotaTemp / SEMIMONTHLY);
+                }
+                else if (dr["CO_TIPPAG"].ToString() == "M")
+                {
+                    iviejo = (cviejo * tazaTemp / 100) * (cuotaTemp / MONTHLY);
+                }
+                else if (dr["CO_TIPPAG"].ToString() == "D")
+                {
+                    iviejo = (cviejo * tazaTemp / 100) * (cuotaTemp / DAILY);
+                }
+              
+               
+            }
+            dr.Close();
+        }
+
+        private void SelectFormadePago(string data)
+        { 
+            switch (data)
+            {
+                case "D":
+                    FormadePagocb.SelectedIndex = 0;
+                    break;
+                case "S":
+                    FormadePagocb.SelectedIndex = 1;
+                    break;
+                case "Q":
+                    FormadePagocb.SelectedIndex = 2;
+                    break;
+                case "M":
+                    FormadePagocb.SelectedIndex = 3;
+                    break;
+            }
+            data = "";
         }
 
         private void startDatebtn_Click(object sender, EventArgs e)
@@ -30,11 +106,11 @@ namespace JM_Sistema_Prestamo
         private void fechacal_DateChanged(object sender, DateRangeEventArgs e)
         {
             fechacal.Visible = false;
-            fechatxt.Text = e.Start.Day + "-" + e.Start.Month + "-" + e.Start.Year; 
+            fechatxt.Text = e.Start.ToString("dd-MM-yyyy");
         }
 
-        private void PrestamoNuevo_Load(object sender, EventArgs e)
-        { 
+        private void InitLoad()
+        {
             string todaystr = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year;
             fechatxt.Text = todaystr;
             ArrayList fplist = new ArrayList();
@@ -57,6 +133,10 @@ namespace JM_Sistema_Prestamo
             distribucioncb.DataSource = dlist;
             distribucioncb.DisplayMember = "Display";
             distribucioncb.ValueMember = "Value";
+        }
+        private void PrestamoNuevo_Load(object sender, EventArgs e)
+        { 
+           
         }
 
         private void capitaltxt_Leave(object sender, EventArgs e)
@@ -83,13 +163,13 @@ namespace JM_Sistema_Prestamo
         {
             if (capitaltxt.Text != "" && interestxt.Text != "" && cuotatxt.Text != ""  && FormadePagocb.SelectedItem != null )
             {
-                loadPrestamoCuotas(Double.Parse(capitaltxt.Text), Double.Parse(interestxt.Text), int.Parse(cuotatxt.Text), FormadePagocb.SelectedValue.ToString());
+                loadPrestamoCuotas(Double.Parse(capitaltxt.Text), Double.Parse(interestxt.Text), Double.Parse(cuotatxt.Text), FormadePagocb.SelectedValue.ToString());
                  
             }
         }
 
 
-        private void loadPrestamoCuotas(double capital, double taza, int cuota, string formadepago)
+        private void loadPrestamoCuotas(double capital, double taza, double cuota, string formadepago)
         {
             m_list.SuspendLayout();
 
@@ -136,7 +216,7 @@ namespace JM_Sistema_Prestamo
 
                 ListViewItem item = new ListViewItem();
                 item.Text = i + "/" + cuota;
-                item.SubItems.Add(sDate.Day + "-" + sDate.Month + "-" + sDate.Year);
+                item.SubItems.Add(sDate.ToString("dd-MM-yyyy"));
                 item.SubItems.Add(String.Format("{0:C}", capital / cuota));
                 item.SubItems.Add(String.Format("{0:C}", interes /cuota) );
                 item.SubItems.Add(String.Format("{0:C}", (capital / cuota) + (interes / cuota)));
@@ -192,43 +272,54 @@ namespace JM_Sistema_Prestamo
                 nombretxt.Text = cl1.NOMBRE;
             }
         }
+         
 
+        private void HacerPrestamo()
+        {
+            Cliente cli = new Cliente(codigotxt.Text);
+            DateTime sDate = new DateTime(fechacal.SelectionRange.Start.Year, fechacal.SelectionRange.Start.Month, fechacal.SelectionRange.Start.Day);
+
+            double cuotastr = double.Parse(cuotatxt.Text);
+            double capitalstr = Double.Parse(capitaltxt.Text);
+            double interesstr = Double.Parse(interestxt.Text);
+            string formadepagostr = FormadePagocb.SelectedValue.ToString();
+            string distribucionstr = distribucioncb.SelectedValue.ToString();
+            int pID;
+            if (PrestamoID == "0")
+            {
+                  pID = cli.Prestamo.Nuevo(sDate, capitalstr, interesstr, cuotastr, formadepagostr, distribucionstr);
+            }
+            else
+            {
+                  pID = cli.Prestamo.Update(PrestamoID,sDate, capitalstr, interesstr, cuotastr, formadepagostr, distribucionstr,cviejo,iviejo);
+            }
+
+            // vaciar todo la field del formulario
+            cuotatxt.Text = "";
+            capitaltxt.Text = "";
+            interestxt.Text = "";
+            pcuotasilb.Text = "";
+            codigotxt.Text = "";
+            nombretxt.Text = "";
+            pcapitalilb.Text = "";
+            pinteresilb.Text = "";
+            ptotalilb.Text = "";
+            //clear list cuota
+            m_list.Items.Clear();
+            m_list.Columns.Clear();
+
+            if (MessageBox.Show("Quieres imprimir el Prestamo?", "Prestamo Grabado", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                PrintDoc pd = new PrintDoc();
+                pd.Prestamo(pID.ToString());
+                pd = null;
+            }
+        }
         private void button1_Click(object sender, EventArgs e)
         {
-            if (capitaltxt.Text != "" && interestxt.Text != "" && cuotatxt.Text != "" && codigotxt.Text!="")
+            if (capitaltxt.Text != "" && interestxt.Text != "" && cuotatxt.Text != "" && codigotxt.Text != "")
             {
-                Cliente cli = new Cliente(codigotxt.Text);
-                DateTime sDate = new DateTime(fechacal.SelectionRange.Start.Year, fechacal.SelectionRange.Start.Month, fechacal.SelectionRange.Start.Day);
-
-                int cuotastr = int.Parse(cuotatxt.Text);
-                double capitalstr = Double.Parse(capitaltxt.Text);
-                double interesstr = Double.Parse(interestxt.Text);
-                string formadepagostr = FormadePagocb.SelectedValue.ToString();
-                string distribucionstr = distribucioncb.SelectedValue.ToString();
-                int prestamoID = cli.Prestamo.Nuevo(sDate, capitalstr, interesstr, cuotastr, formadepagostr, distribucionstr);
-                 
-                // vaciar todo la field del formulario
-                cuotatxt.Text = "";
-                capitaltxt.Text = "";
-                interestxt.Text = "";
-                pcuotasilb.Text = "";
-                codigotxt.Text = "";
-                nombretxt.Text = "";
-                pcapitalilb.Text = "";
-                pinteresilb.Text = "";
-                ptotalilb.Text = "";
-                //clear list cuota
-                m_list.Items.Clear();
-                m_list.Columns.Clear();
-
-                if (MessageBox.Show("Quieres imprimir el Prestamo?", "Prestamo Grabado", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    PrintDoc pd = new PrintDoc();
-                    pd.Prestamo(prestamoID.ToString());
-                    pd = null;
-                }
-
-
+                HacerPrestamo();
             }
             else
             {

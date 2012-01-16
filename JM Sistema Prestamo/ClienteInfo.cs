@@ -24,6 +24,27 @@ namespace JM_Sistema_Prestamo
         {
             InitializeComponent(); 
         }
+        private void loadZona()
+        { 
+            SqlDataReader zona = cliente1.getZona();
+            ArrayList zonalist = new ArrayList();
+            int count = 0;
+            int selectedzona = -1;
+            while (zona.Read())
+            {
+                if (zona["ZO_CODIGO"].ToString() == cliente1.Z_CODIGO)
+                {
+                    selectedzona = count;
+                }
+                zonalist.Add(new AddValue(zona["ZO_NOMBRE"].ToString(), zona["ZO_CODIGO"].ToString()));
+                count++;
+            }
+            zona.Close();
+            zonacb.DataSource = zonalist;
+            zonacb.DisplayMember = "Display";
+            zonacb.ValueMember = "Value";
+            zonacb.SelectedIndex = selectedzona;
+        }
 
         public void loadClienteInfo(string codigo)
         {
@@ -41,7 +62,7 @@ namespace JM_Sistema_Prestamo
             telefono2txt.Text = cliente1.TELEF2;
             trabajotxt.Text = cliente1.RAZON;
             trabajodirtxt.Text = cliente1.DIREC2;
-
+            loadZona();
             capitallb.Text = String.Format("{0:C}", cliente1.CAPITAL);
             actuallb.Text = String.Format("{0:C}", cliente1.ACTUAL);
             interestlb.Text = String.Format("{0:C}", cliente1.INTERES);
@@ -260,107 +281,115 @@ namespace JM_Sistema_Prestamo
 
         private void cpgrabarbtn_Click(object sender, EventArgs e)
         {
+            
+            PagarCuota(false);  
+        } 
+
+        private void PagarCuota(bool otroIngreso)
+        {
             string cuotastr = "";// cplistEx.SelectedItems[0].SubItems[5].Text;
             string prestamostr = prestamocb.SelectedItem.ToString();
             string conceptostr = conceptodepagotxt.Text;
             int reciboID = 0;
-            int debitoID = 0; 
+            int debitoID = 0;
 
-            for (int i = 0; i < cplistEx.Items.Count; i++)
+            if (conceptostr != "")
             {
 
-                cuotastr = cplistEx.Items[i].SubItems[0].Text;
-                string capitaltmp = cplistEx.Items[i].SubItems[5].Text;
-                string interestmp = cplistEx.Items[i].SubItems[6].Text;
-                string moratmp = cplistEx.Items[i].SubItems[7].Text;
-                double capitalstr = 0.00;
-                double interesstr = 0.00;
-                double morastr = 0.00;
-
-                if ((capitaltmp != "" || interestmp != "") && conceptodepagotxt.Text != "")
+                for (int i = 0; i < cplistEx.Items.Count; i++)
                 {
-                    
-                    if (capitaltmp != "")
-                    {
-                        capitalstr = Double.Parse(capitaltmp);
-                    }
 
-                    if (interestmp != "")
+                    cuotastr = cplistEx.Items[i].SubItems[0].Text;
+                    string capitaltmp = cplistEx.Items[i].SubItems[5].Text;
+                    string interestmp = cplistEx.Items[i].SubItems[6].Text;
+                    string moratmp = cplistEx.Items[i].SubItems[7].Text;
+                    double capitalstr = 0.00;
+                    double interesstr = 0.00;
+                    double morastr = 0.00;
+                    if ((capitaltmp != "" || interestmp != ""))
                     {
-                        interesstr = Double.Parse(interestmp);
-                    }
-                    if (moratmp != "")
-                    {
-                        morastr = Double.Parse(moratmp);
-                    }
 
-                    //do Debito
+                        if (capitaltmp != "")
+                        {
+                            capitalstr = Double.Parse(capitaltmp);
+                        }
 
-                    if (debitocb.Checked)
-                    {
-                        if (i == 0)
+                        if (interestmp != "")
+                        {
+                            interesstr = Double.Parse(interestmp);
+                        }
+                        if (moratmp != "")
+                        {
+                            morastr = Double.Parse(moratmp);
+                        }
+
+                        //do Debito
+
+                        if (debitocb.Checked)
+                        {
+                            if (i == 0)
+                            {
+
+                                debitoID = cliente1.Prestamo.Debito(prestamostr, cuotastr, capitalstr, interesstr, morastr, conceptostr);
+                            }
+                            else if (debitoID > 0)
+                            {
+                                cliente1.Prestamo.updateDebito(debitoID, prestamostr, cuotastr, capitalstr, interesstr, morastr);
+                            }
+                        }
+                        else
                         {
 
-                            debitoID = cliente1.Prestamo.Debito(prestamostr, cuotastr, capitalstr, interesstr, morastr, conceptostr);
-                        }
-                        else if (debitoID > 0)
-                        {
-                            cliente1.Prestamo.updateDebito(debitoID, prestamostr, cuotastr, capitalstr, interesstr, morastr);
+                            if (i == 0)
+                            {
+
+                                reciboID = cliente1.Prestamo.Pagares(prestamostr, cuotastr, capitalstr, interesstr, morastr, conceptostr,otroIngreso);
+                            }
+                            else if (reciboID > 0)
+                            {
+                                cliente1.Prestamo.updatePagares(reciboID, prestamostr, cuotastr, capitalstr, interesstr, morastr);
+                            }
                         }
                     }
-                    else
+
+
+                }
+
+                // ask to print if valid reciboID
+                if (reciboID > 0)
+                {
+                    //clear concepto.
+                    conceptodepagotxt.Text = "";
+                    //refresh datatable
+                    loadPrestamopagares(prestamostr);
+                    if (MessageBox.Show("Quieres imprimir el Recibo?", "Imprimir Recibo", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
-
-                        if (i == 0)
-                        {
-
-                            reciboID = cliente1.Prestamo.Pagares(prestamostr, cuotastr, capitalstr, interesstr, morastr, conceptostr);
-                        }
-                        else if (reciboID > 0)
-                        {
-                            cliente1.Prestamo.updatePagares(reciboID, prestamostr, cuotastr, capitalstr, interesstr, morastr);
-                        }
+                        //lines = cliente1.loadReciboPago(reciboID);
+                        PrintDoc pd = new PrintDoc();
+                        pd.Recibo(reciboID.ToString());
+                        pd = null;
                     }
                 }
-                //else
-                //{
-                //    MessageBox.Show("No Deje el  Concepto Vacio", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //}
-
+                else if (debitoID > 0)
+                {
+                    //clear concepto.
+                    conceptodepagotxt.Text = "";
+                    //refresh datatable
+                    loadPrestamopagares(prestamostr);
+                    if (MessageBox.Show("Quieres imprimir el Recibo?", "Imprimir Recibo", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        //lines = cliente1.loadReciboPago(reciboID);
+                        PrintDoc pd = new PrintDoc();
+                        pd.Debito(debitoID.ToString());
+                        pd = null;
+                    }
+                }
             }
-
-            // ask to print if valid reciboID
-            if (reciboID > 0)
+            else
             {
-                //clear concepto.
-                conceptodepagotxt.Text = "";
-                //refresh datatable
-                loadPrestamopagares(prestamostr);
-                if (MessageBox.Show("Quieres imprimir el Recibo?", "Imprimir Recibo", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    //lines = cliente1.loadReciboPago(reciboID);
-                    PrintDoc pd = new PrintDoc();
-                    pd.Recibo(reciboID.ToString());
-                    pd = null;
-                }
-            }else if (debitoID > 0)
-            {
-                //clear concepto.
-                conceptodepagotxt.Text = "";
-                //refresh datatable
-                loadPrestamopagares(prestamostr);
-                if (MessageBox.Show("Quieres imprimir el Recibo?", "Imprimir Recibo", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    //lines = cliente1.loadReciboPago(reciboID);
-                    PrintDoc pd = new PrintDoc();
-                    pd.Debito(debitoID.ToString());
-                    pd = null;
-                }
+                MessageBox.Show("No Deje el  Concepto Vacio", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-
-           
-        } 
+        }
   
         private void cplistEx_SubItemClicked(object sender, ListViewEx.SubItemEventArgs e)
         { 
@@ -410,16 +439,22 @@ namespace JM_Sistema_Prestamo
             int indexnum = e.Index;
 
             if (e.NewValue == CheckState.Checked)
-            {
-
+            { 
                 cplistEx.Items[indexnum].SubItems[5].Text = cplistEx.Items[indexnum].SubItems[2].Text;
                 cplistEx.Items[indexnum].SubItems[6].Text = cplistEx.Items[indexnum].SubItems[3].Text; 
-                conceptodepagotxt.Text = "Pago Cuota " + cplistEx.Items[indexnum].SubItems[0].Text;
+                conceptodepagotxt.Text = "Pago Cuota ";
                 
                 // fill out concepto 
-                foreach (ListViewItem listItem in cplistEx.CheckedItems)
-                {  
-                    conceptodepagotxt.Text += " " + listItem.SubItems[0].Text; 
+                for(int i =0; i<cplistEx.Items.Count; i++)
+                { 
+                    if (cplistEx.Items[i].Checked)
+                    {
+                        conceptodepagotxt.Text += " " + cplistEx.Items[i].SubItems[0].Text;
+                    }
+                    else if (indexnum == i)
+                    {
+                        conceptodepagotxt.Text += " " + cplistEx.Items[i].SubItems[0].Text;
+                    }
                 }
 
             }
@@ -493,6 +528,40 @@ namespace JM_Sistema_Prestamo
             }
         }
 
+        private void ingresoBoton_Click(object sender, EventArgs e)
+        {
+            PagarCuota(true);  
+        }
+
+        private void GrabarCliente()
+        { 
+            cliente1.NOMBRE = nombretxt.Text;
+            cliente1.DIREC1 = direcciontxt.Text;
+            cliente1.TELEF1 = telefonotxt.Text;
+            cliente1.TELEF2 = telefono2txt.Text;
+            cliente1.RAZON = trabajotxt.Text;
+            cliente1.DIREC2 = trabajodirtxt.Text;
+            cliente1.Z_CODIGO = zonacb.SelectedValue.ToString();
+            cliente1.ModificarCliente();
+            
+        }
+
+        private void grabarClienteBtn_Click(object sender, EventArgs e)
+        {
+            GrabarCliente();
+            MessageBox.Show("Informacion has sido grabado, Gracias.");
+        }
+
+        private void clientehistoriaprestamolist_DoubleClick(object sender, EventArgs e)
+        {
+            PrestamoNuevo pform = new PrestamoNuevo();
+            pform.MdiParent = this.MdiParent;
+            string pid = clientehistoriaprestamolist.SelectedItems[0].Text;
+            pform.PrestamoNuevoLoad(pid);
+            pform.Show();
+        }
+
+       
          
 
        

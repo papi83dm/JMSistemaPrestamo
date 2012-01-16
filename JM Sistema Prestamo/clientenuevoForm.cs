@@ -57,7 +57,6 @@ namespace JM_Sistema_Prestamo
                 c.Z_CODIGO = zonacb.SelectedValue.ToString();
                 c.CEDULA = cl_cedulatxt.Text;
                 //no. pasaporto.
-                c.TIPO = cl_tipotxt.Text;
 
                 c.createClienteNuevo();
                 MessageBox.Show("Cliente Grabado");

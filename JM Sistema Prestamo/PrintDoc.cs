@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Drawing.Printing;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace JM_Sistema_Prestamo
 { 
@@ -15,6 +16,10 @@ namespace JM_Sistema_Prestamo
         string[] rlines = new string[13];
         string[] plines = new string[17];
         List<string> pcuotas = null;
+        private string company;
+        private string address;
+        private string phone;
+        private string cell;
 
 
         private readonly double WEEKLY = 4.3;
@@ -25,7 +30,26 @@ namespace JM_Sistema_Prestamo
 
         public PrintDoc()
         {
-           dbc = new DBConnection();  
+           dbc = new DBConnection();
+           loadConfig();
+        }
+
+        public void loadConfig()
+        {
+            XmlDocument itemDoc = new XmlDocument();
+            itemDoc.Load(@"C:\\JMSistemaPrestamo\\jmconfig.xml");
+
+            XmlNodeList xnList = itemDoc.SelectNodes("/configuration/appSettings/company");
+
+            foreach (XmlNode xn in xnList)
+            {
+                company = xn["name"].InnerText;
+                address = xn["address"].InnerText;
+                phone = xn["phone"].InnerText;
+                cell = xn["cell"].InnerText;
+            }
+
+
         }
 
         
@@ -38,9 +62,9 @@ namespace JM_Sistema_Prestamo
             SqlDataReader q = dbc.query_single("SELECT  c.CL_NOMBRE, r.RECIBOID ,r.PRESTAMOID ,CONVERT(VARCHAR(15), r.HE_FECHA, 105)  AS FECHA ,r.CL_CODIGO ,(r.HE_MONTO + r.HE_DESC + r.HE_MORA) As CUOTA ,r.HE_CONCEP FROM  recibos  r inner join clientes c on (c.CL_CODIGO=r.CL_CODIGO ) where RECIBOID=" + reciboID);
             if (q.Read())
             {
-                rlines[0] = "Prestamos Personales Luis Bomba";
-                rlines[1] = "Mercado de Tenares, R.D. \t\t\t\t\t Fecha: " + q["FECHA"].ToString();
-                rlines[2] = "Tel.: 809-587-7072, Cel.: 809-223-6854";
+                rlines[0] = company;
+                rlines[1] = String.Format("{0} \t\t\t\t\t Fecha: {1}",address,q["FECHA"].ToString());
+                rlines[2] = string.Format("Tel.: {0}, Cel.: {1}",phone,cell);
                 rlines[3] = "____________________________________________ ";
                 rlines[4] = "\t\t\tRecibo De Ingreso ";
                 rlines[5] = "Recibo No.: " + q["RECIBOID"].ToString() + " Fecha.: " + q["FECHA"].ToString() + " Prestamo.: " + q["PRESTAMOID"].ToString() + " Cliente.: " + q["CL_CODIGO"].ToString();
@@ -82,9 +106,9 @@ namespace JM_Sistema_Prestamo
             SqlDataReader q = dbc.query_single("SELECT  c.CL_NOMBRE, r.DEBITOID ,r.PRESTAMOID ,CONVERT(VARCHAR(15), r.HE_FECHA, 105)  AS FECHA ,r.CL_CODIGO ,(r.HE_MONTO + r.HE_DESC + r.HE_MORA) As CUOTA ,r.HE_OBSERV FROM  debitos  r inner join clientes c on (c.CL_CODIGO=r.CL_CODIGO ) where DEBITOID=" + debitoID);
             if (q.Read())
             {
-                rlines[0] = "Prestamos Personales Luis Bomba";
-                rlines[1] = "Mercado de Tenares, R.D. \t\t\t\t\t Fecha: " + q["FECHA"].ToString();
-                rlines[2] = "Tel.: 809-587-7072, Cel.: 809-223-6854";
+                rlines[0] = company;
+                rlines[1] = String.Format("{0} \t\t\t\t\t Fecha: {1}", address, q["FECHA"].ToString());
+                rlines[2] = string.Format("Tel.: {0}, Cel.: {1}", phone, cell);
                 rlines[3] = "____________________________________________ ";
                 rlines[4] = "\t\t\tRecibo De Debito ";
                 rlines[5] = "Recibo No.: " + q["DEBITOID"].ToString() + " Fecha.: " + q["FECHA"].ToString() + " Prestamo.: " + q["PRESTAMOID"].ToString() + " Cliente.: " + q["CL_CODIGO"].ToString();
@@ -94,7 +118,7 @@ namespace JM_Sistema_Prestamo
                 string montocent = cuotastr[1];
                 rlines[7] = String.Format("Monto Ingreso: {0}Pesos Con {1}/100", Number2Word(monto), montocent).ToUpper();
                 rlines[8] = "RD$..........: " + q["CUOTA"].ToString();
-                rlines[9] = "Concepto.....: " + q["HE_CONCEP"].ToString();
+                rlines[9] = "Concepto.....: " + q["HE_OBSERV"].ToString();
                 rlines[10] = "Valido Si Esta Debidamente Firmado y Cellado\t\t\t____________________";
                 rlines[11] = "1. Original Cliente / 2. Caja Ingreso / 3. Expediente Cliente";
 
@@ -148,9 +172,9 @@ namespace JM_Sistema_Prestamo
             if (q.Read())
             {
                 double cuotafija = GenPrestamoCuotas(q["CO_CAPITAL"].ToString(), q["CO_INTERES"].ToString(), q["CO_CANPAG"].ToString(), q["CO_TIPPAG"].ToString(), q["FECHA"].ToString());
-                plines[0] = String.Format("Prestamos Personales Luis Bomba");
-                plines[1] = String.Format("Mercado de Tenares, R.D. \t\t\t\t\t Fecha: " + q["FECHA"].ToString());
-                plines[2] = String.Format("Tel.: 809-587-7072, Cel.: 809-223-6854");
+                plines[0] = String.Format(company);
+                plines[1] = String.Format("{0} \t\t\t\t\t Fecha: {1}",address, q["FECHA"].ToString());
+                plines[2] = String.Format("Tel.: {0}, Cel.: {1}",phone,cell);
                 plines[3] = String.Format("____________________________________________ ");
                 plines[4] = String.Format("\t\t\tTABLA DE AMORTIZACION ");
                 plines[5] = String.Format("Numero De Prestamo..: {0}", q["PRESTAMOID"].ToString());

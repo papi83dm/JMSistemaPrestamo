@@ -61,6 +61,7 @@
             this.codigotxt = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.ciprestamotp = new System.Windows.Forms.TabPage();
+            this.ingresoBoton = new System.Windows.Forms.Button();
             this.inactivoCB = new System.Windows.Forms.CheckBox();
             this.debitocb = new System.Windows.Forms.CheckBox();
             this.saldoPrestamocb = new System.Windows.Forms.CheckBox();
@@ -172,16 +173,17 @@
             this.grabarClienteBtn.Location = new System.Drawing.Point(557, 233);
             this.grabarClienteBtn.Name = "grabarClienteBtn";
             this.grabarClienteBtn.Size = new System.Drawing.Size(152, 28);
-            this.grabarClienteBtn.TabIndex = 33;
+            this.grabarClienteBtn.TabIndex = 8;
             this.grabarClienteBtn.Text = "Grabar Informacion";
             this.grabarClienteBtn.UseVisualStyleBackColor = true;
+            this.grabarClienteBtn.Click += new System.EventHandler(this.grabarClienteBtn_Click);
             // 
             // trabajodirtxt
             // 
             this.trabajodirtxt.Location = new System.Drawing.Point(158, 98);
             this.trabajodirtxt.Name = "trabajodirtxt";
             this.trabajodirtxt.Size = new System.Drawing.Size(360, 20);
-            this.trabajodirtxt.TabIndex = 32;
+            this.trabajodirtxt.TabIndex = 7;
             // 
             // label25
             // 
@@ -199,7 +201,7 @@
             this.telefono2txt.Location = new System.Drawing.Point(9, 98);
             this.telefono2txt.Name = "telefono2txt";
             this.telefono2txt.Size = new System.Drawing.Size(134, 20);
-            this.telefono2txt.TabIndex = 30;
+            this.telefono2txt.TabIndex = 6;
             // 
             // label23
             // 
@@ -230,14 +232,14 @@
             this.zonacb.Location = new System.Drawing.Point(566, 19);
             this.zonacb.Name = "zonacb";
             this.zonacb.Size = new System.Drawing.Size(121, 21);
-            this.zonacb.TabIndex = 27;
+            this.zonacb.TabIndex = 3;
             // 
             // trabajotxt
             // 
             this.trabajotxt.Location = new System.Drawing.Point(268, 60);
             this.trabajotxt.Name = "trabajotxt";
             this.trabajotxt.Size = new System.Drawing.Size(250, 20);
-            this.trabajotxt.TabIndex = 24;
+            this.trabajotxt.TabIndex = 5;
             // 
             // label4
             // 
@@ -384,7 +386,7 @@
             this.telefonotxt.Location = new System.Drawing.Point(423, 20);
             this.telefonotxt.Name = "telefonotxt";
             this.telefonotxt.Size = new System.Drawing.Size(134, 20);
-            this.telefonotxt.TabIndex = 21;
+            this.telefonotxt.TabIndex = 2;
             // 
             // label5
             // 
@@ -402,7 +404,7 @@
             this.direcciontxt.Location = new System.Drawing.Point(9, 60);
             this.direcciontxt.Name = "direcciontxt";
             this.direcciontxt.Size = new System.Drawing.Size(250, 20);
-            this.direcciontxt.TabIndex = 19;
+            this.direcciontxt.TabIndex = 4;
             // 
             // label6
             // 
@@ -420,7 +422,7 @@
             this.nombretxt.Location = new System.Drawing.Point(168, 20);
             this.nombretxt.Name = "nombretxt";
             this.nombretxt.Size = new System.Drawing.Size(250, 20);
-            this.nombretxt.TabIndex = 17;
+            this.nombretxt.TabIndex = 1;
             // 
             // label2
             // 
@@ -439,7 +441,7 @@
             this.codigotxt.Location = new System.Drawing.Point(9, 20);
             this.codigotxt.Name = "codigotxt";
             this.codigotxt.Size = new System.Drawing.Size(150, 20);
-            this.codigotxt.TabIndex = 15;
+            this.codigotxt.TabIndex = 0;
             // 
             // label1
             // 
@@ -454,6 +456,7 @@
             // 
             // ciprestamotp
             // 
+            this.ciprestamotp.Controls.Add(this.ingresoBoton);
             this.ciprestamotp.Controls.Add(this.inactivoCB);
             this.ciprestamotp.Controls.Add(this.debitocb);
             this.ciprestamotp.Controls.Add(this.saldoPrestamocb);
@@ -475,6 +478,16 @@
             this.ciprestamotp.Text = "Prestamos Actual";
             this.ciprestamotp.UseVisualStyleBackColor = true;
             // 
+            // ingresoBoton
+            // 
+            this.ingresoBoton.Location = new System.Drawing.Point(680, 356);
+            this.ingresoBoton.Name = "ingresoBoton";
+            this.ingresoBoton.Size = new System.Drawing.Size(83, 23);
+            this.ingresoBoton.TabIndex = 34;
+            this.ingresoBoton.Text = "Otro Ingreso";
+            this.ingresoBoton.UseVisualStyleBackColor = true;
+            this.ingresoBoton.Click += new System.EventHandler(this.ingresoBoton_Click);
+            // 
             // inactivoCB
             // 
             this.inactivoCB.AutoSize = true;
@@ -483,7 +496,7 @@
             this.inactivoCB.Size = new System.Drawing.Size(111, 17);
             this.inactivoCB.TabIndex = 33;
             this.inactivoCB.Text = "Prestamo Inactivo";
-            this.inactivoCB.UseVisualStyleBackColor = true; 
+            this.inactivoCB.UseVisualStyleBackColor = true;
             this.inactivoCB.Click += new System.EventHandler(this.inactivoCB_Click);
             // 
             // debitocb
@@ -824,11 +837,11 @@
             // 
             // cpgrabarbtn
             // 
-            this.cpgrabarbtn.Location = new System.Drawing.Point(600, 356);
+            this.cpgrabarbtn.Location = new System.Drawing.Point(591, 356);
             this.cpgrabarbtn.Name = "cpgrabarbtn";
-            this.cpgrabarbtn.Size = new System.Drawing.Size(104, 23);
+            this.cpgrabarbtn.Size = new System.Drawing.Size(83, 23);
             this.cpgrabarbtn.TabIndex = 24;
-            this.cpgrabarbtn.Text = "Grabar Pago";
+            this.cpgrabarbtn.Text = "Grabar Cuota";
             this.cpgrabarbtn.UseVisualStyleBackColor = true;
             this.cpgrabarbtn.Click += new System.EventHandler(this.cpgrabarbtn_Click);
             // 
@@ -899,6 +912,7 @@
             this.clientehistoriaprestamolist.Title = "";
             this.clientehistoriaprestamolist.UseCompatibleStateImageBehavior = false;
             this.clientehistoriaprestamolist.View = System.Windows.Forms.View.Details;
+            this.clientehistoriaprestamolist.DoubleClick += new System.EventHandler(this.clientehistoriaprestamolist_DoubleClick);
             // 
             // cirecibos
             // 
@@ -1075,6 +1089,7 @@
         private System.Windows.Forms.Button ActualizarBtn;
         private System.Windows.Forms.Button imprimirPrestamobtn;
         private System.Windows.Forms.CheckBox inactivoCB;
+        private System.Windows.Forms.Button ingresoBoton;
          
     }
 }

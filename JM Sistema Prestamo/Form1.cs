@@ -129,6 +129,26 @@ namespace JM_Sistema_Prestamo
             pnf.Show();
         }
 
+        private void cuotasPendienteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CuotaPendienteReporte cuotaPen = new CuotaPendienteReporte();
+            cuotaPen.MdiParent = this;
+            cuotaPen.Show();
+        }
+
+        private void anadirGastoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GastosForm gastoF = new GastosForm();
+            gastoF.Show();
+        }
+
+        private void gastosOperacionalesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GastosReporte gr = new GastosReporte();
+            gr.MdiParent =  this;
+            gr.Show();
+        }
+
        
     }
 }

@@ -162,7 +162,9 @@ namespace JM_Sistema_Prestamo
             Cliente c = new Cliente();
             DataTable dt = c.IngresoMensual(sdate, edate);
             // clienteListalv. = dt; 
-            FillList(this.m_list, dt);
+            int[] colsize = {90,70,250,60,90,90,90 };
+            LlenarLista llenar = new LlenarLista(this.m_list, dt,colsize);
+            //FillList(this.m_list, dt);
 
             SqlDataReader ingreso = c.IngresoMensualSuma(sdate, edate);
             //populate total
@@ -175,7 +177,8 @@ namespace JM_Sistema_Prestamo
             {
                 item.SubItems.Add(ingreso["Capital"].ToString()); //capital 
                 item.SubItems.Add(ingreso["Interes"].ToString()); //interes
-                item.SubItems.Add(ingreso["Mora"].ToString()); //mora
+               // item.SubItems.Add(ingreso["Mora"].ToString()); //mora place holder
+                item.SubItems.Add(ingreso["Monto"].ToString());
                
                 double capitalstr = 0.00;
                 double interesstr = 0.00;
@@ -204,11 +207,13 @@ namespace JM_Sistema_Prestamo
             this.m_list.Items.Add(item); 
             this.m_list.ResumeLayout();
         }
+
+
         private void printbtn_Click(object sender, EventArgs e)
         {
 
             m_list.Title = title;
-            m_list.Font = new System.Drawing.Font("Courier New", 8);
+            m_list.Font = new System.Drawing.Font("Courier New", 9);
             m_list.FitToPage = true; 
             m_list.Print();
         }
