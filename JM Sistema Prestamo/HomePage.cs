@@ -72,7 +72,7 @@ namespace JM_Sistema_Prestamo
                 double t = 0.00; 
 
                 if (ingreso["Capital"].ToString() != "")
-                {
+                { 
                     capitalstr = Double.Parse(ingreso["Capital"].ToString());
                 }
                 if (ingreso["Interes"].ToString() != "")

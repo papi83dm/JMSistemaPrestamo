@@ -15,24 +15,24 @@ namespace JM_Sistema_Prestamo
         public string NOMBRE { get; set; }
         public string RAZON { get; set; }
         public string Z_CODIGO { get; set; }
-        public string CA_CODIGO;
+        public string C_CODIGO { get; set; }
         public string DIREC1 { get; set; }
         public string DIREC2 { get; set; }
         public string TELEF1 { get; set; }
         public string TELEF2 { get; set; }
         public string TELEF3 { get; set; }
         public string FAX { get; set; }
-        private string CL_ENCCOM;
-        private double CL_ACTUAL = 0.00;
-        private string CL_PASA;
-        private double CL_CAPITAL = 0.00;
-        private double CL_INTERES = 0.00;
-        private string CL_CEDULA;
-        private string CL_TIPO;
-        private double CL_MONTO = 0.00;
-        private double CL_INGRES = 0.00;
-        private double CL_BALANC = 0.00;
-        private string CL_CLASE;
+        public string ENCCOM { get; set; }
+        public double ACTUAL { get; set; }
+        public string PASA { get; set; }
+        public double CAPITAL { get; set; }
+        public double INTERES { get; set; }
+        public string CEDULA { get; set; }
+        public string TIPO { get; set; }
+        public double MONTO { get; set; }
+        public double INGRES { get; set; }
+        public double BALANC { get; set; }
+        public string CLASE { get; set; }
         public Prestamo Prestamo;
        
         string hoyfecha =  DateTime.Now.ToString("yyyy-MM-dd");
@@ -47,6 +47,14 @@ namespace JM_Sistema_Prestamo
         { 
             dbc = new DBConnection();
             Prestamo = new Prestamo(dbc);
+            CODIGO = "";
+            NOMBRE = "";
+            CLASE = "";
+            TELEF1 = "";
+            TELEF2 = "";
+            TELEF3 = "";
+            FAX = "";
+            PASA = "";
         }
 
         public Cliente(string codigo)
@@ -55,196 +63,30 @@ namespace JM_Sistema_Prestamo
             loadClienteFromDB(codigo);
             Prestamo = new Prestamo(CODIGO,dbc);
         } 
-        public string C_CODIGO
-        {
-            get
-            {
-                return CA_CODIGO;
-            }
-            set
-            {
-                CA_CODIGO = value;
-            }
-        } 
-         
-
-        public string ENCCOM
-        {
-            get
-            {
-                return CL_ENCCOM;
-            }
-            set
-            {
-                CL_ENCCOM = value;
-            }
-        }
-
-        public double ACTUAL
-        {
-            get
-            {
-                return CL_ACTUAL;
-            }
-            set
-            {
-                CL_ACTUAL = value;
-            }
-        }
-
-        public string PASA
-        {
-            get
-            {
-                return CL_PASA;
-            }
-            set
-            {
-                CL_PASA = value;
-            }
-        }
-
-        public double CAPITAL
-        {
-            get
-            {
-                return CL_CAPITAL;
-            }
-            set
-            {
-                CL_CAPITAL = value;
-            }
-        }
-
-        public double INTERES
-        {
-            get
-            {
-                return CL_INTERES;
-            }
-            set
-            {
-                CL_INTERES = value;
-            }
-        }
-
-        public string CEDULA
-        {
-            get
-            {
-                return CL_CEDULA;
-            }
-            set
-            {
-                CL_CEDULA = value;
-            }
-        }
-
-        public string TIPO
-        {
-            get
-            {
-                return CL_TIPO;
-            }
-            set
-            {
-                CL_TIPO = value;
-            }
-        }
-
-        public double MONTO
-        {
-            get
-            {
-                return CL_MONTO;
-            }
-            set
-            {
-                CL_MONTO = value;
-            }
-        }
-
-        public double INGRES
-        {
-            get
-            {
-                return CL_INGRES;
-            }
-            set
-            {
-                CL_INGRES = value;
-            }
-        }
-        public double BALANC
-        {
-            get
-            {
-                return CL_BALANC;
-            }
-            set
-            {
-                CL_BALANC = value;
-            }
-        }
-
-        public string CLASE
-        {
-            get
-            {
-                return CL_CLASE;
-            }
-            set
-            {
-                CL_CLASE = value;
-            }
-        }
-
-
+          
 
         public void createClienteNuevo()
         {
-            dbc.query_insert("INSERT INTO clientes ( " +
-                       "[CL_CODIGO]" +
-                      " ,[CL_NOMBRE]" +
-                      " ,[CL_RAZON]" +
-                      " ,[ZO_CODIGO]" + 
-                      " ,[CL_DIREC1]" +
-                      " ,[CL_DIREC2]" +
-                      " ,[CL_TELEF1]" +
-                      " ,[CL_TELEF2]" +
-                      " ,[CL_TELEF3]" +
-                      " ,[CL_FAX]" + 
-                      " ,[CL_ACTUAL]" +
-                      " ,[CL_PASA]" +
-                      " ,[CL_CAPITAL]" +
-                      " ,[CL_INTERES]" +
-                      " ,[CL_CEDULA]" +
-                      " ,[CL_TIPO]" +
-                      " ,[CL_INGRESO]" +
-                      " ,[CL_MONTO]" +
-                      " ,[CL_BALANCE]" +
-                      " ,[CL_CLASE])" +
-                      "  VALUES" +
-                      " ('" + CODIGO + "'" +
-                      " ,'" + NOMBRE + "'" +
-                      " ,'" + RAZON + "'" +
-                      " ,'" + Z_CODIGO + "'" + 
-                      " ,'" + DIREC1 + "'" +
-                      " ,'" + DIREC2 + "'" +
-                      " ,'" + TELEF1 + "'" +
-                      " ,'" + TELEF2 + "'" +
-                      " ,'" + TELEF3 + "'" +
-                      " ,'" + FAX + "'" + 
-                      " ," + CL_ACTUAL + "" +
-                      " ,'" + CL_PASA + "'" +
-                      " ," + CL_CAPITAL +  
-                      " ," + CL_INTERES + 
-                      " ,'" + CL_CEDULA + "'" +
-                      " ,'" + CL_TIPO + "'" +
-                      " ," + CL_INGRES   +
-                      " , " + CL_MONTO +   
-                      " , " + CL_BALANC +  
-                      " ,'" + CL_CLASE + "');");
+
+            string sqlIns = "INSERT INTO clientes (CL_CODIGO,CL_NOMBRE,CL_RAZON,ZO_CODIGO,CL_DIREC1,CL_DIREC2,CL_TELEF1,CL_TELEF2,CL_TELEF3,CL_FAX, CL_ACTUAL,CL_PASA,CL_CAPITAL,CL_INTERES,CL_CEDULA) VALUES  (@CL_CODIGO,@CL_NOMBRE,@CL_RAZON,@ZO_CODIGO,@CL_DIREC1,@CL_DIREC2,@CL_TELEF1,@CL_TELEF2,@CL_TELEF3,@CL_FAX, @CL_ACTUAL,@CL_PASA,@CL_CAPITAL,@CL_INTERES,@CL_CEDULA)";
+                        
+            SqlCommand cmdIns = new SqlCommand(sqlIns);
+            cmdIns.Parameters.AddWithValue("@CL_CODIGO", CODIGO);
+            cmdIns.Parameters.AddWithValue("@CL_NOMBRE", NOMBRE);
+            cmdIns.Parameters.AddWithValue("@CL_RAZON", RAZON);
+            cmdIns.Parameters.AddWithValue("@ZO_CODIGO", Z_CODIGO);
+            cmdIns.Parameters.AddWithValue("@CL_DIREC1", DIREC1);
+            cmdIns.Parameters.AddWithValue("@CL_DIREC2", DIREC2);
+            cmdIns.Parameters.AddWithValue("@CL_TELEF1", TELEF1);
+            cmdIns.Parameters.AddWithValue("@CL_TELEF2", TELEF2);
+            cmdIns.Parameters.AddWithValue("@CL_TELEF3", TELEF3);
+            cmdIns.Parameters.AddWithValue("@CL_FAX", FAX);
+            cmdIns.Parameters.AddWithValue("@CL_ACTUAL", ACTUAL);
+            cmdIns.Parameters.AddWithValue("@CL_PASA", PASA);
+            cmdIns.Parameters.AddWithValue("@CL_CAPITAL", CAPITAL);
+            cmdIns.Parameters.AddWithValue("@CL_INTERES", INTERES);
+            cmdIns.Parameters.AddWithValue("@CL_CEDULA", CEDULA);   
+           int  resultID = dbc.query_insert(cmdIns); 
              
             
         }
@@ -261,7 +103,7 @@ namespace JM_Sistema_Prestamo
                           ",HI_DOCUM as CUOTA " +  
                           " FROM historia h  " +
                           "INNER JOIN prestamos p on (h.PRESTAMOID=p.PRESTAMOID)" +
-                          "INNER JOIN clientes c on (h.CL_CODIGO=c.CL_CODIGO and c.CL_ACTUAL>0)" +
+                          "INNER JOIN clientes c on (h.CL_CODIGO=c.CL_CODIGO)" +
                           "WHERE h.HI_FECHA='"+fecha+"' AND h.HI_BALCAP >0 and p.INACTIVO=0   order by c.CL_NOMBRE");
           
             return dt;
@@ -288,12 +130,11 @@ namespace JM_Sistema_Prestamo
         public DataTable ClienteListaAtraso(string inactivo)
         {
 
-            DataTable dt = dbc.query("SELECT p.CL_CODIGO as CLIENTE ,c.CL_NOMBRE as NOMBRE,CO_CONTRA as PRESTAMO,CO_CAPITAL AS CAPITAL,CO_CAVEN AS CAPVEN,CO_BALI AS INTVEN FROM  prestamos  p  INNER JOIN clientes c on (p.CL_CODIGO=c.CL_CODIGO and c.CL_ACTUAL>0) where INACTIVO="+inactivo+" AND (CO_CAVEN>0 or  CO_BALI>0) AND CO_CANPAG !='1.00' order by NOMBRE ");
+            DataTable dt = dbc.query("SELECT p.CL_CODIGO as CLIENTE ,c.CL_NOMBRE as NOMBRE,CO_CONTRA as PRESTAMO,CO_CAPITAL AS CAPITAL,CO_CAVEN AS CAPVEN,CO_BALI AS INTVEN FROM  prestamos  p  INNER JOIN clientes c on (p.CL_CODIGO=c.CL_CODIGO) where INACTIVO="+inactivo+" AND (CO_CAVEN>0 or  CO_BALI>0)  order by NOMBRE ");
 
             return dt;
 
-        }
-
+        } 
 
         public  void ModificarCliente()
         { 
@@ -339,7 +180,7 @@ namespace JM_Sistema_Prestamo
 
         public SqlDataReader prestamoHistoria(string prestamo)
         {
-            SqlDataReader dtp = dbc.query_single("SELECT  HI_DOCUM as CUOTA, CONVERT(VARCHAR(15), HI_FECHA, 105)  AS FECHA, HI_BALCAP AS CAPITAL, HI_BALINT AS INTERES,(HI_BALCAP + HI_BALINT) as TOTAL FROM historia where PRESTAMOID='" + prestamo + "' and (HI_BALCAP >0 or HI_BALINT>0)");
+            SqlDataReader dtp = dbc.query_single("SELECT  HI_DOCUM as CUOTA, CONVERT(VARCHAR(15), HI_FECHA, 105)  AS FECHA, HI_BALCAP AS CAPITAL, HI_BALINT AS INTERES,HI_MORA as MORA,(HI_BALCAP + HI_BALINT + HI_MORA) as TOTAL FROM historia where PRESTAMOID='" + prestamo + "' and (HI_BALCAP >0 or HI_BALINT>0)");
 
             return dtp;
         }
@@ -407,14 +248,14 @@ namespace JM_Sistema_Prestamo
         public DataTable IngresoMensual(string d1, string d2)
         {
 
-            DataTable dtp = dbc.query("SELECT  CONVERT(VARCHAR(15), r.HE_FECHA, 105) AS Fecha, r.PRESTAMOID AS Prestamo ,c.CL_NOMBRE as Nombre,r.RECIBOID as Recibo,CONVERT(varchar, CAST(r.HE_MONTO  as Money), 1)  as Capital,CONVERT(varchar, CAST(r.HE_DESC as Money), 1)  as Interes,CONVERT(varchar, CAST((r.HE_MONTO + r.HE_DESC + r.HE_MORA) as Money), 1) as Monto  FROM  recibos r inner join clientes c on (c.CL_CODIGO=r.CL_CODIGO and c.CL_ACTUAL>0) where HE_FECHA >='" + d1 + "' and HE_FECHA <='" + d2 + "' order by r.RECIBOID ");
+            DataTable dtp = dbc.query("SELECT  CONVERT(VARCHAR(15), r.HE_FECHA, 105) AS Fecha, r.PRESTAMOID AS Prestamo ,c.CL_NOMBRE as Nombre,r.RECIBOID as Recibo,CONVERT(varchar, CAST(r.HE_MONTO  as Money), 1)  as Capital,CONVERT(varchar, CAST(r.HE_DESC as Money), 1)  as Interes,CONVERT(varchar, CAST((r.HE_MONTO + r.HE_DESC + r.HE_MORA) as Money), 1) as Monto  FROM  recibos r inner join clientes c on (c.CL_CODIGO=r.CL_CODIGO) where HE_FECHA >='" + d1 + "' and HE_FECHA <='" + d2 + "' order by r.RECIBOID ");
             return dtp;
         }
 
         public SqlDataReader IngresoMensualSuma(string d1, string d2)
         {
 
-            SqlDataReader dtp = dbc.query_single("SELECT CONVERT(varchar, CAST(sum(HE_MONTO)  as Money), 1) as Capital ,CONVERT(varchar, CAST(sum(HE_DESC)  as Money), 1) as Interes ,CONVERT(varchar, CAST(sum(HE_MORA)  as Money), 1) as Mora,CONVERT(varchar, CAST((sum(HE_MONTO) + sum(HE_DESC) +sum(HE_MORA) ) as Money), 1) as Monto   FROM  recibos where HE_FECHA >='" + d1 + "' and HE_FECHA <='" + d2 + "'  ");
+            SqlDataReader dtp = dbc.query_single("SELECT  sum(HE_MONTO) as Capital , sum(HE_DESC) as Interes , sum(HE_MORA) as Mora, (sum(HE_MONTO) + sum(HE_DESC) +sum(HE_MORA) ) as Monto   FROM  recibos where HE_FECHA >='" + d1 + "' and HE_FECHA <='" + d2 + "'  ");
             return dtp;
         } 
 

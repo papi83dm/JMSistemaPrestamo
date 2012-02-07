@@ -65,11 +65,35 @@ namespace JM_Sistema_Prestamo
     
             } catch(SqlException e)
             {
-                MessageBox.Show("ERROR: " + e.Message);
+                MessageBox.Show("ERROR: " + e.Message +"\r\n" + query);
             }
             
           // myconn.Close();
             
+
+            return dr;
+        }
+
+        public SqlDataAdapter dt_query(string query)
+        {
+
+            SqlDataAdapter dr = null;
+
+            try
+            {
+
+                SqlCommand cmd = new SqlCommand(query, myconn);
+                dr = new SqlDataAdapter( cmd);
+
+
+            }
+            catch (SqlException e)
+            {
+                MessageBox.Show("ERROR: " + e.Message);
+            }
+
+            // myconn.Close();
+
 
             return dr;
         }

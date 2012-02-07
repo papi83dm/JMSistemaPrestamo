@@ -38,6 +38,7 @@
             this.m_listaatraso = new PrintableListView.PrintableListView();
             this.inactivotp = new System.Windows.Forms.TabPage();
             this.inactivolistview = new PrintableListView.PrintableListView();
+            this.atrasoImprimirButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.listaHoytp.SuspendLayout();
             this.listaatrasotp.SuspendLayout();
@@ -118,6 +119,7 @@
             // 
             // listaatrasotp
             // 
+            this.listaatrasotp.Controls.Add(this.atrasoImprimirButton);
             this.listaatrasotp.Controls.Add(this.m_listaatraso);
             this.listaatrasotp.Location = new System.Drawing.Point(4, 22);
             this.listaatrasotp.Name = "listaatrasotp";
@@ -170,6 +172,16 @@
             this.inactivolistview.View = System.Windows.Forms.View.Details;
             this.inactivolistview.DoubleClick += new System.EventHandler(this.inactivolistview_DoubleClick);
             // 
+            // atrasoImprimirButton
+            // 
+            this.atrasoImprimirButton.Location = new System.Drawing.Point(276, 3);
+            this.atrasoImprimirButton.Name = "atrasoImprimirButton";
+            this.atrasoImprimirButton.Size = new System.Drawing.Size(75, 23);
+            this.atrasoImprimirButton.TabIndex = 6;
+            this.atrasoImprimirButton.Text = "Imprimir";
+            this.atrasoImprimirButton.UseVisualStyleBackColor = true;
+            this.atrasoImprimirButton.Click += new System.EventHandler(this.atrasoImprimirButton_Click);
+            // 
             // ClienteLista
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -200,6 +212,7 @@
         private PrintableListView.PrintableListView m_listaatraso;
         private System.Windows.Forms.TabPage inactivotp;
         private PrintableListView.PrintableListView inactivolistview;
+        private System.Windows.Forms.Button atrasoImprimirButton;
 
 
 

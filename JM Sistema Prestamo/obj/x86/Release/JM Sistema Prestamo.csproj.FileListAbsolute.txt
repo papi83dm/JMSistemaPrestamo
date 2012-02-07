@@ -51,3 +51,5 @@ d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\o
 d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Release\JM_Sistema_Prestamo.GastosForm.resources
 d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Release\JM Sistema Prestamo.csproj.ResolveComReference.cache
 d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Release\JM_Sistema_Prestamo.GastosReporte.resources
+d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Release\JM_Sistema_Prestamo.BalanceClientes.resources
+d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Release\JM_Sistema_Prestamo.ActualizarPrestamo.resources

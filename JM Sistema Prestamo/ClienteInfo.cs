@@ -24,6 +24,7 @@ namespace JM_Sistema_Prestamo
         {
             InitializeComponent(); 
         }
+
         private void loadZona()
         { 
             SqlDataReader zona = cliente1.getZona();
@@ -158,6 +159,7 @@ namespace JM_Sistema_Prestamo
             cplistEx.Columns.Add("Fecha", 70);
             cplistEx.Columns.Add("Capital", 65);
             cplistEx.Columns.Add("Interes", 65);
+            cplistEx.Columns.Add("B. Mora", 60);
             cplistEx.Columns.Add("Cuota", 65);
             cplistEx.Columns.Add("Capital", 65);
             cplistEx.Columns.Add("Interes", 65);
@@ -172,6 +174,7 @@ namespace JM_Sistema_Prestamo
                 item.SubItems.Add(psql["FECHA"].ToString());
                 item.SubItems.Add(psql["CAPITAL"].ToString());
                 item.SubItems.Add(psql["INTERES"].ToString());
+                item.SubItems.Add(psql["MORA"].ToString());
                 item.SubItems.Add(psql["TOTAL"].ToString());
                 item.SubItems.Add(""); // place holder for capital textfield
                 item.SubItems.Add(""); // place holder for interes textfield
@@ -194,7 +197,7 @@ namespace JM_Sistema_Prestamo
                 pintereslb.Text = String.Format("{0:C}", double.Parse(pinfo["CO_BALI"].ToString()));
                 ptotallb.Text = String.Format("{0:C}", double.Parse(pinfo["CO_CAVEN"].ToString()) + double.Parse(pinfo["CO_BALI"].ToString()));
                 pfupagolb.Text = pinfo["CO_FECPAG"].ToString();
-                pmoralb.Text = "$0.00";
+                pmoralb.Text = String.Format("{0:C}", double.Parse(pinfo["CO_MORA"].ToString()));
                 pcapitalilb.Text = String.Format("{0:C}", double.Parse(pinfo["CO_CAPITAL"].ToString()));
                 pinteresilb.Text = pinfo["CO_INTERES"].ToString();
                 pformailb.Text = pinfo["CO_TIPPAG"].ToString();
@@ -300,9 +303,9 @@ namespace JM_Sistema_Prestamo
                 {
 
                     cuotastr = cplistEx.Items[i].SubItems[0].Text;
-                    string capitaltmp = cplistEx.Items[i].SubItems[5].Text;
-                    string interestmp = cplistEx.Items[i].SubItems[6].Text;
-                    string moratmp = cplistEx.Items[i].SubItems[7].Text;
+                    string capitaltmp = cplistEx.Items[i].SubItems[6].Text;
+                    string interestmp = cplistEx.Items[i].SubItems[7].Text;
+                    string moratmp = cplistEx.Items[i].SubItems[8].Text;
                     double capitalstr = 0.00;
                     double interesstr = 0.00;
                     double morastr = 0.00;
@@ -327,7 +330,7 @@ namespace JM_Sistema_Prestamo
 
                         if (debitocb.Checked)
                         {
-                            if (i == 0)
+                            if (debitoID == 0)
                             {
 
                                 debitoID = cliente1.Prestamo.Debito(prestamostr, cuotastr, capitalstr, interesstr, morastr, conceptostr);
@@ -340,7 +343,7 @@ namespace JM_Sistema_Prestamo
                         else
                         {
 
-                            if (i == 0)
+                            if (reciboID == 0)
                             {
 
                                 reciboID = cliente1.Prestamo.Pagares(prestamostr, cuotastr, capitalstr, interesstr, morastr, conceptostr,otroIngreso);
@@ -393,7 +396,7 @@ namespace JM_Sistema_Prestamo
   
         private void cplistEx_SubItemClicked(object sender, ListViewEx.SubItemEventArgs e)
         { 
-            if (e.SubItem >= 5 && e.SubItem < 8)
+            if (e.SubItem >= 6 && e.SubItem < 9)
             {
                 cplistEx.StartEditing(Editors[0], e.Item, e.SubItem);
             } 
@@ -440,8 +443,9 @@ namespace JM_Sistema_Prestamo
 
             if (e.NewValue == CheckState.Checked)
             { 
-                cplistEx.Items[indexnum].SubItems[5].Text = cplistEx.Items[indexnum].SubItems[2].Text;
-                cplistEx.Items[indexnum].SubItems[6].Text = cplistEx.Items[indexnum].SubItems[3].Text; 
+                cplistEx.Items[indexnum].SubItems[6].Text = cplistEx.Items[indexnum].SubItems[2].Text;
+                cplistEx.Items[indexnum].SubItems[7].Text = cplistEx.Items[indexnum].SubItems[3].Text;
+                cplistEx.Items[indexnum].SubItems[8].Text = cplistEx.Items[indexnum].SubItems[4].Text; 
                 conceptodepagotxt.Text = "Pago Cuota ";
                 
                 // fill out concepto 
@@ -461,8 +465,9 @@ namespace JM_Sistema_Prestamo
             else
             {
                 conceptodepagotxt.Text = "";
-                cplistEx.Items[indexnum].SubItems[5].Text = "";
                 cplistEx.Items[indexnum].SubItems[6].Text = "";
+                cplistEx.Items[indexnum].SubItems[7].Text = "";
+                cplistEx.Items[indexnum].SubItems[8].Text = "";
             }
             
         }

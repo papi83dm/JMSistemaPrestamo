@@ -83,7 +83,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActualizarPrestamo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ActualizarPrestamo.Designer.cs">
+      <DependentUpon>ActualizarPrestamo.cs</DependentUpon>
+    </Compile>
     <Compile Include="AddValue.cs" />
+    <Compile Include="BalanceClientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BalanceClientes.Designer.cs">
+      <DependentUpon>BalanceClientes.cs</DependentUpon>
+    </Compile>
     <Compile Include="BuscarClienteMini.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -177,6 +189,12 @@
       <DependentUpon>ReciboMini.cs</DependentUpon>
     </Compile>
     <Compile Include="Reportes.cs" />
+    <EmbeddedResource Include="ActualizarPrestamo.resx">
+      <DependentUpon>ActualizarPrestamo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BalanceClientes.resx">
+      <DependentUpon>BalanceClientes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BuscarClienteMini.resx">
       <DependentUpon>BuscarClienteMini.cs</DependentUpon>
     </EmbeddedResource>

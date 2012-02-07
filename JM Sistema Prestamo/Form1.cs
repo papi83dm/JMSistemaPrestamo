@@ -149,6 +149,22 @@ namespace JM_Sistema_Prestamo
             gr.Show();
         }
 
+        private void cuentaPorClientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BalanceClientes balCliente = new BalanceClientes();
+            balCliente.MdiParent = this;
+            balCliente.Show();
+        }
+
+        private void actualizarPrestamosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ActualizarPrestamo ap = new ActualizarPrestamo();
+            ap.MdiParent = this;
+            ap.Show();
+        }
+
+        
+
        
     }
 }

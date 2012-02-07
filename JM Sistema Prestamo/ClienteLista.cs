@@ -215,5 +215,15 @@ namespace JM_Sistema_Prestamo
             cli.Show();
         }
 
+        private void atrasoImprimirButton_Click(object sender, EventArgs e)
+        {
+
+            DateTime today = DateTime.Now;
+            m_listaatraso.Title = today.ToString("dd-MM-yyyy") + " Listado de Clientes atrasados.";
+
+            m_listaatraso.FitToPage = true;
+            m_listaatraso.Print();
+        }
+
     }
 }
