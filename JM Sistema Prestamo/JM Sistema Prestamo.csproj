@@ -127,6 +127,12 @@
     <Compile Include="CuotaPendienteReporte.Designer.cs">
       <DependentUpon>CuotaPendienteReporte.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataCreditoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataCreditoForm.Designer.cs">
+      <DependentUpon>DataCreditoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="DBConnection.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -209,6 +215,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CuotaPendienteReporte.resx">
       <DependentUpon>CuotaPendienteReporte.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataCreditoForm.resx">
+      <DependentUpon>DataCreditoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

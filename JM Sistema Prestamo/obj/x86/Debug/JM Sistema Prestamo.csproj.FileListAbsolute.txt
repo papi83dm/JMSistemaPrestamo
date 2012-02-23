@@ -53,3 +53,4 @@ d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\o
 d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Debug\JM Sistema Prestamo.csproj.ResolveComReference.cache
 d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Debug\JM_Sistema_Prestamo.BalanceClientes.resources
 d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Debug\JM_Sistema_Prestamo.ActualizarPrestamo.resources
+d:\jmedina\Documents\Personal\VS Project\JMSistemaPrestamo\JM Sistema Prestamo\obj\x86\Debug\JM_Sistema_Prestamo.DataCreditoForm.resources

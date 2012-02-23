@@ -135,6 +135,7 @@
             this.m_list.Title = "";
             this.m_list.UseCompatibleStateImageBehavior = false;
             this.m_list.View = System.Windows.Forms.View.Details;
+            this.m_list.SelectedIndexChanged += new System.EventHandler(this.m_list_SelectedIndexChanged);
             this.m_list.DoubleClick += new System.EventHandler(this.m_list_DoubleClick);
             // 
             // GastosReporte

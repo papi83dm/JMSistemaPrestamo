@@ -9,6 +9,7 @@ using System.IO;
 using System.Data.SqlClient;
 using System.Windows.Forms;
 
+
 namespace JM_Sistema_Prestamo
 {
     public partial class GastosReporte : Form
@@ -165,8 +166,17 @@ namespace JM_Sistema_Prestamo
 
         private void exportbuton_Click(object sender, EventArgs e)
         {
-            
+             
+
         }
+
+        private void m_list_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+      
 
          
     }

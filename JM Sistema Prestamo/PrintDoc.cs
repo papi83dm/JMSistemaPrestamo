@@ -7,6 +7,7 @@ using System.Drawing.Printing;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Xml;
+using System.IO;
 
 namespace JM_Sistema_Prestamo
 { 
@@ -16,6 +17,7 @@ namespace JM_Sistema_Prestamo
         string[] rlines = new string[13];
         string[] plines = new string[17];
         List<string> pcuotas = null;
+        int plastLinePrinted = 0;
         private string company;
         private string address;
         private string phone;
@@ -199,7 +201,9 @@ namespace JM_Sistema_Prestamo
                 pd.DefaultPageSettings.Margins.Right = 25;
                 pd.PrintPage += new PrintPageEventHandler(Prestamo_PrintPage);
                 // Print the document.
+               
                 pd.Print();
+                
                 pd.Dispose();
             }
             q.Close();
@@ -220,7 +224,7 @@ namespace JM_Sistema_Prestamo
             double interes = 0.00;
             double cuotafija = 0;
             double balance = 0;
-
+            
             for (int i = 1; i <= cancuota; i++)
             {
 
@@ -252,7 +256,7 @@ namespace JM_Sistema_Prestamo
                 pcuotas.Add(line);
 
             }
-
+            
             string lastline = String.Format("__________ __________ ______________ ___________ ______________ ____________");
             pcuotas.Add(lastline);
             lastline = String.Format("{0,35:N} {1,11:N}{2,13:N}{3,14:N}", ((capital / cancuota) * cancuota), (interes), (cuotafija * cancuota), "0.00");
@@ -265,8 +269,10 @@ namespace JM_Sistema_Prestamo
 
             int x = e.MarginBounds.Left;
             int y = e.MarginBounds.Top;
-            Brush brush = new SolidBrush(System.Drawing.Color.Black);
             Font f = new System.Drawing.Font("Courier New", 22, FontStyle.Bold);
+           
+            Brush brush = new SolidBrush(System.Drawing.Color.Black);
+            
             e.Graphics.DrawString(rlines[0], f, brush, x, y);
             y += 30;
             f = new System.Drawing.Font("Courier New", 12);
@@ -343,15 +349,36 @@ namespace JM_Sistema_Prestamo
             y += 10;
             f = new System.Drawing.Font("Courier New", 11);
             e.Graphics.DrawString(plines[15], f, brush, x, y);
-            y += 20; 
-            foreach (string l in pcuotas)
+            y += 20;
+            int maxLines = 32;
+            int counter = 1;
+            int i = plastLinePrinted;
+            for (; i < pcuotas.Count;  i++)
             {
-                
-                e.Graphics.DrawString(l, f, brush, x, y);
                 y += 20;
-            }
+                e.Graphics.DrawString(pcuotas[i], f, brush, x, y);
+                if (counter == maxLines)
+                {
+                    break;
+                }
 
-            e.HasMorePages = false;
+                counter++;
+            }
+             
+            if (i < pcuotas.Count)
+            {
+                e.HasMorePages = true; 
+                plastLinePrinted = i +1;
+
+            }
+            else
+            { 
+                e.HasMorePages = false; 
+            }
+           
+          
+                
+
         }
 
         public  string Number2Word(long lNumber)

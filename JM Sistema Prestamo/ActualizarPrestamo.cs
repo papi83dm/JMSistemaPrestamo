@@ -32,7 +32,7 @@ namespace JM_Sistema_Prestamo
             // procesar semanales primero.
             if ( semanalTexBox.Text != "")
             {
-                double dia = -7 * Double.Parse(semanalTexBox.Text);
+                double dia = -1 * Double.Parse(semanalTexBox.Text);
                 DateTime hoy = DateTime.Now.AddDays(dia);
                 DataSet ds = new DataSet();
                 SqlDataAdapter adapter = re.getPrestamoMoraList(hoy.ToString("yyyy-MM-dd"), "S");
@@ -70,7 +70,7 @@ namespace JM_Sistema_Prestamo
 
             if (quincenalTexBox.Text != "")
             {
-                double dia = -15 * Double.Parse(diarioTextBox.Text);
+                double dia = -1 * Double.Parse(quincenalTexBox.Text);
                 DateTime hoy = DateTime.Now.AddDays(dia);
                 DataSet ds = new DataSet();
                 SqlDataAdapter adapter = re.getPrestamoMoraList(hoy.ToString("yyyy-MM-dd"), "Q");
@@ -89,9 +89,9 @@ namespace JM_Sistema_Prestamo
 
             if (mensualTexBox.Text != "")
             {
-                int dia = -1 * int.Parse(diarioTextBox.Text);
-                DateTime hoy = DateTime.Now.AddMonths(dia);
-                DataSet ds = new DataSet();
+                int dia = -1 * int.Parse(mensualTexBox.Text);
+                DateTime hoy = DateTime.Now.AddDays(dia);
+                DataSet ds = new DataSet(); 
                 SqlDataAdapter adapter = re.getPrestamoMoraList(hoy.ToString("yyyy-MM-dd"), "M");
                 adapter.Fill(ds);
 
@@ -120,11 +120,13 @@ namespace JM_Sistema_Prestamo
         {
 
             m_list.ResumeLayout();
+            reportebtn.Enabled = true;
             MessageBox.Show("Prestamos han sido actualizados");
         }
 
         private void reportebtn_Click(object sender, EventArgs e)
         {
+            reportebtn.Enabled = false;
 
             m_list.SuspendLayout();
 

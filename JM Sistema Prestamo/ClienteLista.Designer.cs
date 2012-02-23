@@ -28,52 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.printPreviewbtn = new System.Windows.Forms.Button();
             this.printbtn = new System.Windows.Forms.Button();
-            this.pagesetupbtn = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.listaHoytp = new System.Windows.Forms.TabPage();
-            this.m_list = new PrintableListView.PrintableListView();
             this.listaatrasotp = new System.Windows.Forms.TabPage();
-            this.m_listaatraso = new PrintableListView.PrintableListView();
-            this.inactivotp = new System.Windows.Forms.TabPage();
-            this.inactivolistview = new PrintableListView.PrintableListView();
             this.atrasoImprimirButton = new System.Windows.Forms.Button();
+            this.inactivotp = new System.Windows.Forms.TabPage();
+            this.reportebtn = new System.Windows.Forms.Button();
+            this.fechatxt = new System.Windows.Forms.TextBox();
+            this.startDatebtn = new System.Windows.Forms.Button();
+            this.fechacal = new System.Windows.Forms.MonthCalendar();
+            this.m_list = new PrintableListView.PrintableListView();
+            this.m_listaatraso = new PrintableListView.PrintableListView();
+            this.inactivolistview = new PrintableListView.PrintableListView();
             this.tabControl1.SuspendLayout();
             this.listaHoytp.SuspendLayout();
             this.listaatrasotp.SuspendLayout();
             this.inactivotp.SuspendLayout();
             this.SuspendLayout();
             // 
-            // printPreviewbtn
-            // 
-            this.printPreviewbtn.Location = new System.Drawing.Point(17, 6);
-            this.printPreviewbtn.Name = "printPreviewbtn";
-            this.printPreviewbtn.Size = new System.Drawing.Size(110, 23);
-            this.printPreviewbtn.TabIndex = 0;
-            this.printPreviewbtn.Text = "Vista Previa";
-            this.printPreviewbtn.UseVisualStyleBackColor = true;
-            this.printPreviewbtn.Click += new System.EventHandler(this.printPreviewbtn_Click);
-            // 
             // printbtn
             // 
-            this.printbtn.Location = new System.Drawing.Point(214, 6);
+            this.printbtn.Location = new System.Drawing.Point(621, 6);
             this.printbtn.Name = "printbtn";
             this.printbtn.Size = new System.Drawing.Size(75, 23);
             this.printbtn.TabIndex = 5;
             this.printbtn.Text = "Imprimir";
             this.printbtn.UseVisualStyleBackColor = true;
             this.printbtn.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // pagesetupbtn
-            // 
-            this.pagesetupbtn.Location = new System.Drawing.Point(133, 6);
-            this.pagesetupbtn.Name = "pagesetupbtn";
-            this.pagesetupbtn.Size = new System.Drawing.Size(75, 23);
-            this.pagesetupbtn.TabIndex = 6;
-            this.pagesetupbtn.Text = "Page Setup";
-            this.pagesetupbtn.UseVisualStyleBackColor = true;
-            this.pagesetupbtn.Click += new System.EventHandler(this.pagesetupbtn_Click);
             // 
             // tabControl1
             // 
@@ -89,10 +71,12 @@
             // 
             // listaHoytp
             // 
+            this.listaHoytp.Controls.Add(this.reportebtn);
+            this.listaHoytp.Controls.Add(this.fechatxt);
+            this.listaHoytp.Controls.Add(this.startDatebtn);
+            this.listaHoytp.Controls.Add(this.fechacal);
             this.listaHoytp.Controls.Add(this.m_list);
             this.listaHoytp.Controls.Add(this.printbtn);
-            this.listaHoytp.Controls.Add(this.pagesetupbtn);
-            this.listaHoytp.Controls.Add(this.printPreviewbtn);
             this.listaHoytp.Location = new System.Drawing.Point(4, 22);
             this.listaHoytp.Name = "listaHoytp";
             this.listaHoytp.Padding = new System.Windows.Forms.Padding(3);
@@ -100,6 +84,75 @@
             this.listaHoytp.TabIndex = 0;
             this.listaHoytp.Text = "Lista de Hoy";
             this.listaHoytp.UseVisualStyleBackColor = true;
+            // 
+            // listaatrasotp
+            // 
+            this.listaatrasotp.Controls.Add(this.atrasoImprimirButton);
+            this.listaatrasotp.Controls.Add(this.m_listaatraso);
+            this.listaatrasotp.Location = new System.Drawing.Point(4, 22);
+            this.listaatrasotp.Name = "listaatrasotp";
+            this.listaatrasotp.Padding = new System.Windows.Forms.Padding(3);
+            this.listaatrasotp.Size = new System.Drawing.Size(776, 539);
+            this.listaatrasotp.TabIndex = 1;
+            this.listaatrasotp.Text = "Lista de Atraso";
+            this.listaatrasotp.UseVisualStyleBackColor = true;
+            // 
+            // atrasoImprimirButton
+            // 
+            this.atrasoImprimirButton.Location = new System.Drawing.Point(276, 3);
+            this.atrasoImprimirButton.Name = "atrasoImprimirButton";
+            this.atrasoImprimirButton.Size = new System.Drawing.Size(75, 23);
+            this.atrasoImprimirButton.TabIndex = 6;
+            this.atrasoImprimirButton.Text = "Imprimir";
+            this.atrasoImprimirButton.UseVisualStyleBackColor = true;
+            this.atrasoImprimirButton.Click += new System.EventHandler(this.atrasoImprimirButton_Click);
+            // 
+            // inactivotp
+            // 
+            this.inactivotp.Controls.Add(this.inactivolistview);
+            this.inactivotp.Location = new System.Drawing.Point(4, 22);
+            this.inactivotp.Name = "inactivotp";
+            this.inactivotp.Padding = new System.Windows.Forms.Padding(3);
+            this.inactivotp.Size = new System.Drawing.Size(776, 539);
+            this.inactivotp.TabIndex = 2;
+            this.inactivotp.Text = "Inactivo";
+            this.inactivotp.UseVisualStyleBackColor = true;
+            // 
+            // reportebtn
+            // 
+            this.reportebtn.Location = new System.Drawing.Point(143, 6);
+            this.reportebtn.Name = "reportebtn";
+            this.reportebtn.Size = new System.Drawing.Size(58, 20);
+            this.reportebtn.TabIndex = 55;
+            this.reportebtn.Text = "Reporte";
+            this.reportebtn.UseVisualStyleBackColor = true;
+            this.reportebtn.Click += new System.EventHandler(this.reportebtn_Click);
+            // 
+            // fechatxt
+            // 
+            this.fechatxt.Enabled = false;
+            this.fechatxt.Location = new System.Drawing.Point(6, 6);
+            this.fechatxt.Name = "fechatxt";
+            this.fechatxt.Size = new System.Drawing.Size(100, 20);
+            this.fechatxt.TabIndex = 54;
+            // 
+            // startDatebtn
+            // 
+            this.startDatebtn.Location = new System.Drawing.Point(112, 6);
+            this.startDatebtn.Name = "startDatebtn";
+            this.startDatebtn.Size = new System.Drawing.Size(25, 20);
+            this.startDatebtn.TabIndex = 53;
+            this.startDatebtn.Text = "...";
+            this.startDatebtn.UseVisualStyleBackColor = true;
+            this.startDatebtn.Click += new System.EventHandler(this.startDatebtn_Click);
+            // 
+            // fechacal
+            // 
+            this.fechacal.Location = new System.Drawing.Point(28, 28);
+            this.fechacal.Name = "fechacal";
+            this.fechacal.TabIndex = 52;
+            this.fechacal.Visible = false;
+            this.fechacal.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.fechacal_DateChanged);
             // 
             // m_list
             // 
@@ -117,18 +170,6 @@
             this.m_list.View = System.Windows.Forms.View.Details;
             this.m_list.DoubleClick += new System.EventHandler(this.m_list_DoubleClick);
             // 
-            // listaatrasotp
-            // 
-            this.listaatrasotp.Controls.Add(this.atrasoImprimirButton);
-            this.listaatrasotp.Controls.Add(this.m_listaatraso);
-            this.listaatrasotp.Location = new System.Drawing.Point(4, 22);
-            this.listaatrasotp.Name = "listaatrasotp";
-            this.listaatrasotp.Padding = new System.Windows.Forms.Padding(3);
-            this.listaatrasotp.Size = new System.Drawing.Size(776, 539);
-            this.listaatrasotp.TabIndex = 1;
-            this.listaatrasotp.Text = "Lista de Atraso";
-            this.listaatrasotp.UseVisualStyleBackColor = true;
-            // 
             // m_listaatraso
             // 
             this.m_listaatraso.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -144,17 +185,6 @@
             this.m_listaatraso.UseCompatibleStateImageBehavior = false;
             this.m_listaatraso.View = System.Windows.Forms.View.Details;
             this.m_listaatraso.DoubleClick += new System.EventHandler(this.m_listaatraso_DoubleClick);
-            // 
-            // inactivotp
-            // 
-            this.inactivotp.Controls.Add(this.inactivolistview);
-            this.inactivotp.Location = new System.Drawing.Point(4, 22);
-            this.inactivotp.Name = "inactivotp";
-            this.inactivotp.Padding = new System.Windows.Forms.Padding(3);
-            this.inactivotp.Size = new System.Drawing.Size(776, 539);
-            this.inactivotp.TabIndex = 2;
-            this.inactivotp.Text = "Inactivo";
-            this.inactivotp.UseVisualStyleBackColor = true;
             // 
             // inactivolistview
             // 
@@ -172,16 +202,6 @@
             this.inactivolistview.View = System.Windows.Forms.View.Details;
             this.inactivolistview.DoubleClick += new System.EventHandler(this.inactivolistview_DoubleClick);
             // 
-            // atrasoImprimirButton
-            // 
-            this.atrasoImprimirButton.Location = new System.Drawing.Point(276, 3);
-            this.atrasoImprimirButton.Name = "atrasoImprimirButton";
-            this.atrasoImprimirButton.Size = new System.Drawing.Size(75, 23);
-            this.atrasoImprimirButton.TabIndex = 6;
-            this.atrasoImprimirButton.Text = "Imprimir";
-            this.atrasoImprimirButton.UseVisualStyleBackColor = true;
-            this.atrasoImprimirButton.Click += new System.EventHandler(this.atrasoImprimirButton_Click);
-            // 
             // ClienteLista
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -193,6 +213,7 @@
             this.Load += new System.EventHandler(this.ClienteLista_Load);
             this.tabControl1.ResumeLayout(false);
             this.listaHoytp.ResumeLayout(false);
+            this.listaHoytp.PerformLayout();
             this.listaatrasotp.ResumeLayout(false);
             this.inactivotp.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -201,11 +222,9 @@
 
         #endregion
 
-        private System.Windows.Forms.Button printPreviewbtn;
         private PrintableListView.PrintableListView m_list;
         private System.Windows.Forms.Button printbtn;
         private Form1 form1;
-        private System.Windows.Forms.Button pagesetupbtn;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage listaHoytp;
         private System.Windows.Forms.TabPage listaatrasotp;
@@ -213,6 +232,10 @@
         private System.Windows.Forms.TabPage inactivotp;
         private PrintableListView.PrintableListView inactivolistview;
         private System.Windows.Forms.Button atrasoImprimirButton;
+        private System.Windows.Forms.Button reportebtn;
+        private System.Windows.Forms.TextBox fechatxt;
+        private System.Windows.Forms.Button startDatebtn;
+        private System.Windows.Forms.MonthCalendar fechacal;
 
 
 

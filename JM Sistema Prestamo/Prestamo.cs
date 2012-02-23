@@ -209,6 +209,25 @@ namespace JM_Sistema_Prestamo
         }
 
 
+        private void setCuotaDate(string prestamoID, string cuota)
+        {
+            DateTime dateTemp;
+            DateTime nDate = DateTime.Now.AddMonths(1);
+            DateTime fDate;
+            string sql = string.Format("SELECT HI_FECHA,HISTORIAID FROM historia where HI_TIPO='F' and HI_DOCUM='{0}'", cuota, prestamoID);
+
+            DataSet ds = new DataSet();
+            SqlDataAdapter adapter = dbc.dt_query(sql);
+            adapter.Fill(ds); 
+
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+
+                dateTemp = DateTime.Parse(row["HI_FECHA"].ToString());
+                fDate = new DateTime(nDate.Year, nDate.Month, dateTemp.Day);
+                dbc.query_insert(String.Format("UPDATE  historia set HI_FECHA='{1}' WHERE HISTORIAID={0}",row["HISTORIAID"],fDate.ToString("yyyy-MM-dd")));
+            }
+        }
        
         public int Pagares(string prestamo, string pagare, double capital, double interes, double mora, string concepto,bool OtroIngreso)
         {
@@ -229,8 +248,11 @@ namespace JM_Sistema_Prestamo
                 resultID = dbc.query_insert(cmdIns);
                 if (resultID > 0)
                 {
+                    
                     //update the date of last payment, keep balance the same.
                     dbc.query_insert("UPDATE prestamos SET  CO_BALI=0, CO_FECPAG='" + hoyfecha + "' where PRESTAMOID=" + prestamo);
+                    //set the date to next month
+                    setCuotaDate(prestamo, pagare);
                 }
             }
             else
@@ -249,7 +271,7 @@ namespace JM_Sistema_Prestamo
 
                 if (resultID > 0)
                 {
-                    string updatepsql = String.Format("UPDATE prestamos set CO_CAPI=CO_CAPI -{0}, CO_ACTUAL=CO_ACTUAL - {0}, CO_FECPAG='{2}', CO_CAVEN=CO_CAVEN -{0},CO_BALI=CO_BALI-{1} where PRESTAMOID={3}", capital,interes, hoyfecha, prestamo);
+                    string updatepsql = String.Format("UPDATE prestamos set CO_CAPI=CO_CAPI -{0}, CO_ACTUAL=CO_ACTUAL - {0}, CO_FECPAG='{2}', CO_CAVEN=CO_CAVEN -{0},CO_BALI=CO_BALI-{1} ,CO_MORA=CO_MORA-{4} where PRESTAMOID={3}", capital, interes, hoyfecha, prestamo,mora);
                     dbc.query_insert(updatepsql);
 
 
@@ -332,7 +354,8 @@ namespace JM_Sistema_Prestamo
                 //update for Multiple Payments.
                 dbc.query_insert("UPDATE recibos SET  HE_MONTO= HE_MONTO + " + capital + ", HE_DESC=HE_DESC + " + interes + ", HE_MORA=HE_MORA + " + mora + " where RECIBOID=" + ReciboID);
 
-                dbc.query_insert("UPDATE prestamos set CO_CAPI=CO_CAPI -" + capital + ", CO_ACTUAL=CO_ACTUAL - " + capital + ", CO_FECPAG='" + hoyfecha + "' where PRESTAMOID=" + prestamo);
+                string updatepsql = String.Format("UPDATE prestamos set CO_CAPI=CO_CAPI -{0}, CO_ACTUAL=CO_ACTUAL - {0}, CO_FECPAG='{2}', CO_CAVEN=CO_CAVEN -{0},CO_BALI=CO_BALI-{1},CO_MORA=CO_MORA-{4} where PRESTAMOID={3}", capital, interes, hoyfecha, prestamo,mora);
+                dbc.query_insert(updatepsql);
 
 
                 //insert capital payment
@@ -414,7 +437,7 @@ namespace JM_Sistema_Prestamo
 
                 if (resultID > 0)
                 {
-                    dbc.query_insert("UPDATE prestamos set CO_CAPI=CO_CAPI -" + capital + ", CO_ACTUAL=CO_ACTUAL - " + capital + ", CO_FECPAG='" + hoyfecha + "' where PRESTAMOID=" + prestamo);
+                    dbc.query_insert(String.Format("UPDATE prestamos set CO_CAPI=CO_CAPI -{0}, CO_ACTUAL=CO_ACTUAL - {0}, CO_FECPAG='{2}', CO_CAVEN=CO_CAVEN -{0},CO_BALI=CO_BALI-{1},CO_MORA=CO_MORA-{4} where PRESTAMOID={3}", capital, interes, hoyfecha, prestamo,mora));
 
 
                     //insert capital payment
@@ -443,8 +466,23 @@ namespace JM_Sistema_Prestamo
                     cmdInspayi.Parameters.AddWithValue("@HI_FACAFEC", pagare);
                     int iID = dbc.query_insert(cmdInspayi);
 
-                    dbc.query_insert("UPDATE historia set HI_BALCAP=HI_BALCAP -" + capital + ", HI_BALINT=HI_BALINT - " + interes + ", HI_FECFIN='" + hoyfecha + "' , HI_FECPAG='" + hoyfecha + "' where PRESTAMOID=" + prestamo + " and HI_DOCUM='" + pagare + "' ");
-                    dbc.query_insert("UPDATE clientes set CL_ACTUAL=CL_ACTUAL -" + capital + ", CL_CAPITAL=CL_CAPITAL - " + capital + ",CL_INTERES=CL_INTERES - " + interes + "  where CL_CODIGO='" + CODIGO + "'");
+                    //update Mora
+                    SqlCommand cmdInspaym = new SqlCommand(sqlInspay);
+                    cmdInspaym.Parameters.AddWithValue("@HI_MONTO", mora);
+                    cmdInspaym.Parameters.AddWithValue("@HI_TIPPAG", "M");
+                    cmdInspaym.Parameters.AddWithValue("@CL_CODIGO", CODIGO);
+                    cmdInspaym.Parameters.AddWithValue("@PRESTAMOID", prestamo);
+                    cmdInspaym.Parameters.AddWithValue("@HI_FECHA", hoyfecha);
+                    cmdInspaym.Parameters.AddWithValue("@HI_FECFIN", hoyfecha);
+                    cmdInspaym.Parameters.AddWithValue("@HI_TIPO", "R");
+                    cmdInspaym.Parameters.AddWithValue("@HI_DOCUM", resultID);
+                    cmdInspaym.Parameters.AddWithValue("@HI_FACAFEC", pagare);
+                    int mID = dbc.query_insert(cmdInspaym);
+
+                    string cuotastr = String.Format("UPDATE historia set HI_BALCAP=HI_BALCAP -{0}, HI_BALINT=HI_BALINT -{1}, HI_MORA=HI_MORA -{2},HI_FECFIN='{3}' , HI_FECPAG='{3}' where PRESTAMOID={4} and HI_DOCUM='{5}' ", capital, interes, mora, hoyfecha, prestamo, pagare);
+                    dbc.query_insert(cuotastr);
+                    string clientestr = String.Format("UPDATE clientes set CL_ACTUAL=CL_ACTUAL - {0}, CL_CAPITAL=CL_CAPITAL - {0},CL_INTERES=CL_INTERES - {1}  where CL_CODIGO='{2}'", capital, interes, CODIGO);
+                    dbc.query_insert(clientestr);
 
                  
             }
@@ -459,8 +497,7 @@ namespace JM_Sistema_Prestamo
             {
                 //update for Multiple Payments.
                 dbc.query_insert("UPDATE debitos SET  HE_MONTO= HE_MONTO + " + capital + ", HE_DESC=HE_DESC + " + interes + ", HE_MORA=HE_MORA + " + mora + " where DEBITOID=" + ReciboID);
-
-                dbc.query_insert("UPDATE prestamos set CO_CAPI=CO_CAPI -" + capital + ", CO_ACTUAL=CO_ACTUAL - " + capital + ", CO_FECPAG='" + hoyfecha + "' where PRESTAMOID=" + prestamo);
+                dbc.query_insert(String.Format("UPDATE prestamos set CO_CAPI=CO_CAPI -{0}, CO_ACTUAL=CO_ACTUAL - {0}, CO_FECPAG='{2}', CO_CAVEN=CO_CAVEN -{0},CO_BALI=CO_BALI-{1},CO_MORA=CO_MORA-{4} where PRESTAMOID={3}", capital, interes, hoyfecha, prestamo,mora));
 
 
                 //insert capital payment
@@ -489,8 +526,23 @@ namespace JM_Sistema_Prestamo
                 cmdInspayi.Parameters.AddWithValue("@HI_FACAFEC", pagare);
                 int iID = dbc.query_insert(cmdInspayi);
 
-                dbc.query_insert("UPDATE historia set HI_BALCAP=HI_BALCAP -" + capital + ", HI_BALINT=HI_BALINT - " + interes + ", HI_FECFIN='" + hoyfecha + "' , HI_FECPAG='" + hoyfecha + "' where PRESTAMOID=" + prestamo + " and HI_DOCUM='" + pagare + "' ");
-                dbc.query_insert("UPDATE clientes set CL_ACTUAL=CL_ACTUAL -" + capital + ", CL_CAPITAL=CL_CAPITAL - " + capital + ",CL_INTERES=CL_INTERES - " + interes + "  where CL_CODIGO='" + CODIGO + "'");
+                //update Mora
+                SqlCommand cmdInspaym = new SqlCommand(sqlInspay);
+                cmdInspaym.Parameters.AddWithValue("@HI_MONTO", mora);
+                cmdInspaym.Parameters.AddWithValue("@HI_TIPPAG", "M");
+                cmdInspaym.Parameters.AddWithValue("@CL_CODIGO", CODIGO);
+                cmdInspaym.Parameters.AddWithValue("@PRESTAMOID", prestamo);
+                cmdInspaym.Parameters.AddWithValue("@HI_FECHA", hoyfecha);
+                cmdInspaym.Parameters.AddWithValue("@HI_FECFIN", hoyfecha);
+                cmdInspaym.Parameters.AddWithValue("@HI_TIPO", "R");
+                cmdInspaym.Parameters.AddWithValue("@HI_DOCUM", ReciboID);
+                cmdInspaym.Parameters.AddWithValue("@HI_FACAFEC", pagare);
+                int mID = dbc.query_insert(cmdInspaym);
+
+                string cuotastr = String.Format("UPDATE historia set HI_BALCAP=HI_BALCAP -{0}, HI_BALINT=HI_BALINT -{1}, HI_MORA=HI_MORA -{2},HI_FECFIN='{3}' , HI_FECPAG='{3}' where PRESTAMOID={4} and HI_DOCUM='{5}' ", capital, interes, mora, hoyfecha, prestamo, pagare);
+                dbc.query_insert(cuotastr);
+                string clientestr = String.Format("UPDATE clientes set CL_ACTUAL=CL_ACTUAL - {0}, CL_CAPITAL=CL_CAPITAL - {0},CL_INTERES=CL_INTERES - {1}  where CL_CODIGO='{2}'", capital, interes, CODIGO);
+                dbc.query_insert(clientestr);
 
 
             }

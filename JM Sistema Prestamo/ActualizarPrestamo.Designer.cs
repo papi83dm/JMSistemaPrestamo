@@ -73,6 +73,8 @@
             // diarioCheckBox
             // 
             this.diarioCheckBox.AutoSize = true;
+            this.diarioCheckBox.Checked = true;
+            this.diarioCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.diarioCheckBox.Location = new System.Drawing.Point(19, 12);
             this.diarioCheckBox.Name = "diarioCheckBox";
             this.diarioCheckBox.Size = new System.Drawing.Size(134, 17);
@@ -95,6 +97,8 @@
             // quincenalCheckBox
             // 
             this.quincenalCheckBox.AutoSize = true;
+            this.quincenalCheckBox.Checked = true;
+            this.quincenalCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.quincenalCheckBox.Location = new System.Drawing.Point(19, 58);
             this.quincenalCheckBox.Name = "quincenalCheckBox";
             this.quincenalCheckBox.Size = new System.Drawing.Size(155, 17);
@@ -105,6 +109,8 @@
             // mensualCheckBox
             // 
             this.mensualCheckBox.AutoSize = true;
+            this.mensualCheckBox.Checked = true;
+            this.mensualCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mensualCheckBox.Location = new System.Drawing.Point(19, 81);
             this.mensualCheckBox.Name = "mensualCheckBox";
             this.mensualCheckBox.Size = new System.Drawing.Size(147, 17);
@@ -135,9 +141,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(201, 35);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(99, 13);
+            this.label2.Size = new System.Drawing.Size(76, 13);
             this.label2.TabIndex = 61;
-            this.label2.Text = "semanas en atraso.";
+            this.label2.Text = "dias en atraso.";
             // 
             // semanalTexBox
             // 
@@ -153,9 +159,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(201, 59);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(106, 13);
+            this.label3.Size = new System.Drawing.Size(76, 13);
             this.label3.TabIndex = 63;
-            this.label3.Text = "quincenas en atraso.";
+            this.label3.Text = "dias en atraso.";
             // 
             // quincenalTexBox
             // 
@@ -171,9 +177,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(201, 82);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(90, 13);
+            this.label4.Size = new System.Drawing.Size(79, 13);
             this.label4.TabIndex = 65;
-            this.label4.Text = "meses  en atraso.";
+            this.label4.Text = "dias  en atraso.";
             // 
             // mensualTexBox
             // 

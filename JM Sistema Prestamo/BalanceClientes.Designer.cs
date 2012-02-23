@@ -35,10 +35,10 @@
             this.endDatebtn = new System.Windows.Forms.Button();
             this.startDatebtn = new System.Windows.Forms.Button();
             this.mstartcal = new System.Windows.Forms.MonthCalendar();
-            this.m_list = new PrintableListView.PrintableListView();
             this.printbtn = new System.Windows.Forms.Button();
             this.capitallabel = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.m_list = new PrintableListView.PrintableListView();
             this.SuspendLayout();
             // 
             // reportebtn
@@ -106,21 +106,6 @@
             this.mstartcal.TabIndex = 45;
             this.mstartcal.Visible = false;
             // 
-            // m_list
-            // 
-            this.m_list.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_list.FitToPage = false;
-            this.m_list.FullRowSelect = true;
-            this.m_list.Location = new System.Drawing.Point(19, 63);
-            this.m_list.Name = "m_list";
-            this.m_list.Size = new System.Drawing.Size(755, 484);
-            this.m_list.TabIndex = 43;
-            this.m_list.Title = "";
-            this.m_list.UseCompatibleStateImageBehavior = false;
-            this.m_list.View = System.Windows.Forms.View.Details;
-            // 
             // printbtn
             // 
             this.printbtn.Location = new System.Drawing.Point(673, 34);
@@ -152,6 +137,21 @@
             this.label8.Size = new System.Drawing.Size(50, 13);
             this.label8.TabIndex = 52;
             this.label8.Text = "Capital:";
+            // 
+            // m_list
+            // 
+            this.m_list.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_list.FitToPage = false;
+            this.m_list.FullRowSelect = true;
+            this.m_list.Location = new System.Drawing.Point(19, 63);
+            this.m_list.Name = "m_list";
+            this.m_list.Size = new System.Drawing.Size(755, 484);
+            this.m_list.TabIndex = 43;
+            this.m_list.Title = "";
+            this.m_list.UseCompatibleStateImageBehavior = false;
+            this.m_list.View = System.Windows.Forms.View.Details;
             // 
             // BalanceClientes
             // 

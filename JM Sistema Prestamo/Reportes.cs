@@ -23,6 +23,16 @@ namespace JM_Sistema_Prestamo
             return dtp;
         }
 
+        public DataTable DataCreditoReporte()
+        {
+            string sql = "SELECT p.PRESTAMOID as PRESTAMO, p.CL_CODIGO as CEDULA,c.CL_NOMBRE as 'NOMBRE Y APELLIDOS',c.CL_DIREC1 as DIRECCION,c.CL_TELEF1 as TELEFONO1,c.CL_TELEF2 as TELEFONO2," +
+                " case when CO_CAVEN > 0 then 'S' else 'N' end as STATUS,CONVERT(VARCHAR(15), p.CO_FECHA , 105) as 'PRESTAMO FECHA',CONVERT(varchar,CAST(p.CO_CAPITAL AS MONEY),1) AS 'PRESTAMO MONTO',p.CO_CANPAG as 'CANTIDAD CUOTAS',CONVERT(varchar,CAST(p.CO_ACTUAL AS MONEY),1) AS BALANCE, CONVERT(varchar,CAST((CO_CAPITAL/CO_CANPAG) AS MONEY),1) AS 'MONTO CUOTAS', CONVERT(varchar,CAST(p.CO_CAVEN AS MONEY),1) AS ATRASO" +
+                " from prestamos p  inner join clientes c on (p.CL_CODIGO=c.CL_CODIGO)  order by c.CL_NOMBRE";
+
+            DataTable dt = dbc.query(sql);
+            return dt;
+        }
+
 
 
         public DataTable BalanceClienteReporte()
@@ -49,7 +59,7 @@ namespace JM_Sistema_Prestamo
 
         public SqlDataAdapter getPrestamoMoraCuotas(string fecha, string pid)
         {
-            string sql = String.Format("SELECT HISTORIAID,h.PRESTAMOID,CL_NOMBRE,HI_DOCUM as CUOTA,h.CL_CODIGO,HI_BALCAP as Capital, HI_BALINT as Interes FROM historia h inner join clientes c on (h.CL_CODIGO=c.CL_CODIGO) WHERE PRESTAMOID={1}  and HI_FECHA <'{0}'  and HI_BALCAP>0 and HI_TIPO='F'  ", fecha, pid);
+            string sql = String.Format("SELECT HISTORIAID,h.PRESTAMOID,CL_NOMBRE,HI_DOCUM as CUOTA,h.CL_CODIGO,HI_BALCAP as Capital, HI_BALINT as Interes FROM historia h inner join clientes c on (h.CL_CODIGO=c.CL_CODIGO) WHERE PRESTAMOID={1}  and HI_FECHA <='{0}'  and HI_BALCAP>0 and HI_TIPO='F'  ", fecha, pid);
             SqlDataAdapter dtp = dbc.dt_query(sql);
             return dtp;
 
@@ -57,7 +67,7 @@ namespace JM_Sistema_Prestamo
 
         public SqlDataAdapter getPrestamoMoraList(string fecha, string tipo)
         {
-            string sql = String.Format("SELECT DISTINCT h.PRESTAMOID as PRESTAMO FROM historia h inner join prestamos p  on (p.PRESTAMOID=h.PRESTAMOID and p.CO_TIPPAG='{1}') where HI_FECHA <'{0}'  and HI_BALCAP>0 and HI_TIPO='F' ",fecha,tipo);
+            string sql = String.Format("SELECT DISTINCT h.PRESTAMOID as PRESTAMO FROM historia h inner join prestamos p  on (p.PRESTAMOID=h.PRESTAMOID and p.CO_TIPPAG='{1}') where HI_FECHA <='{0}'  and HI_BALCAP>0 and HI_TIPO='F' ",fecha,tipo);
             SqlDataAdapter dtp = dbc.dt_query(sql);
             return dtp;
         }

@@ -21,9 +21,13 @@ namespace JM_Sistema_Prestamo
         }
 
         private void ClienteLista_Load(object sender, EventArgs e)
-        {
+        { 
+            fechatxt.Text = DateTime.Now.ToString("dd-MM-yyyy");
+            string tmpfecha = DateTime.Now.ToString("yyyy-MM-dd");
+
+
             Cliente c = new Cliente();
-            DataTable dt = c.ClienteListaHoy();
+            DataTable dt = c.ClienteListaHoy(tmpfecha);
            // clienteListalv. = dt; 
             FillList(this.m_list, dt);
             dt = c.ClienteListaAtraso("0");
@@ -217,12 +221,29 @@ namespace JM_Sistema_Prestamo
 
         private void atrasoImprimirButton_Click(object sender, EventArgs e)
         {
-
-            DateTime today = DateTime.Now;
-            m_listaatraso.Title = today.ToString("dd-MM-yyyy") + " Listado de Clientes atrasados.";
+            m_listaatraso.Title = fechacal.SelectionStart.ToString("yyyy-MM-dd") + " Listado de Clientes atrasados.";
 
             m_listaatraso.FitToPage = true;
             m_listaatraso.Print();
+        }
+
+        private void startDatebtn_Click(object sender, EventArgs e)
+        {
+            fechacal.Visible = true;
+        }
+
+        private void fechacal_DateChanged(object sender, DateRangeEventArgs e)
+        {
+            fechacal.Visible = false;
+            fechatxt.Text = e.Start.ToString("dd-MM-yyyy");
+        }
+
+        private void reportebtn_Click(object sender, EventArgs e)
+        {
+            Cliente c = new Cliente();
+            DataTable dt = c.ClienteListaHoy(fechacal.SelectionStart.ToString("yyyy-MM-dd"));
+            // clienteListalv. = dt; 
+            FillList(this.m_list, dt);
         }
 
     }

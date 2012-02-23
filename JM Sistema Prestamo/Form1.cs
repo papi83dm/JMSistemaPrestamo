@@ -163,6 +163,13 @@ namespace JM_Sistema_Prestamo
             ap.Show();
         }
 
+        private void dataCreditoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DataCreditoForm dcf = new DataCreditoForm();
+            dcf.MdiParent = this;
+            dcf.Show();
+        }
+
         
 
        

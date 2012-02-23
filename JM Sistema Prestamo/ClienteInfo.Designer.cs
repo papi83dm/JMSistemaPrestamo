@@ -65,7 +65,6 @@
             this.inactivoCB = new System.Windows.Forms.CheckBox();
             this.debitocb = new System.Windows.Forms.CheckBox();
             this.saldoPrestamocb = new System.Windows.Forms.CheckBox();
-            this.cplistEx = new ListViewEx.ListViewEx();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.pformailb = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
@@ -98,15 +97,16 @@
             this.prestamocb = new System.Windows.Forms.ComboBox();
             this.cihistoriatp = new System.Windows.Forms.TabPage();
             this.imprimirPrestamobtn = new System.Windows.Forms.Button();
-            this.clientehistoriaprestamolist = new PrintableListView.PrintableListView();
             this.cirecibos = new System.Windows.Forms.TabPage();
             this.ActualizarBtn = new System.Windows.Forms.Button();
             this.printRecibobtn = new System.Windows.Forms.Button();
-            this.recibolst = new PrintableListView.PrintableListView();
             this.pageSetupDialog1 = new System.Windows.Forms.PageSetupDialog();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
+            this.cplistEx = new ListViewEx.ListViewEx();
+            this.clientehistoriaprestamolist = new PrintableListView.PrintableListView();
+            this.recibolst = new PrintableListView.PrintableListView();
             this.tabControl1.SuspendLayout();
             this.ciinfotp.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -520,21 +520,6 @@
             this.saldoPrestamocb.UseVisualStyleBackColor = true;
             this.saldoPrestamocb.CheckedChanged += new System.EventHandler(this.saldoPrestamocb_CheckedChanged);
             // 
-            // cplistEx
-            // 
-            this.cplistEx.AllowColumnReorder = true;
-            this.cplistEx.CheckBoxes = true;
-            this.cplistEx.DoubleClickActivation = false;
-            this.cplistEx.FullRowSelect = true;
-            this.cplistEx.Location = new System.Drawing.Point(9, 47);
-            this.cplistEx.Name = "cplistEx";
-            this.cplistEx.Size = new System.Drawing.Size(576, 332);
-            this.cplistEx.TabIndex = 30;
-            this.cplistEx.UseCompatibleStateImageBehavior = false;
-            this.cplistEx.View = System.Windows.Forms.View.Details;
-            this.cplistEx.SubItemClicked += new ListViewEx.SubItemEventHandler(this.cplistEx_SubItemClicked);
-            this.cplistEx.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.cplistEx_ItemCheck);
-            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.pformailb);
@@ -898,22 +883,6 @@
             this.imprimirPrestamobtn.UseVisualStyleBackColor = true;
             this.imprimirPrestamobtn.Click += new System.EventHandler(this.imprimirPrestamobtn_Click);
             // 
-            // clientehistoriaprestamolist
-            // 
-            this.clientehistoriaprestamolist.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.clientehistoriaprestamolist.FitToPage = false;
-            this.clientehistoriaprestamolist.FullRowSelect = true;
-            this.clientehistoriaprestamolist.Location = new System.Drawing.Point(6, 17);
-            this.clientehistoriaprestamolist.Name = "clientehistoriaprestamolist";
-            this.clientehistoriaprestamolist.Size = new System.Drawing.Size(482, 487);
-            this.clientehistoriaprestamolist.TabIndex = 17;
-            this.clientehistoriaprestamolist.Title = "";
-            this.clientehistoriaprestamolist.UseCompatibleStateImageBehavior = false;
-            this.clientehistoriaprestamolist.View = System.Windows.Forms.View.Details;
-            this.clientehistoriaprestamolist.DoubleClick += new System.EventHandler(this.clientehistoriaprestamolist_DoubleClick);
-            // 
             // cirecibos
             // 
             this.cirecibos.Controls.Add(this.ActualizarBtn);
@@ -947,22 +916,6 @@
             this.printRecibobtn.UseVisualStyleBackColor = true;
             this.printRecibobtn.Click += new System.EventHandler(this.printRecibobtn_Click);
             // 
-            // recibolst
-            // 
-            this.recibolst.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.recibolst.FitToPage = false;
-            this.recibolst.FullRowSelect = true;
-            this.recibolst.Location = new System.Drawing.Point(6, 6);
-            this.recibolst.Name = "recibolst";
-            this.recibolst.Size = new System.Drawing.Size(419, 499);
-            this.recibolst.TabIndex = 18;
-            this.recibolst.Title = "";
-            this.recibolst.UseCompatibleStateImageBehavior = false;
-            this.recibolst.View = System.Windows.Forms.View.Details;
-            this.recibolst.DoubleClick += new System.EventHandler(this.recibolst_DoubleClick);
-            // 
             // pageSetupDialog1
             // 
             this.pageSetupDialog1.AllowMargins = false;
@@ -983,6 +936,53 @@
             this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
             this.printPreviewDialog1.Name = "printPreviewDialog1";
             this.printPreviewDialog1.Visible = false;
+            // 
+            // cplistEx
+            // 
+            this.cplistEx.AllowColumnReorder = true;
+            this.cplistEx.CheckBoxes = true;
+            this.cplistEx.DoubleClickActivation = false;
+            this.cplistEx.FullRowSelect = true;
+            this.cplistEx.Location = new System.Drawing.Point(0, 46);
+            this.cplistEx.Name = "cplistEx";
+            this.cplistEx.Size = new System.Drawing.Size(588, 332);
+            this.cplistEx.TabIndex = 30;
+            this.cplistEx.UseCompatibleStateImageBehavior = false;
+            this.cplistEx.View = System.Windows.Forms.View.Details;
+            this.cplistEx.SubItemClicked += new ListViewEx.SubItemEventHandler(this.cplistEx_SubItemClicked);
+            this.cplistEx.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.cplistEx_ItemCheck);
+            // 
+            // clientehistoriaprestamolist
+            // 
+            this.clientehistoriaprestamolist.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.clientehistoriaprestamolist.FitToPage = false;
+            this.clientehistoriaprestamolist.FullRowSelect = true;
+            this.clientehistoriaprestamolist.Location = new System.Drawing.Point(6, 17);
+            this.clientehistoriaprestamolist.Name = "clientehistoriaprestamolist";
+            this.clientehistoriaprestamolist.Size = new System.Drawing.Size(482, 487);
+            this.clientehistoriaprestamolist.TabIndex = 17;
+            this.clientehistoriaprestamolist.Title = "";
+            this.clientehistoriaprestamolist.UseCompatibleStateImageBehavior = false;
+            this.clientehistoriaprestamolist.View = System.Windows.Forms.View.Details;
+            this.clientehistoriaprestamolist.DoubleClick += new System.EventHandler(this.clientehistoriaprestamolist_DoubleClick);
+            // 
+            // recibolst
+            // 
+            this.recibolst.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.recibolst.FitToPage = false;
+            this.recibolst.FullRowSelect = true;
+            this.recibolst.Location = new System.Drawing.Point(6, 6);
+            this.recibolst.Name = "recibolst";
+            this.recibolst.Size = new System.Drawing.Size(419, 499);
+            this.recibolst.TabIndex = 18;
+            this.recibolst.Title = "";
+            this.recibolst.UseCompatibleStateImageBehavior = false;
+            this.recibolst.View = System.Windows.Forms.View.Details;
+            this.recibolst.DoubleClick += new System.EventHandler(this.recibolst_DoubleClick);
             // 
             // ClienteInfo
             // 

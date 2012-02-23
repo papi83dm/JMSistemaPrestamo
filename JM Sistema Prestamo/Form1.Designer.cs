@@ -49,6 +49,7 @@
             this.anadirGastoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gastosOperacionalesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.utilitariosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dataCreditoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -110,7 +111,8 @@
             // 
             this.transaccionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.hacerPrestamoToolStripMenuItem,
-            this.actualizarPrestamosToolStripMenuItem});
+            this.actualizarPrestamosToolStripMenuItem,
+            this.dataCreditoToolStripMenuItem});
             this.transaccionesToolStripMenuItem.Name = "transaccionesToolStripMenuItem";
             this.transaccionesToolStripMenuItem.Size = new System.Drawing.Size(87, 20);
             this.transaccionesToolStripMenuItem.Text = "Transacciones";
@@ -213,6 +215,13 @@
             this.utilitariosToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
             this.utilitariosToolStripMenuItem.Text = "Utilitarios";
             // 
+            // dataCreditoToolStripMenuItem
+            // 
+            this.dataCreditoToolStripMenuItem.Name = "dataCreditoToolStripMenuItem";
+            this.dataCreditoToolStripMenuItem.Size = new System.Drawing.Size(185, 22);
+            this.dataCreditoToolStripMenuItem.Text = "DataCredito";
+            this.dataCreditoToolStripMenuItem.Click += new System.EventHandler(this.dataCreditoToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -257,6 +266,7 @@
         private System.Windows.Forms.ToolStripMenuItem gastosOperacionalesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cuentaPorClientesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem actualizarPrestamosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dataCreditoToolStripMenuItem;
 
     }
 }
