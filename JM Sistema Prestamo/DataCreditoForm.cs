@@ -59,25 +59,35 @@ namespace JM_Sistema_Prestamo
                 oSheet.get_Range("A1", "O1").Interior.ColorIndex = 33;
                 oSheet.get_Range("A1", "O1").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
                 oSheet.get_Range("A1", "O1").EntireColumn.NumberFormat = "@";
-               
-                
 
-                int rcounter = 2;
+
+
+                // Create an array to multiple values at once.
+                int lastrow = dc_list.Items.Count;
+                string[,] saNames = new string[lastrow, dc_list.Items[0].SubItems.Count];
+
+                
+                int rcounter = 0;
                 foreach (ListViewItem item in dc_list.Items)
                 {
                     
                     //skip checked items
                     if (!item.Checked)
                     {
-                        for (int i = 0; i <item.SubItems.Count; i++ )
+                        for (int i = 0; i < item.SubItems.Count; i++)
                         {
-                            oSheet.Cells[rcounter,i+1] = item.SubItems[i].Text.ToString();  
-
+                            //oSheet.Cells[rcounter,i+1] = item.SubItems[i].Text.ToString();  
+                            saNames[rcounter, i] = item.SubItems[i].Text.ToString(); 
                         }
                         rcounter++;
                     }
                 }
+             
 
+                //Fill A2:B6 
+                //Fill A2:B6 with an array of values (First and Last Names).
+                string str = "M"+ lastrow;
+                oSheet.get_Range("A2", str).Value2 = saNames;
                 oSheet.get_Range("A1", "O1").EntireColumn.AutoFit();
 
                 //Make sure Excel is visible and give the user control
@@ -91,7 +101,7 @@ namespace JM_Sistema_Prestamo
                 errorMessage = "Error: ";
                 errorMessage = String.Concat(errorMessage, theException.Message);
                 errorMessage = String.Concat(errorMessage, " Line: ");
-                errorMessage = String.Concat(errorMessage, theException.Source);
+                errorMessage = String.Concat(errorMessage, theException.StackTrace);
 
                 MessageBox.Show(errorMessage, "Error");
             }

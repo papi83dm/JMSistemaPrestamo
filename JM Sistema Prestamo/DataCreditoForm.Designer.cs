@@ -31,7 +31,6 @@
             this.exportbuton = new System.Windows.Forms.Button();
             this.reportebtn = new System.Windows.Forms.Button();
             this.dc_list = new PrintableListView.PrintableListView();
-            this.label16 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // exportbuton
@@ -70,30 +69,17 @@
             this.dc_list.UseCompatibleStateImageBehavior = false;
             this.dc_list.View = System.Windows.Forms.View.Details;
             // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.ForeColor = System.Drawing.Color.Navy;
-            this.label16.Location = new System.Drawing.Point(365, 19);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(364, 13);
-            this.label16.TabIndex = 56;
-            this.label16.Text = "Este proceso se toma de 2 a 5 minutos, por favor ser paciente.";
-            // 
             // DataCreditoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(792, 566);
-            this.Controls.Add(this.label16);
             this.Controls.Add(this.exportbuton);
             this.Controls.Add(this.reportebtn);
             this.Controls.Add(this.dc_list);
             this.Name = "DataCreditoForm";
             this.Text = "Reporte Para DataCredito";
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -102,6 +88,5 @@
         private System.Windows.Forms.Button exportbuton;
         private System.Windows.Forms.Button reportebtn;
         private PrintableListView.PrintableListView dc_list;
-        private System.Windows.Forms.Label label16;
     }
 }
