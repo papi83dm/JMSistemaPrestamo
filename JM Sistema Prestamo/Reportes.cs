@@ -25,7 +25,7 @@ namespace JM_Sistema_Prestamo
 
         public DataTable DataCreditoReporte()
         {
-            string sql = "SELECT p.PRESTAMOID as PRESTAMO, p.CL_CODIGO as CEDULA,c.CL_NOMBRE as 'NOMBRE Y APELLIDOS',c.CL_DIREC1 as DIRECCION,c.CL_TELEF1 as TELEFONO1,c.CL_TELEF2 as TELEFONO2," +
+            string sql = "SELECT p.DATACREDITO,p.PRESTAMOID as PRESTAMO, p.CL_CODIGO as CEDULA,c.CL_NOMBRE as 'NOMBRE Y APELLIDOS',c.CL_DIREC1 as DIRECCION,c.CL_TELEF1 as TELEFONO1,c.CL_TELEF2 as TELEFONO2," +
                 " case when CO_CAVEN > 0 then 'A' else 'N' end as STATUS,CONVERT(VARCHAR(15), p.CO_FECHA , 105) as 'PRESTAMO FECHA',CONVERT(varchar,CAST(p.CO_CAPITAL AS MONEY),1) AS 'PRESTAMO MONTO',p.CO_CANPAG as 'CANTIDAD CUOTAS',CONVERT(varchar,CAST(p.CO_ACTUAL AS MONEY),1) AS BALANCE, CONVERT(varchar,CAST((CO_CAPITAL/CO_CANPAG) AS MONEY),1) AS 'MONTO CUOTAS', CONVERT(varchar,CAST(p.CO_CAVEN AS MONEY),1) AS ATRASO" +
                 " from prestamos p  inner join clientes c on (p.CL_CODIGO=c.CL_CODIGO)  order by c.CL_NOMBRE";
 
@@ -116,6 +116,17 @@ namespace JM_Sistema_Prestamo
             
         }
 
+        public void setUpdateDataCredito(string pid, int ischecked)
+        {
+            string sqlIns = "UPDATE prestamos set DATACREDITO=@DATACREDITO  WHERE PRESTAMOID=@PRESTAMOID";
+
+            SqlCommand cmdIns = new SqlCommand(sqlIns);
+            cmdIns.Parameters.AddWithValue("@DATACREDITO", ischecked);
+            cmdIns.Parameters.AddWithValue("@PRESTAMOID", pid);
+            dbc.query(cmdIns);
+
+        }
+
         public void setUpdatePrestamoCapVen(string pid,double cap,double interes)
         {
             string sqlIns = "UPDATE prestamos set  CO_CAVEN=@CO_CAVEN, CO_BALI=@CO_BALI  WHERE PRESTAMOID=@PRESTAMOID";
@@ -124,6 +135,17 @@ namespace JM_Sistema_Prestamo
             cmdIns.Parameters.AddWithValue("@CO_CAVEN", cap);
             cmdIns.Parameters.AddWithValue("@CO_BALI", interes);
             cmdIns.Parameters.AddWithValue("@PRESTAMOID", pid);
+            dbc.query(cmdIns);
+        }
+
+        public void UpdateAllPrestamoCapVen()
+        {
+            string sqlIns = "UPDATE prestamos set  CO_CAVEN=@CO_CAVEN, CO_BALI=@CO_BALI  WHERE CO_ACTUAL >=@CO_ACTUAL";
+
+            SqlCommand cmdIns = new SqlCommand(sqlIns);
+            cmdIns.Parameters.AddWithValue("@CO_CAVEN", 0);
+            cmdIns.Parameters.AddWithValue("@CO_BALI", 0);
+            cmdIns.Parameters.AddWithValue("@CO_ACTUAL", 0);
             dbc.query(cmdIns);
         }
 

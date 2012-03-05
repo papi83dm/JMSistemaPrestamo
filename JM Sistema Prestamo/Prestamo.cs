@@ -214,7 +214,7 @@ namespace JM_Sistema_Prestamo
             DateTime dateTemp;
             DateTime nDate = DateTime.Now.AddMonths(1);
             DateTime fDate;
-            string sql = string.Format("SELECT HI_FECHA,HISTORIAID FROM historia where HI_TIPO='F' and HI_DOCUM='{0}'", cuota, prestamoID);
+            string sql = string.Format("SELECT HI_FECHA,HISTORIAID FROM historia where HI_TIPO='F' and HI_DOCUM='{0}' and PRESTAMOID={1}", cuota, prestamoID);
 
             DataSet ds = new DataSet();
             SqlDataAdapter adapter = dbc.dt_query(sql);
@@ -224,7 +224,8 @@ namespace JM_Sistema_Prestamo
             {
 
                 dateTemp = DateTime.Parse(row["HI_FECHA"].ToString());
-                fDate = new DateTime(nDate.Year, nDate.Month, dateTemp.Day);
+                //fDate = new DateTime(nDate.Year, nDate.Month, dateTemp.Day);
+                fDate = dateTemp.AddMonths(1);
                 dbc.query_insert(String.Format("UPDATE  historia set HI_FECHA='{1}' WHERE HISTORIAID={0}",row["HISTORIAID"],fDate.ToString("yyyy-MM-dd")));
             }
         }

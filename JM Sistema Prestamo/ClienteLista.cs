@@ -28,14 +28,16 @@ namespace JM_Sistema_Prestamo
 
             Cliente c = new Cliente();
             DataTable dt = c.ClienteListaHoy(tmpfecha);
+            LlenarLista llenar;
            // clienteListalv. = dt; 
             FillList(this.m_list, dt);
             dt = c.ClienteListaAtraso("0");
-            FillList(this.m_listaatraso, dt);
+            int[] col = {90,270,90};
+            llenar = new LlenarLista(this.m_listaatraso, dt,col);
 
             //load inactivo
-            dt = c.ClienteListaAtraso("1");
-            FillList(this.inactivolistview, dt);
+            dt = c.ClienteListaAtraso("1"); 
+            llenar = new LlenarLista(this.inactivolistview, dt, col);
              
         }
 

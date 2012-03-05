@@ -68,6 +68,7 @@
             this.dc_list.Title = "";
             this.dc_list.UseCompatibleStateImageBehavior = false;
             this.dc_list.View = System.Windows.Forms.View.Details;
+            this.dc_list.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.dc_list_ItemCheck);
             // 
             // DataCreditoForm
             // 

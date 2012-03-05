@@ -13,6 +13,7 @@ namespace JM_Sistema_Prestamo
 {
     public partial class DataCreditoForm : Form
     {
+        private bool loaded = false;
         public DataCreditoForm()
         {
             InitializeComponent();
@@ -24,7 +25,8 @@ namespace JM_Sistema_Prestamo
             DataTable dt = re.DataCreditoReporte();
             
             int[] colSize = { 80,80,200, 150, 80,80 };
-            LlenarLista listaLLena = new LlenarLista(this.dc_list, dt, colSize);
+            LlenarLista listaLLena = new LlenarLista(this.dc_list, dt, colSize,"DATACREDITO");
+            loaded = true;
         }
 
         private void exportbuton_Click(object sender, EventArgs e)
@@ -105,6 +107,25 @@ namespace JM_Sistema_Prestamo
 
                 MessageBox.Show(errorMessage, "Error");
             }
+        }
+
+        private void dc_list_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            if (loaded)
+            {
+                //setUpdateDataCredito
+                int indexnum = e.Index;
+                int num = 0;
+                string pid = dc_list.Items[indexnum].SubItems[0].Text;
+
+                if (e.NewValue == CheckState.Checked)
+                {
+                    num = 1;
+                }
+                Reportes re = new Reportes();
+                re.setUpdateDataCredito(pid, num); 
+            }
+               
         }
     }
 }

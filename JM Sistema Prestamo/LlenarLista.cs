@@ -14,11 +14,13 @@ namespace JM_Sistema_Prestamo
         private DataTable table;
         private int[] ColSize;
         private int colDefaultsize = 80;
+        private string RowChecked;
 
         public LlenarLista(ListView list, DataTable tab)
         {
             this.lista = list;
-            this.table = tab;
+            this.table = tab; 
+            RowChecked = "";
             FillList();
         }
 
@@ -26,7 +28,17 @@ namespace JM_Sistema_Prestamo
         {
             this.lista = list;
             this.table = tab;
+            this.ColSize = col; 
+            RowChecked = "";
+            FillList();
+        }
+
+        public LlenarLista(ListView list, DataTable tab, int[] col,string rowC)
+        {
+            this.lista = list;
+            this.table = tab;
             this.ColSize = col;
+            this.RowChecked = rowC;
             FillList();
         }
 
@@ -63,21 +75,46 @@ namespace JM_Sistema_Prestamo
                     ch.Width = colDefaultsize;
                 }
 
-                
-                lista.Columns.Add(ch);
-                colcounter++;
+                //skip column to be checked.
+                if (ch.Text != RowChecked)
+                {
+                    lista.Columns.Add(ch);
+                    colcounter++;
+                }
             }
 
             // Rows
             foreach (DataRow row in table.Rows)
             {
                 ListViewItem item = new ListViewItem();
-                item.Text = row[0].ToString();
+                int rownum = 1;
 
-                for (int i = 1; i < table.Columns.Count; i++)
-                {
-                    item.SubItems.Add(row[i].ToString());
+              
+                if (RowChecked.Length>0)
+                { 
+                      rownum = 2;
+
+                    //if row checked.
+                    if (row[0].ToString() == "1")
+                    {
+                        item.Checked = true; 
+                    }
+
+                    item.Text = row[1].ToString();
+                    
                 }
+                else
+                {
+                    item.Text = row[0].ToString();
+                }
+
+                for (int i = rownum; i < table.Columns.Count; i++)
+                {
+
+                    item.SubItems.Add(row[i].ToString());
+
+                }
+
                 lista.Items.Add(item);
             }
 

@@ -29,6 +29,10 @@ namespace JM_Sistema_Prestamo
         private void actualizarBackgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             Reportes re = new Reportes();
+
+            //set all capven and intven to 0
+            re.UpdateAllPrestamoCapVen();
+
             // procesar semanales primero.
             if ( semanalTexBox.Text != "")
             {

@@ -127,7 +127,7 @@ namespace JM_Sistema_Prestamo
         public DataTable ClienteListaAtraso(string inactivo)
         { 
 
-            DataTable dt = dbc.query("SELECT p.CL_CODIGO as CLIENTE ,c.CL_NOMBRE as NOMBRE,PRESTAMOID as PRESTAMO,CO_CAPITAL AS CAPITAL,CO_CAVEN AS CAPVEN,CO_BALI AS INTVEN FROM  prestamos  p  INNER JOIN clientes c on (p.CL_CODIGO=c.CL_CODIGO) where INACTIVO="+inactivo+" AND (CO_CAVEN>0 or  CO_BALI>0)   order by NOMBRE ");
+            DataTable dt = dbc.query("SELECT p.CL_CODIGO as CLIENTE ,c.CL_NOMBRE as NOMBRE,c.CL_TELEF1 as TELEFONO, PRESTAMOID as PRESTAMO,CO_CAPITAL AS CAPITAL,CO_CAVEN AS CAPVEN,CO_BALI AS INTVEN FROM  prestamos  p  INNER JOIN clientes c on (p.CL_CODIGO=c.CL_CODIGO) where INACTIVO="+inactivo+" AND (CO_CAVEN>0 or  CO_BALI>0)   order by NOMBRE ");
 
             return dt;
 

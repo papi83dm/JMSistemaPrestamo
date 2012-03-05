@@ -111,7 +111,7 @@ namespace JM_Sistema_Prestamo
 
         private void InitLoad()
         {
-            string todaystr = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year;
+            string todaystr = DateTime.Now.ToString("dd-MM-yyyy");
             fechatxt.Text = todaystr;
             ArrayList fplist = new ArrayList();
             ArrayList dlist = new ArrayList();
