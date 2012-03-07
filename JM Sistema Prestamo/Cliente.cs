@@ -216,7 +216,7 @@ namespace JM_Sistema_Prestamo
         }
         public SqlDataReader loadReciboHistoria(string recibo)
         {
-            SqlDataReader dtp = dbc.query_single(" SELECT  h1.HI_FACAFEC as Cuota ,h1.PRESTAMOID as Prestamo ,CONVERT(VARCHAR(15), h1.HI_FECHA, 105) as Fecha ,h1.HI_MONTO as Capital ,h2.HI_MONTO as Interes,h1.CL_CODIGO FROM historia h1 left join historia h2 on(h1.HI_DOCUM = h2.HI_DOCUM and h2.HI_TIPPAG='I' and h1.HI_FACAFEC = h2.HI_FACAFEC) where h1.HI_DOCUM='"+recibo+"' and h1.HI_TIPPAG='C'");
+            SqlDataReader dtp = dbc.query_single(" SELECT  h1.HI_FACAFEC as Cuota ,h1.PRESTAMOID as Prestamo ,CONVERT(VARCHAR(15), h1.HI_FECHA, 105) as Fecha ,h1.HI_MONTO as Capital ,h2.HI_MONTO as Interes,h3.HI_MONTO as Mora,h1.CL_CODIGO FROM historia h1 left join historia h2 on(h1.HI_DOCUM = h2.HI_DOCUM and h2.HI_TIPPAG='I' and h1.HI_FACAFEC = h2.HI_FACAFEC)  left join historia h3 on(h1.HI_DOCUM = h3.HI_DOCUM and h3.HI_TIPPAG='M' and h1.HI_FACAFEC = h3.HI_FACAFEC) where h1.HI_DOCUM='" + recibo + "' and h1.HI_TIPPAG='C'");
 
             return dtp;
         }

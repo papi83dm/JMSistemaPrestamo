@@ -303,12 +303,17 @@ namespace JM_Sistema_Prestamo
                 {
 
                     cuotastr = cplistEx.Items[i].SubItems[0].Text;
+                    string ocapitaltmp = cplistEx.Items[i].SubItems[2].Text;
+                    string ointerestmp = cplistEx.Items[i].SubItems[3].Text;
                     string capitaltmp = cplistEx.Items[i].SubItems[6].Text;
                     string interestmp = cplistEx.Items[i].SubItems[7].Text;
                     string moratmp = cplistEx.Items[i].SubItems[8].Text;
                     double capitalstr = 0.00;
                     double interesstr = 0.00;
+                    double ocapitalstr = 0.00;
+                    double ointeresstr = 0.00;
                     double morastr = 0.00;
+                    bool iserror = false;
                     if ((capitaltmp != "" || interestmp != ""))
                     {
 
@@ -321,36 +326,58 @@ namespace JM_Sistema_Prestamo
                         {
                             interesstr = Double.Parse(interestmp);
                         }
+                        if (ocapitaltmp != "")
+                        {
+                            ocapitalstr = Double.Parse(ocapitaltmp);
+                        }
+
+                        if (ointerestmp != "")
+                        {
+                            ointeresstr = Double.Parse(ointerestmp);
+                        }
                         if (moratmp != "")
                         {
                             morastr = Double.Parse(moratmp);
                         }
 
                         //do Debito
-
-                        if (debitocb.Checked)
+                        //check if payment is greather than what is owe.
+                        if (capitalstr > ocapitalstr || interesstr > ointeresstr || iserror)
                         {
-                            if (debitoID == 0)
-                            {
+                            MessageBox.Show("No puedes cobrarle mas al cliente de lo que debes.", "Error de Cuota", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                                debitoID = cliente1.Prestamo.Debito(prestamostr, cuotastr, capitalstr, interesstr, morastr, conceptostr);
-                            }
-                            else if (debitoID > 0)
-                            {
-                                cliente1.Prestamo.updateDebito(debitoID, prestamostr, cuotastr, capitalstr, interesstr, morastr);
-                            }
                         }
                         else
                         {
 
-                            if (reciboID == 0)
+                            if (debitocb.Checked)
+                            {
+                                if (debitoID == 0)
+                                {
+
+                                    debitoID = cliente1.Prestamo.Debito(0,prestamostr, cuotastr, capitalstr, interesstr, morastr, conceptostr);
+                                }
+                                else if (debitoID > 0)
+                                {
+                                    debitoID = cliente1.Prestamo.Debito(debitoID, prestamostr, cuotastr, capitalstr, interesstr, morastr, conceptostr);
+                               
+                                }
+                            }
+                            else
                             {
 
-                                reciboID = cliente1.Prestamo.Pagares(prestamostr, cuotastr, capitalstr, interesstr, morastr, conceptostr,otroIngreso);
-                            }
-                            else if (reciboID > 0)
-                            {
-                                cliente1.Prestamo.updatePagares(reciboID, prestamostr, cuotastr, capitalstr, interesstr, morastr);
+                                if (reciboID == 0)
+                                {
+
+                                    reciboID = cliente1.Prestamo.Pagares(0, prestamostr, cuotastr, capitalstr, interesstr, morastr, conceptostr, otroIngreso);
+                                }
+                                else if (reciboID > 0)
+                                {
+                                    reciboID = cliente1.Prestamo.Pagares(reciboID, prestamostr, cuotastr, capitalstr, interesstr, morastr, conceptostr, otroIngreso);
+
+                                    //  cliente1.Prestamo.updatePagares(reciboID, prestamostr, cuotastr, capitalstr, interesstr, morastr);
+                                }
+
                             }
                         }
                     }

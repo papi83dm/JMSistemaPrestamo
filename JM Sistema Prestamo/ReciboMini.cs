@@ -72,7 +72,7 @@ namespace JM_Sistema_Prestamo
                 item.SubItems.Add(psql["Fecha"].ToString());
                 item.SubItems.Add(psql["Capital"].ToString());
                 item.SubItems.Add(psql["Interes"].ToString());
-                item.SubItems.Add(""); 
+                item.SubItems.Add(psql["Mora"].ToString()); 
                 m_recibo_list.Items.Add(item);
             }
             psql.Close();

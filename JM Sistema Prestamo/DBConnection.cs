@@ -173,6 +173,25 @@ namespace JM_Sistema_Prestamo
             return insertID;
         }
 
+        public void query_update(SqlCommand cmd)
+        { 
+            try
+            {
+
+                cmd.Connection = myconn;
+                cmd.ExecuteNonQuery();
+
+                cmd.Parameters.Clear();
+               
+                cmd.Dispose();
+                cmd = null;
+            }
+            catch (SqlException e)
+            {
+                MessageBox.Show(e.Message, "ERROR ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            } 
+        }
+
         public void Close()
         {
             myconn.Close();
