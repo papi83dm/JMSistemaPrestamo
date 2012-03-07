@@ -340,9 +340,26 @@ namespace JM_Sistema_Prestamo
                             morastr = Double.Parse(moratmp);
                         }
 
-                        //do Debito
+                        //don't validate payment on otro ingreso.
                         //check if payment is greather than what is owe.
-                        if (capitalstr > ocapitalstr || interesstr > ointeresstr || iserror)
+                        //che
+                        if (otroIngreso)
+                        {
+                            //process otro ingresos
+                            if (reciboID == 0)
+                            {
+
+                                reciboID = cliente1.Prestamo.Pagares(0, prestamostr, cuotastr, capitalstr, interesstr, morastr, conceptostr, otroIngreso);
+                            }
+                            else if (reciboID > 0)
+                            {
+                                reciboID = cliente1.Prestamo.Pagares(reciboID, prestamostr, cuotastr, capitalstr, interesstr, morastr, conceptostr, otroIngreso);
+
+                                //  cliente1.Prestamo.updatePagares(reciboID, prestamostr, cuotastr, capitalstr, interesstr, morastr);
+                            }
+
+                        }//validate cuota.
+                        else if (capitalstr > ocapitalstr || interesstr > ointeresstr || iserror)
                         {
                             MessageBox.Show("No puedes cobrarle mas al cliente de lo que debes.", "Error de Cuota", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
@@ -355,12 +372,12 @@ namespace JM_Sistema_Prestamo
                                 if (debitoID == 0)
                                 {
 
-                                    debitoID = cliente1.Prestamo.Debito(0,prestamostr, cuotastr, capitalstr, interesstr, morastr, conceptostr);
+                                    debitoID = cliente1.Prestamo.Debito(0, prestamostr, cuotastr, capitalstr, interesstr, morastr, conceptostr);
                                 }
                                 else if (debitoID > 0)
                                 {
                                     debitoID = cliente1.Prestamo.Debito(debitoID, prestamostr, cuotastr, capitalstr, interesstr, morastr, conceptostr);
-                               
+
                                 }
                             }
                             else
